@@ -40,10 +40,156 @@ class _HomePageState extends State<HomePage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Hello'),
+      appBar: AppBar(
+        title: const Text('DSME'),
+      ),
+      drawer: const DrawerMane(),
+      body: Center(
+        child: Column(
+          children: [
+            // ignore: sized_box_for_whitespace
+            Container(
+              height: 70,
+              width: double.infinity,
+              // ignore: prefer_const_constructors
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                child: const Text("Hello",
+                    style:
+                        TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
+              ),
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: 65,
+                      width: 65,
+                      child: Image.asset(
+                        'assets/ellipse-1-bg.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: SizedBox(
+                            height: 65,
+                            width: 280,
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            const Color(0xcc5286d4))),
+                                child: const Text('confirm'),
+                                onPressed: () {})),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: 65,
+                      width: 65,
+                      child: Image.asset(
+                        'assets/ellipse-2-bg.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: SizedBox(
+                            height: 65,
+                            width: 280,
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            const Color(0xcc5286d4))),
+                                child: const Text('confirm'),
+                                onPressed: () {})),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: 65,
+                      width: 65,
+                      child: Image.asset(
+                        'assets/ellipse-3-bg.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: SizedBox(
+                            height: 65,
+                            width: 280,
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            const Color(0xcc5286d4))),
+                                child: const Text('confirm'),
+                                onPressed: () {})),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: 65,
+                      width: 65,
+                      child: Image.asset(
+                        'assets/ellipse-1-bg.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: SizedBox(
+                            height: 65,
+                            width: 280,
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            const Color(0xcc5286d4))),
+                                child: const Text('confirm'),
+                                onPressed: () {})),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
-        drawer: const DrawerMane(),
-        body: Container());
+      ),
+    );
   }
 }
