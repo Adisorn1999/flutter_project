@@ -9,6 +9,8 @@ import 'package:flutter_application/components/drawer_menu.dart';
 import 'package:flutter_application/model/UserModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'knowledge/knowledgDiabetes.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -19,23 +21,23 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ApiproviderAuth apiproviderAuth = ApiproviderAuth();
 
-  Future getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token');
-    var rs = await apiproviderAuth.authen(token);
-    // print(token);
-    if (rs.statusCode == 200) {
-      // ignore: unused_local_variable
-      var jsonRs = json.decode(rs.body);
-      print(jsonRs);
-    }
-  }
+  // Future getToken() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final String? token = prefs.getString('token');
+  //   var rs = await apiproviderAuth.authen(token);
+  //   // print(token);
+  //   if (rs.statusCode == 200) {
+  //     // ignore: unused_local_variable
+  //     var jsonRs = json.decode(rs.body);
+  //     print(jsonRs);
+  //   }
+  // }
 
   // ignore: override_on_non_overriding_member
   @override
   void initState() {
     super.initState();
-    getToken();
+    //getToken();
   }
 
   Widget build(BuildContext context) {
@@ -116,7 +118,11 @@ class _HomePageState extends State<HomePage> {
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
                                 child: const Text('confirm'),
-                                onPressed: () {})),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const KnowledgDiabetes()));
+                                })),
                       ),
                     ),
                   ],
@@ -164,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                       height: 65,
                       width: 65,
                       child: Image.asset(
-                        'assets/ellipse-1-bg.png',
+                        'assets/ellipse-4-bg.png',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -186,7 +192,19 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-            )
+            ),
+            // ignore: sized_box_for_whitespace
+            Container(
+              width: 277,
+              height: 160,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
+                child: Image.asset(
+                  'assets/rectangle-3.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ],
         ),
       ),

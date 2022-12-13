@@ -76,22 +76,7 @@ class _DrawerManeState extends State<DrawerMane> {
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('ออกจากระบบ'),
-            onTap: () async {
-              final prefs = await SharedPreferences.getInstance();
-              final String? token = prefs.getString('token');
-              var rs = await apiproviderAuth.authen(token);
-              print(token);
-              if (rs.statusCode == 200) {
-                // ignore: unused_local_variable
-                var jsonRs = json.decode(rs.body);
-                if (jsonRs['ok']) {}
-                print(jsonRs);
-                final String decoded = jsonRs['decoded'];
-                print(decoded);
-              }
-              // Update the state of the app.
-              // ...
-            },
+            onTap: () async {},
           ),
         ],
       ),
