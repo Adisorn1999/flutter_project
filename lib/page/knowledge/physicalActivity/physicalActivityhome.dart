@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_application/page/knowledge/food/foodHome.dart';
-import 'package:flutter_application/page/knowledge/physicalActivity/physicalActivityhome.dart';
 
-import 'BloodGlucose/bloodGlucoseHome.dart';
-import 'foot/footHome.dart';
-import 'medication_insulin/medication_insulinHome.dart';
+import 'Activity6.dart';
+import 'activity1.dart';
+import 'activity2.dart';
+import 'activity3.dart';
+import 'activity4.dart';
+import 'activity5.dart';
 
-class KnowledgDiabetes extends StatefulWidget {
-  const KnowledgDiabetes({super.key});
+class PhysicalActivityHome extends StatefulWidget {
+  const PhysicalActivityHome({super.key});
 
   @override
-  State<KnowledgDiabetes> createState() => _KnowledgDiabetesState();
+  State<PhysicalActivityHome> createState() => _PhysicalActivityHome();
 }
 
-class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
+class _PhysicalActivityHome extends State<PhysicalActivityHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            "ความรู้เกียวกับเบาหวาน",
+            "การเคลื่อนไหวร่างกาย",
             style: TextStyle(fontSize: 18),
           ),
         ),
@@ -49,11 +50,10 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('ระดับน้ำตาลในเลือด'),
+                                child: const Text('การเดินช่วยเผาผลาญแคลอรี่'),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const BloodGlucoseHome()));
+                                      builder: (context) => const Activity1()));
                                 })),
                       ),
                     ),
@@ -70,12 +70,13 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
                                               const Color(0xcc5286d4))),
-                                  child: const Text('การดูแลเท้า'),
+                                  child: const Text(
+                                      'การเดินช่วยเผาผลาญไขมันหน้าท้อง'),
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const FoodHome()));
+                                                const Adctivity2()));
                                   })),
                         ),
                       ),
@@ -101,11 +102,10 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('การเคลื่อนไหวร่างกาย'),
+                                child: const Text('การเดินทำให้อารมณ์ดี'),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PhysicalActivityHome()));
+                                      builder: (context) => const Activity3()));
                                 })),
                       ),
                     ),
@@ -122,12 +122,13 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
                                               const Color(0xcc5286d4))),
-                                  child: const Text('การรับประทานอาหาร'),
+                                  child: const Text(
+                                      'เพิ่มการเดินในชีวิตประจำวันได้อย่างไร'),
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const FoodHome()));
+                                                const Activity4()));
                                   })),
                         ),
                       ),
@@ -153,12 +154,10 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text(
-                                    'การใช้อินสุลินและยาลดน้ำตาลใในเลือด'),
+                                child: const Text('การเดินช่วยลดน้ำหนักได้'),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MedicationAndInsulinhome()));
+                                      builder: (context) => const Activity5()));
                                 })),
                       ),
                     ),
@@ -175,8 +174,13 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
                                               const Color(0xcc5286d4))),
-                                  child: const Text('การสูบบุหรี่'),
-                                  onPressed: () {})),
+                                  child: const Text('พลังง่าน'),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Activity6()));
+                                  })),
                         ),
                       ),
                     ),

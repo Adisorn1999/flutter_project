@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_application/components/bloodGlucose/adviceHeightBox.dart';
+import 'package:flutter_application/components/bloodGlucose/adviceHeightBoxTxt4.dart';
 
 class AdviceH1 extends StatelessWidget {
   const AdviceH1({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AdviceHeightBox(
+    return AdviceHeightBoxTxt4(
         "การปฎิบัติตัวเบื่องต้น",
         "- ดื่มน้ำสะอาดมากๆ",
         "- หยุดทำกิจกรรมแล้วพักผ่อน",

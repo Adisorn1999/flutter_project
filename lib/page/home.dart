@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('confirm'),
+                                child: const Text('บันทึกค่าน้ำตาลในเลือด'),
                                 onPressed: () {})),
                       ),
                     ),
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('confirm'),
+                                child: const Text('ความรู้เกี่ยวกับเบาหวาน'),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('confirm'),
+                                child: const Text('คลังยา'),
                                 onPressed: () {})),
                       ),
                     ),
@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('confirm'),
+                                child: const Text('อาหารและการให้พลังงาน'),
                                 onPressed: () {})),
                       ),
                     ),
