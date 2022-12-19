@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_application/page/knowledge/smoking/effect_smoking/effect_short.dart';
+import 'package:flutter_application/page/knowledge/smoking/quitSmoking.dart';
+import 'package:flutter_application/page/knowledge/smoking/smoking.dart';
 
-import '../../../../components/foodCare/foodCareTxt1.dart';
-import 'medication_Glibenclamide.dart';
-import 'medication_Glipized.dart';
-import 'medication_Metformin.dart';
-import 'medication_Pioglitazone.dart';
-
-class MedicationHome extends StatelessWidget {
-  const MedicationHome({super.key});
+class SmokingHome extends StatelessWidget {
+  const SmokingHome({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "ยาลดน้ำตาลในเลือด",
+          "ระดับตาลในเลือด",
           style: TextStyle(fontSize: 18),
         ),
       ),
@@ -37,11 +34,10 @@ class MedicationHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ยา Metformin'),
+                        child: const Text('เบาหวานกับการสูบบุหรี่'),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const MedicationMetformin()));
+                              builder: (context) => const Smoking()));
                         })),
               ),
             ),
@@ -58,11 +54,11 @@ class MedicationHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ยา Glipized'),
+                        child: const Text('ผลกระทบของการสูบบุหรี่'),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  const MedicationGlipized()));
+                                  const EffectSmokingShort()));
                         })),
               ),
             ),
@@ -79,32 +75,10 @@ class MedicationHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ยา GLIBENCLAMIDE'),
+                        child: const Text('ข้อดีของการเลิกบุหรี่'),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const MedicationGlibenclamide()));
-                        })),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: SizedBox(
-                    height: 65,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color(0xcc5286d4))),
-                        child: const Text('ยา Pioglitazone'),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const MedicationPioglitazone()));
+                              builder: (context) => const QuitSmoking()));
                         })),
               ),
             ),

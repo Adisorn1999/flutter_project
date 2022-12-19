@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/page/knowledge/food/foodHome.dart';
 import 'package:flutter_application/page/knowledge/physicalActivity/physicalActivityhome.dart';
+import 'package:flutter_application/page/knowledge/smoking/smokingHome.dart';
 
 import 'BloodGlucose/bloodGlucoseHome.dart';
 import 'foot/footHome.dart';
@@ -176,7 +177,12 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                           MaterialStateProperty.all<Color>(
                                               const Color(0xcc5286d4))),
                                   child: const Text('การสูบบุหรี่'),
-                                  onPressed: () {})),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SmokingHome()));
+                                  })),
                         ),
                       ),
                     ),
