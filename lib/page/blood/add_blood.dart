@@ -56,6 +56,7 @@ class _AddbloodState extends State<Addblood> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
                       controller: _ctrlBlood,
                       validator: (value) {
                         if (value == null || value.isEmpty) {

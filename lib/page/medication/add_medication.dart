@@ -49,9 +49,12 @@ class _AddMedicationState extends State<AddMedication> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(
+                  height: 40,
+                ),
                 Container(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
                       controller: _ctrlBlood,
                       validator: (value) {
