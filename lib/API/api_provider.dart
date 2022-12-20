@@ -44,4 +44,6 @@ class Apiprovider {
       Uri.parse(_url),
     );
   }
+
+  addBlood(String text, String text2) {}
 }

@@ -30,26 +30,31 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future doRegister() async {
     if (_formKey.currentState!.validate()) {}
-    var rs = await apiprovider.doRegister(
-        _ctrlUsername.text,
-        _ctrlPassword.text,
-        _ctrlFirstName.text,
-        _ctrlLastName.text,
-        _ctrlBirthday.text);
+    try {
+      var rs = await apiprovider.doRegister(
+          _ctrlUsername.text,
+          _ctrlPassword.text,
+          _ctrlFirstName.text,
+          _ctrlLastName.text,
+          _ctrlBirthday.text);
 
-    if (rs.statusCode == 200) {
-      print(rs.body);
-      var jsonRes = json.decode(rs.body);
-      if (jsonRes['ok']) {
-        print(jsonRes);
-        // ignore: use_build_context_synchronously
-        Navigator.of(context)
-            .pop(MaterialPageRoute(builder: (context) => const LoginPage()));
+      if (rs.statusCode == 200) {
+        print(rs.body);
+        var jsonRes = json.decode(rs.body);
+        if (jsonRes['ok']) {
+          print(jsonRes);
+          // ignore: use_build_context_synchronously
+          Navigator.of(context)
+              .pop(MaterialPageRoute(builder: (context) => const LoginPage()));
+        } else {
+          print(jsonRes['message']);
+        }
       } else {
-        print(jsonRes['message']);
+        print('Server Error');
       }
-    } else {
-      print('Server Error');
+    } catch (error) {
+      // ignore: avoid_print
+      print(error);
     }
   }
 

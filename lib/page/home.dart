@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter_application/page/blood/add_blood.dart';
+import 'package:flutter_application/page/medication/add_medication.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -86,7 +88,10 @@ class _HomePageState extends State<HomePage> {
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
                                 child: const Text('บันทึกค่าน้ำตาลในเลือด'),
-                                onPressed: () {})),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => const Addblood()));
+                                })),
                       ),
                     ),
                   ],
@@ -154,7 +159,11 @@ class _HomePageState extends State<HomePage> {
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
                                 child: const Text('คลังยา'),
-                                onPressed: () {})),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AddMedication()));
+                                })),
                       ),
                     ),
                   ],
