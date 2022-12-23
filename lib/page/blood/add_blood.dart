@@ -1,28 +1,49 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
+import 'package:flutter_application/components/Dialog/dialog_validate.dart';
 import 'package:flutter_application/page/home.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Addblood extends StatefulWidget {
-  const Addblood({super.key});
+class AddBlood extends StatefulWidget {
+  const AddBlood({super.key});
 
   @override
-  State<Addblood> createState() => _AddbloodState();
+  State<AddBlood> createState() => _AddBloodState();
 }
 
-class _AddbloodState extends State<Addblood> {
+class _AddBloodState extends State<AddBlood> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   final TextEditingController _ctrlBlood = TextEditingController();
   final TextEditingController _ctrlDate = TextEditingController();
+  final TextEditingController _ctrlNote = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   Apiprovider apiprovider = Apiprovider();
   Future addBlood() async {
-    if (_formKey.currentState!.validate()) {}
+    if (_formKey.currentState!.validate()) {
+      normalDialog(context, "title", "message");
+      _formKey.currentState!.reset();
+    }
+    final prefs = await SharedPreferences.getInstance();
+    final int? user_id = prefs.getInt('userId');
+    var response = await apiprovider.addBlood(
+        _ctrlBlood.text, _ctrlDate.text, _ctrlNote.text, user_id!);
+    if (response.statusCode == 200) {
+      print(response.body);
+    }
   }
 
   @override
@@ -56,6 +77,9 @@ class _AddbloodState extends State<Addblood> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
                     child: TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(3),
+                      ],
                       keyboardType: TextInputType.number,
                       controller: _ctrlBlood,
                       validator: (value) {
@@ -95,15 +119,14 @@ class _AddbloodState extends State<Addblood> {
                         DateTime? pickedDate = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
+                            firstDate: DateTime(1000),
                             lastDate: DateTime(2200));
                         if (pickedDate != null) {
                           String formattedDate =
                               DateFormat('yyyy-MM-dd').format(pickedDate);
                           setState(() {
-                            _ctrlDate.text =
-                                formattedDate; //set output date to TextField value.
-                          });
+                            _ctrlDate.text = formattedDate;
+                          }); //set output date to TextField value.
                         } else {
                           print("Date is not selected");
                         }
@@ -115,7 +138,7 @@ class _AddbloodState extends State<Addblood> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
                     child: TextFormField(
-                      controller: _ctrlBlood,
+                      controller: _ctrlNote,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter blood sugar';
@@ -162,7 +185,7 @@ class _AddbloodState extends State<Addblood> {
                               'ประวัติย้อนหลัง',
                               style: TextStyle(fontSize: 18),
                             ),
-                            onPressed: () => addBlood())),
+                            onPressed: () {})),
                   ),
                 ),
               ],

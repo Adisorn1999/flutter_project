@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:ffi';
+
 import 'package:http/http.dart' as http;
 //import 'dart:io';
 import 'dart:async';
@@ -51,5 +53,17 @@ class Apiprovider {
     return http.get(
       Uri.parse(_url),
     );
+  }
+
+  Future<http.Response> addBlood(
+      String blood_level, String blood_time, String note, int user_id) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/blood/$user_id';
+    var body = {
+      "blood_level": blood_level,
+      "blood_time": blood_time,
+      "note": note
+    };
+    return http.post(Uri.parse(_url), body: body);
   }
 }

@@ -67,185 +67,187 @@ class _HomePageState extends State<HomePage> {
           future: getToken(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return Center(
-                child: Column(
-                  children: [
-                    // ignore: sized_box_for_whitespace
-                    Container(
-                      height: 90,
-                      width: double.infinity,
-                      // ignore: prefer_const_constructors
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-                        child: Text(
-                            "สวัสดีคุณ ${snapshot.data.decoded.username ?? ''}",
-                            style: const TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.w700)),
-                      ),
-                    ),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 65,
-                              width: 65,
-                              child: Image.asset(
-                                'assets/ellipse-1-bg.png',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: SizedBox(
-                                    height: 65,
-                                    width: 280,
-                                    child: ElevatedButton(
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                        Color>(
-                                                    const Color(0xcc5286d4))),
-                                        child: const Text(
-                                            'บันทึกค่าน้ำตาลในเลือด'),
-                                        onPressed: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const Addblood()));
-                                        })),
-                              ),
-                            ),
-                          ],
+              return SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    children: [
+                      // ignore: sized_box_for_whitespace
+                      Container(
+                        height: 90,
+                        width: double.infinity,
+                        // ignore: prefer_const_constructors
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                          child: Text(
+                              "สวัสดีคุณ ${snapshot.data.decoded.username ?? ''}",
+                              style: const TextStyle(
+                                  fontSize: 28, fontWeight: FontWeight.w700)),
                         ),
                       ),
-                    ),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 65,
-                              width: 65,
-                              child: Image.asset(
-                                'assets/ellipse-2-bg.png',
-                                fit: BoxFit.cover,
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 65,
+                                width: 65,
+                                child: Image.asset(
+                                  'assets/ellipse-1-bg.png',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: SizedBox(
-                                    height: 65,
-                                    width: 280,
-                                    child: ElevatedButton(
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                        Color>(
-                                                    const Color(0xcc5286d4))),
-                                        child: const Text(
-                                            'ความรู้เกี่ยวกับเบาหวาน'),
-                                        onPressed: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const KnowledgDiabetes()));
-                                        })),
+                              Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: SizedBox(
+                                      height: 65,
+                                      width: 280,
+                                      child: ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                          Color>(
+                                                      const Color(0xcc5286d4))),
+                                          child: const Text(
+                                              'บันทึกค่าน้ำตาลในเลือด'),
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const AddBlood()));
+                                          })),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 65,
-                              width: 65,
-                              child: Image.asset(
-                                'assets/ellipse-3-bg.png',
-                                fit: BoxFit.cover,
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 65,
+                                width: 65,
+                                child: Image.asset(
+                                  'assets/ellipse-2-bg.png',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: SizedBox(
-                                    height: 65,
-                                    width: 280,
-                                    child: ElevatedButton(
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                        Color>(
-                                                    const Color(0xcc5286d4))),
-                                        child: const Text('คลังยา'),
-                                        onPressed: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const AddMedication()));
-                                        })),
+                              Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: SizedBox(
+                                      height: 65,
+                                      width: 280,
+                                      child: ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                          Color>(
+                                                      const Color(0xcc5286d4))),
+                                          child: const Text(
+                                              'ความรู้เกี่ยวกับเบาหวาน'),
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const KnowledgDiabetes()));
+                                          })),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 65,
-                              width: 65,
-                              child: Image.asset(
-                                'assets/ellipse-4-bg.png',
-                                fit: BoxFit.cover,
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 65,
+                                width: 65,
+                                child: Image.asset(
+                                  'assets/ellipse-3-bg.png',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: SizedBox(
-                                    height: 65,
-                                    width: 280,
-                                    child: ElevatedButton(
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                        Color>(
-                                                    const Color(0xcc5286d4))),
-                                        child:
-                                            const Text('อาหารและการให้พลังงาน'),
-                                        onPressed: () {})),
+                              Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: SizedBox(
+                                      height: 65,
+                                      width: 280,
+                                      child: ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                          Color>(
+                                                      const Color(0xcc5286d4))),
+                                          child: const Text('คลังยา'),
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const AddMedication()));
+                                          })),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    // ignore: sized_box_for_whitespace
-                    Container(
-                      width: 277,
-                      height: 160,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
-                        child: Image.asset(
-                          'assets/rectangle-3.png',
-                          fit: BoxFit.cover,
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 65,
+                                width: 65,
+                                child: Image.asset(
+                                  'assets/ellipse-4-bg.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: SizedBox(
+                                      height: 65,
+                                      width: 280,
+                                      child: ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                          Color>(
+                                                      const Color(0xcc5286d4))),
+                                          child: const Text(
+                                              'อาหารและการให้พลังงาน'),
+                                          onPressed: () {})),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      // ignore: sized_box_for_whitespace
+                      Container(
+                        width: 277,
+                        height: 160,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
+                          child: Image.asset(
+                            'assets/rectangle-3.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             }

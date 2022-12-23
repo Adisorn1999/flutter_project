@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
+import 'package:flutter_application/components/Dialog/dialog_logout.dart';
 import 'package:flutter_application/model/UserModel.dart';
+import 'package:flutter_application/page/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../API/api_provider_authen.dart';
@@ -26,9 +28,9 @@ class _DrawerManeState extends State<DrawerMane> {
   UserModel? _userModel;
   Future<UserModel?> getdata() async {
     final prefs = await SharedPreferences.getInstance();
-    final int? userId = prefs.getInt('userId');
-    var response = await apiprovider.getUserById(userId!);
-    print(userId);
+    final int? user_id = prefs.getInt('userId');
+    var response = await apiprovider.getUserById(user_id!);
+    print(user_id);
     if (response.statusCode == 200) {
       // ignore: unused_local_variable
       print(response.body);
@@ -68,6 +70,7 @@ class _DrawerManeState extends State<DrawerMane> {
                   onTap: () {
                     // Update the state of the app.
                     // ...
+                    Navigator.pop(context);
                   },
                 ),
                 ListTile(
@@ -81,7 +84,13 @@ class _DrawerManeState extends State<DrawerMane> {
                 ListTile(
                   leading: const Icon(Icons.logout),
                   title: const Text('ออกจากระบบ'),
-                  onTap: () async {},
+                  onTap: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.remove('token');
+                    await prefs.remove('userId');
+                    // ignore: use_build_context_synchronously
+                    logoutDialog(context, 'ออกจากระบบ', 'ออกจากระบบ');
+                  },
                 ),
               ],
             ),
