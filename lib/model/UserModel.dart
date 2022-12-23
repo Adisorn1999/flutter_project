@@ -5,37 +5,20 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+List<UserModel> userModelFromJson(String str) =>
+    List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
 
-String userModelToJson(UserModel data) => json.encode(data.toJson());
+String userModelToJson(List<UserModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UserModel {
   UserModel({
-    required this.ok,
-    required this.data,
-  });
-
-  final bool ok;
-  final List<Datum> data;
-
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        ok: json["ok"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "ok": ok,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
-}
-
-class Datum {
-  Datum({
     required this.userId,
     required this.username,
     required this.firstName,
     required this.lastName,
     required this.birthday,
+    required this.gender,
   });
 
   final int userId;
@@ -43,13 +26,15 @@ class Datum {
   final String firstName;
   final String lastName;
   final String birthday;
+  final String gender;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         userId: json["user_id"],
         username: json["username"],
         firstName: json["first_name"],
         lastName: json["last_name"],
         birthday: json["birthday"],
+        gender: json["gender"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -58,5 +43,6 @@ class Datum {
         "first_name": firstName,
         "last_name": lastName,
         "birthday": birthday,
+        "gender": gender,
       };
 }

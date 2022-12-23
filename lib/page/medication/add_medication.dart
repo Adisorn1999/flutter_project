@@ -12,8 +12,10 @@ class AddMedication extends StatefulWidget {
 }
 
 class _AddMedicationState extends State<AddMedication> {
-  final TextEditingController _ctrlBlood = TextEditingController();
-  final TextEditingController _ctrlDate = TextEditingController();
+  final TextEditingController _ctrlMedicationName = TextEditingController();
+  final TextEditingController _ctrlMedicationAmount = TextEditingController();
+  final TextEditingController _ctrlMedicationTime = TextEditingController();
+  final TextEditingController _ctrlTime = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -35,7 +37,7 @@ class _AddMedicationState extends State<AddMedication> {
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               child: const Text(
-                'เพิ่มระดับน้ำตาลในเลือด',
+                'เพิ่มยาใหม่',
                 style: TextStyle(fontSize: 24),
               ),
             ),
@@ -56,7 +58,27 @@ class _AddMedicationState extends State<AddMedication> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
-                      controller: _ctrlBlood,
+                      controller: _ctrlMedicationName,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Medication';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          fillColor: Colors.white70,
+                          filled: true,
+                          labelText: 'ชื่อยา',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: TextFormField(
+                      controller: _ctrlMedicationAmount,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter blood sugar';
@@ -66,7 +88,27 @@ class _AddMedicationState extends State<AddMedication> {
                       decoration: InputDecoration(
                           fillColor: Colors.white70,
                           filled: true,
-                          labelText: 'ค่าน้ำตาล',
+                          labelText: 'ปริมาณ',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: TextFormField(
+                      controller: _ctrlMedicationTime,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter blood sugar';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          fillColor: Colors.white70,
+                          filled: true,
+                          labelText: 'เวลาที่ใช้ยา',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0))),
                     ),
@@ -76,7 +118,7 @@ class _AddMedicationState extends State<AddMedication> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
                     child: TextFormField(
-                      controller: _ctrlDate,
+                      controller: _ctrlTime,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter Date';
@@ -86,7 +128,7 @@ class _AddMedicationState extends State<AddMedication> {
                       decoration: InputDecoration(
                           fillColor: Colors.white70,
                           filled: true,
-                          labelText: 'วันที่',
+                          labelText: 'วันที่เพิ่มยา',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0))),
                       readOnly: true,
@@ -100,33 +142,13 @@ class _AddMedicationState extends State<AddMedication> {
                           String formattedDate =
                               DateFormat('yyyy-MM-dd').format(pickedDate);
                           setState(() {
-                            _ctrlDate.text =
+                            _ctrlTime.text =
                                 formattedDate; //set output date to TextField value.
                           });
                         } else {
                           print("Date is not selected");
                         }
                       },
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
-                    child: TextFormField(
-                      controller: _ctrlBlood,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter blood sugar';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                          fillColor: Colors.white70,
-                          filled: true,
-                          labelText: 'หมายเหตุ',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
                     ),
                   ),
                 ),
@@ -158,7 +180,7 @@ class _AddMedicationState extends State<AddMedication> {
                                     MaterialStateProperty.all<Color>(
                                         const Color(0x82ff1111))),
                             child: const Text(
-                              'ประวัติย้อนหลัง',
+                              'คลังยา',
                               style: TextStyle(fontSize: 18),
                             ),
                             onPressed: () => addMedcation())),

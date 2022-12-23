@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/API/api_provider_authen.dart';
+import 'package:flutter_application/components/Dialog/dialog_register.dart';
+import 'package:flutter_application/components/Dialog/dialog_validate.dart';
 import 'package:flutter_application/page/home.dart';
 import 'package:flutter_application/page/login.dart';
 import 'package:intl/intl.dart';
@@ -23,35 +26,43 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _ctrlFirstName = TextEditingController();
   final TextEditingController _ctrlLastName = TextEditingController();
   final TextEditingController _ctrlBirthday = TextEditingController();
+  final TextEditingController _gender = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  String? gender;
 
   Apiprovider apiprovider = Apiprovider();
 
   Future doRegister() async {
-    if (_formKey.currentState!.validate()) {}
     try {
-      var rs = await apiprovider.doRegister(
+      if (_formKey.currentState!.validate() && gender == null ||
+          gender!.isEmpty) {
+        normalDialog(context, 'กรุณากรอกข้อมูลให้ครบ', 'กรุณากรอกข้อมูลให้ครบ');
+      }
+
+      var response = await apiprovider.doRegister(
           _ctrlUsername.text,
           _ctrlPassword.text,
           _ctrlFirstName.text,
           _ctrlLastName.text,
-          _ctrlBirthday.text);
+          _ctrlBirthday.text,
+          gender!);
 
-      if (rs.statusCode == 200) {
-        print(rs.body);
-        var jsonRes = json.decode(rs.body);
+      if (response.statusCode == 200) {
+        print(response.body);
+        var jsonRes = json.decode(response.body);
         if (jsonRes['ok']) {
           print(jsonRes);
           // ignore: use_build_context_synchronously
-          Navigator.of(context)
-              .pop(MaterialPageRoute(builder: (context) => const LoginPage()));
+          registerlDialog(context, 'สมัครสมาชิกสำเร็จ', 'สมัครสมาชิกสำเร็จ');
         } else {
           print(jsonRes['message']);
         }
       } else {
         print('Server Error');
       }
+      // ignore: use_build_context_synchronously
+
     } catch (error) {
       // ignore: avoid_print
       print(error);
@@ -74,9 +85,9 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             // ignore: prefer_const_constructors
             Padding(
-              padding: const EdgeInsets.fromLTRB(80, 10, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               child: const Text(
-                'Register',
+                'สมัครสมาชิก',
                 style: TextStyle(fontSize: 24),
               ),
             ),
@@ -92,12 +103,12 @@ class _RegisterPageState extends State<RegisterPage> {
               children: [
                 Container(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
                     child: TextFormField(
                       controller: _ctrlUsername,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter username';
+                          return 'กรุณาใส่ชื่อผู้ใช้';
                         }
                         return null;
                       },
@@ -112,12 +123,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 Container(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
                     child: TextFormField(
                       controller: _ctrlPassword,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter Password';
+                          return 'กรุณาใส่รหัสผ่าน';
                         }
                         return null;
                       },
@@ -125,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                           fillColor: Colors.white70,
                           filled: true,
-                          labelText: 'Password',
+                          labelText: 'password',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0))),
                     ),
@@ -133,19 +144,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 Container(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
                     child: TextFormField(
                       controller: _ctrlFirstName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter First Name';
+                          return 'กรุณาใส่ชื่อ';
                         }
                         return null;
                       },
                       decoration: InputDecoration(
                           fillColor: Colors.white70,
                           filled: true,
-                          labelText: 'First Name',
+                          labelText: 'ชื่อจริง',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0))),
                     ),
@@ -153,19 +164,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 Container(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
                     child: TextFormField(
                       controller: _ctrlLastName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter Last Name';
+                          return 'กรุณาใส่นามสกุล';
                         }
                         return null;
                       },
                       decoration: InputDecoration(
                           fillColor: Colors.white70,
                           filled: true,
-                          labelText: 'Last Name',
+                          labelText: 'นามสกุล',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0))),
                     ),
@@ -173,19 +184,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 Container(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
                     child: TextFormField(
                       controller: _ctrlBirthday,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter Birthdat';
+                          return 'กรุณากรอกวันเกิด';
                         }
                         return null;
                       },
                       decoration: InputDecoration(
                           fillColor: Colors.white70,
                           filled: true,
-                          labelText: 'Birthday',
+                          labelText: 'วันเกิด',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0))),
                       readOnly: true,
@@ -209,6 +220,32 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
+                // ignore: avoid_unnecessary_containers
+                Container(
+                    child: Column(
+                  children: [
+                    RadioListTile(
+                      title: const Text("ชาย"),
+                      value: "ชาย",
+                      groupValue: gender,
+                      onChanged: (value) {
+                        setState(() {
+                          gender = value.toString();
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      title: const Text("หญิง"),
+                      value: "หญิง",
+                      groupValue: gender,
+                      onChanged: (value) {
+                        setState(() {
+                          gender = value.toString();
+                        });
+                      },
+                    ),
+                  ],
+                )),
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
@@ -219,7 +256,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
                                         const Color(0x82ff1111))),
-                            child: const Text('confirm'),
+                            child: const Text('ยืนยัน'),
                             onPressed: () => doRegister())),
                   ),
                 ),

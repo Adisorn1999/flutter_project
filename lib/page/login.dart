@@ -61,19 +61,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // Future<TkUserModel?> checkLogin(String username, String password) async {
-  //   if (_formKey.currentState!.validate()) {}
-  //   var url = Uri.http('localhost:3000', '/login');
-  //   var rs = await http.post(
-  //       Uri.parse(url), body = {"username": username, "password": password});
-  //   if (rs.statusCode == 200) {
-  //     var jsonRes = json.decode(rs.body);
-  //     return tkUserModelFromJson(jsonRes);
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

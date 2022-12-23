@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
+import 'package:flutter_application/model/UserModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../API/api_provider_authen.dart';
@@ -16,70 +17,78 @@ class DrawerMane extends StatefulWidget {
 }
 
 class _DrawerManeState extends State<DrawerMane> {
-  void initSatate() async {
+  @override
+  void initState() {
     super.initState();
-    getToken();
   }
 
-  ApiproviderAuth apiproviderAuth = ApiproviderAuth();
-
-  Future getToken() async {
+  Apiprovider apiprovider = Apiprovider();
+  UserModel? _userModel;
+  Future<UserModel?> getdata() async {
     final prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token');
-    var rs = await apiproviderAuth.authen(token);
-    print(token);
-    if (rs.statusCode == 200) {
+    final int? userId = prefs.getInt('userId');
+    var response = await apiprovider.getUserById(userId!);
+    print(userId);
+    if (response.statusCode == 200) {
       // ignore: unused_local_variable
-      var jsonRs = json.decode(rs.body);
-      if (jsonRs['ok']) {}
-      print(jsonRs);
-      final String username = jsonRs['username'];
-      print(username);
+      print(response.body);
+      var jsonresresponse = jsonDecode(response.body);
+      return UserModel.fromJson(jsonresresponse[0]);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      // Add a ListView to the drawer. fThis ensures the user can scroll
-      // through the options in the drawer if there isn't enough vertical
-      // space to fit everything.
-      child: ListView(
-        // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
-        children: [
-          // ignore: prefer_const_constructors
-          UserAccountsDrawerHeader(
-            accountName: const Text("adisorn123"),
-            accountEmail: const Text("adisorn123"),
-            currentAccountPicture: const CircleAvatar(
-              child: FlutterLogo(size: 40),
-              backgroundColor: Colors.white,
+    return FutureBuilder(
+      future: getdata(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          var result = snapshot.data;
+          return Drawer(
+            // Add a ListView to the drawer. fThis ensures the user can scroll
+            // through the options in the drawer if there isn't enough vertical
+            // space to fit everything.
+            child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: [
+                // ignore: prefer_const_constructors
+                UserAccountsDrawerHeader(
+                  accountName: Text(
+                      "${snapshot.data.firstName} ${snapshot.data.lastName}"),
+                  accountEmail: Text("${snapshot.data.username}"),
+                  currentAccountPicture: const CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: FlutterLogo(size: 40),
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('หน้าแรก'),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.account_box),
+                  title: const Text('ข้อมูลส่วนตัว'),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text('ออกจากระบบ'),
+                  onTap: () async {},
+                ),
+              ],
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('หน้าแรก'),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.account_box),
-            title: const Text('ข้อมูลส่วนตัว'),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('ออกจากระบบ'),
-            onTap: () async {},
-          ),
-        ],
-      ),
+          );
+        }
+        return LinearProgressIndicator();
+      },
     );
   }
 }

@@ -16,8 +16,13 @@ class Apiprovider {
     return http.post(Uri.parse(_url), body: body);
   }
 
-  Future<http.Response> doRegister(String username, String password,
-      String first_name, String last_name, String birthday) async {
+  Future<http.Response> doRegister(
+      String username,
+      String password,
+      String first_name,
+      String last_name,
+      String birthday,
+      String gender) async {
     // ignore: no_leading_underscores_for_local_identifiers
     String _url = '$endpoint/register';
     var body = {
@@ -25,25 +30,26 @@ class Apiprovider {
       "password": password,
       "first_name": first_name,
       "last_name": last_name,
-      "birthday": birthday
+      "birthday": birthday,
+      "gender": gender
     };
     return http.post(Uri.parse(_url), body: body);
   }
 
-  Future<http.Response> authen(String username, String password) async {
+  Future<http.Response> authen(String? token) async {
     // ignore: no_leading_underscores_for_local_identifiers
     String _url = '$endpoint/authen';
-    var body = {"username": username, "password": password};
-    return http.post(Uri.parse(_url), body: body);
+    // ignore: unused_local_variable
+    var headers = {"token": token};
+    return http
+        .post(Uri.parse(_url), headers: {"Authorization": "Bearer $token"});
   }
 
-  Future<http.Response> users(String username, String password) async {
+  Future<http.Response> getUserById(int user_id) async {
     // ignore: no_leading_underscores_for_local_identifiers
-    String _url = '$endpoint/users';
+    String _url = '$endpoint/user/$user_id';
     return http.get(
       Uri.parse(_url),
     );
   }
-
-  addBlood(String text, String text2) {}
 }
