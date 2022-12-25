@@ -7,6 +7,7 @@ import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/components/Dialog/dialog_logout.dart';
 import 'package:flutter_application/model/UserModel.dart';
 import 'package:flutter_application/page/home.dart';
+import 'package:flutter_application/page/info/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../API/api_provider_authen.dart';
@@ -78,7 +79,18 @@ class _DrawerManeState extends State<DrawerMane> {
                   title: const Text('ข้อมูลส่วนตัว'),
                   onTap: () {
                     // Update the state of the app.
+                    // ... Navigator.of(context).push(
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Profile()));
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.badge),
+                  title: const Text('หน้าแรก'),
+                  onTap: () {
+                    // Update the state of the app.
                     // ...
+                    Navigator.pop(context);
                   },
                 ),
                 ListTile(

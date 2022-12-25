@@ -33,16 +33,16 @@ class _AddBloodState extends State<AddBlood> {
 
   Apiprovider apiprovider = Apiprovider();
   Future addBlood() async {
-    if (_formKey.currentState!.validate()) {
-      normalDialog(context, "title", "message");
-      _formKey.currentState!.reset();
-    }
+    if (_formKey.currentState!.validate()) {}
     final prefs = await SharedPreferences.getInstance();
     final int? user_id = prefs.getInt('userId');
     var response = await apiprovider.addBlood(
         _ctrlBlood.text, _ctrlDate.text, _ctrlNote.text, user_id!);
     if (response.statusCode == 200) {
       print(response.body);
+      // ignore: use_build_context_synchronously
+      normalDialog(context, "title", "message");
+      _formKey.currentState!.reset();
     }
   }
 
@@ -124,9 +124,9 @@ class _AddBloodState extends State<AddBlood> {
                         if (pickedDate != null) {
                           String formattedDate =
                               DateFormat('yyyy-MM-dd').format(pickedDate);
-                          setState(() {
-                            _ctrlDate.text = formattedDate;
-                          }); //set output date to TextField value.
+
+                          _ctrlDate.text = formattedDate;
+                          //set output date to TextField value.
                         } else {
                           print("Date is not selected");
                         }

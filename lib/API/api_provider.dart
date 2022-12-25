@@ -66,4 +66,31 @@ class Apiprovider {
     };
     return http.post(Uri.parse(_url), body: body);
   }
+
+  Future<http.Response> addmedication(
+      String medication_name,
+      String medication_amount,
+      String medication_time,
+      String time,
+      String note,
+      int user_id) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/medication/$user_id';
+    var body = {
+      "medication_name": medication_name,
+      "medication_amount": medication_amount,
+      "medication_time": medication_time,
+      "time": time,
+      "note": note
+    };
+    return http.post(Uri.parse(_url), body: body);
+  }
+
+  Future<http.Response> updatename(
+      String first_name, String last_name, int user_id) async {
+    String _url = '$endpoint/user/$user_id';
+
+    var body = {"first_name": first_name, "last_name": last_name};
+    return http.put(Uri.parse(_url), body: body);
+  }
 }

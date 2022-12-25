@@ -3,6 +3,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../components/Dialog/dialog_validate.dart';
 
 class AddMedication extends StatefulWidget {
   const AddMedication({super.key});
@@ -16,12 +19,28 @@ class _AddMedicationState extends State<AddMedication> {
   final TextEditingController _ctrlMedicationAmount = TextEditingController();
   final TextEditingController _ctrlMedicationTime = TextEditingController();
   final TextEditingController _ctrlTime = TextEditingController();
+  final TextEditingController _ctrlNote = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   Apiprovider apiprovider = Apiprovider();
   Future addMedcation() async {
     if (_formKey.currentState!.validate()) {}
+    final prefs = await SharedPreferences.getInstance();
+    final int? user_id = prefs.getInt('userId');
+    var response = await apiprovider.addmedication(
+        _ctrlMedicationName.text,
+        _ctrlMedicationAmount.text,
+        _ctrlMedicationTime.text,
+        _ctrlTime.text,
+        _ctrlNote.text,
+        user_id!);
+    if (response.statusCode == 200) {
+      print(response.body);
+      // ignore: use_build_context_synchronously
+      normalDialog(context, "title", "message");
+      _formKey.currentState!.reset();
+    }
   }
 
   @override
@@ -149,6 +168,26 @@ class _AddMedicationState extends State<AddMedication> {
                           print("Date is not selected");
                         }
                       },
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: TextFormField(
+                      controller: _ctrlNote,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter blood sugar';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          fillColor: Colors.white70,
+                          filled: true,
+                          labelText: 'หมายเหตุ',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
                     ),
                   ),
                 ),
