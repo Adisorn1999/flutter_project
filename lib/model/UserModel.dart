@@ -17,24 +17,24 @@ class UserModel {
     required this.username,
     required this.firstName,
     required this.lastName,
-    required this.birthday,
     required this.gender,
+    required this.year,
   });
 
   final int userId;
   final String username;
   final String firstName;
   final String lastName;
-  final String birthday;
   final String gender;
+  final int year;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         userId: json["user_id"],
         username: json["username"],
         firstName: json["first_name"],
         lastName: json["last_name"],
-        birthday: json["birthday"],
         gender: json["gender"],
+        year: json["year"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,7 +42,7 @@ class UserModel {
         "username": username,
         "first_name": firstName,
         "last_name": lastName,
-        "birthday": birthday,
         "gender": gender,
+        "year": year,
       };
 }

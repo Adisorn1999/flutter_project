@@ -28,15 +28,19 @@ class _DrawerManeState extends State<DrawerMane> {
   Apiprovider apiprovider = Apiprovider();
   UserModel? _userModel;
   Future<UserModel?> getdata() async {
-    final prefs = await SharedPreferences.getInstance();
-    final int? user_id = prefs.getInt('userId');
-    var response = await apiprovider.getUserById(user_id!);
-    print(user_id);
-    if (response.statusCode == 200) {
-      // ignore: unused_local_variable
-      print(response.body);
-      var jsonresresponse = jsonDecode(response.body);
-      return UserModel.fromJson(jsonresresponse[0]);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final int? user_id = prefs.getInt('userId');
+      var response = await apiprovider.getUserById(user_id!);
+      print(user_id);
+      if (response.statusCode == 200) {
+        // ignore: unused_local_variable
+        print(response.body);
+        var jsonresresponse = jsonDecode(response.body);
+        return UserModel.fromJson(jsonresresponse[0]);
+      }
+    } on Exception catch (e) {
+      // TODO
     }
   }
 

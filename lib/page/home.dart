@@ -13,6 +13,7 @@ import 'package:flutter_application/components/drawer_menu.dart';
 import 'package:flutter_application/model/UserModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'food/addFood.dart';
 import 'knowledge/knowledgDiabetes.dart';
 
 class HomePage extends StatefulWidget {
@@ -227,7 +228,12 @@ class _HomePageState extends State<HomePage> {
                                                       const Color(0xcc5286d4))),
                                           child: const Text(
                                               'อาหารและการให้พลังงาน'),
-                                          onPressed: () {})),
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const AddFood()));
+                                          })),
                                 ),
                               ),
                             ],

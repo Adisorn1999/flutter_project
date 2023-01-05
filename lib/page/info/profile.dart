@@ -108,11 +108,15 @@ class _ProfileState extends State<Profile> {
                           children: [
                             const Padding(
                               padding: EdgeInsets.all(8.0),
-                              child: Text("วันเดือนปีเกิด :"),
+                              child: Text("อายุ :"),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text("${snapshot.data.birthday}"),
+                              child: Text("${snapshot.data.year}"),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text("ปี"),
                             )
                           ],
                         ),

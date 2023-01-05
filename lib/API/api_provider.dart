@@ -93,4 +93,11 @@ class Apiprovider {
     var body = {"first_name": first_name, "last_name": last_name};
     return http.put(Uri.parse(_url), body: body);
   }
+
+  Future<http.Response> getFoods() async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/foods';
+
+    return http.get(Uri.parse(_url));
+  }
 }

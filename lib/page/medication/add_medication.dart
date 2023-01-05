@@ -160,10 +160,10 @@ class _AddMedicationState extends State<AddMedication> {
                         if (pickedDate != null) {
                           String formattedDate =
                               DateFormat('yyyy-MM-dd').format(pickedDate);
-                          setState(() {
-                            _ctrlTime.text =
-                                formattedDate; //set output date to TextField value.
-                          });
+
+                          _ctrlTime.text =
+                              formattedDate; //set output date to TextField value.
+
                         } else {
                           print("Date is not selected");
                         }
