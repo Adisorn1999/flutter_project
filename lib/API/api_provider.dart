@@ -100,4 +100,12 @@ class Apiprovider {
 
     return http.get(Uri.parse(_url));
   }
+
+  Future<http.Response> addFoodDetail(String food_name, String calorie) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/food';
+    var body = {"food_name": food_name, "calorie": calorie};
+
+    return http.post(Uri.parse(_url), body: body);
+  }
 }

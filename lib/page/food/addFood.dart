@@ -6,6 +6,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/model/Foodsmodel.dart';
 
+import 'addFood_detail.dart';
+
 class AddFood extends StatefulWidget {
   const AddFood({super.key});
 
@@ -16,9 +18,14 @@ class AddFood extends StatefulWidget {
 class _AddFoodState extends State<AddFood> {
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
+    // TODO: implement initStateuper.initState();
+
     getFoods();
+  }
+
+  void _incrementCounter() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const AddFoodDetail()));
   }
 
   List<FoodsModel?> _foodsModel = [];
@@ -76,6 +83,7 @@ class _AddFoodState extends State<AddFood> {
                               borderRadius: BorderRadius.circular(20.0),
                               borderSide:
                                   const BorderSide(color: Colors.black))),
+                      onChanged: searchFood,
                     ),
                   ),
                 ),
@@ -88,18 +96,8 @@ class _AddFoodState extends State<AddFood> {
                         title: Row(
                           children: [
                             Container(
-                              child: Column(
-                                children: [
-                                  Text("${data?[index]?.foodName}"),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 50,
-                            ),
-                            Container(
                               height: 60,
-                              width: 140,
+                              width: 60,
                               decoration: BoxDecoration(
                                   color: Colors.blue,
                                   borderRadius: BorderRadius.circular(10)),
@@ -107,17 +105,45 @@ class _AddFoodState extends State<AddFood> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "${data?[index]?.calorie} กิโลแคลอรี่",
+                                      "${data?[index]?.foodId}",
                                       style: const TextStyle(
-                                          fontSize: 13.5,
+                                          fontSize: 16.5,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white),
                                     ),
                                   ]),
                             ),
+                            const SizedBox(
+                              width: 50,
+                            ),
+                            Container(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "${data?[index]?.foodName}",
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Text(
+                                    "${data?[index]?.calorie} กิโลเเคลอรี่",
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 50,
+                            )
                           ],
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          print("${data?[index]?.foodName}");
+                        },
                         // leading: Icon(Icons.food_bank),
                       ),
                     );
@@ -126,6 +152,23 @@ class _AddFoodState extends State<AddFood> {
               ],
             );
           }),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
         ));
+    // This trailing comma makes auto-forma);
+  }
+
+  void searchFood(String qurty) {
+    final suggestion = _foodsModel.where((food) {
+      final foodName = food?.foodName.toLowerCase();
+      final input = qurty.toLowerCase();
+      return foodName!.contains(input);
+    }).toList();
+    setState(() {
+      _foodsModel = suggestion;
+    });
   }
 }
