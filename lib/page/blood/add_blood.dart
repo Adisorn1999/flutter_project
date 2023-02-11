@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/components/Dialog/dialog_validate.dart';
+import 'package:flutter_application/page/blood/blood_charts.dart';
 import 'package:flutter_application/page/home.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -185,7 +186,10 @@ class _AddBloodState extends State<AddBlood> {
                               'ประวัติย้อนหลัง',
                               style: TextStyle(fontSize: 18),
                             ),
-                            onPressed: () {})),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const BloodChart()));
+                            })),
                   ),
                 ),
               ],

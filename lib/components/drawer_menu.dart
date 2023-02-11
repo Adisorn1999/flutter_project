@@ -5,9 +5,11 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/components/Dialog/dialog_logout.dart';
+import 'package:flutter_application/main.dart';
 import 'package:flutter_application/model/UserModel.dart';
 import 'package:flutter_application/page/home.dart';
 import 'package:flutter_application/page/info/profile.dart';
+import 'package:flutter_application/page/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../API/api_provider_authen.dart';
@@ -94,7 +96,8 @@ class _DrawerManeState extends State<DrawerMane> {
                   onTap: () {
                     // Update the state of the app.
                     // ...
-                    Navigator.pop(context);
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) => const SearchBarScreen()));
                   },
                 ),
                 ListTile(

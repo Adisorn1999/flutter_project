@@ -3,7 +3,7 @@
 import 'dart:ffi';
 
 import 'package:http/http.dart' as http;
-//import 'dart:io';
+import 'dart:io';
 import 'dart:async';
 
 class Apiprovider {
@@ -107,5 +107,19 @@ class Apiprovider {
     var body = {"food_name": food_name, "calorie": calorie};
 
     return http.post(Uri.parse(_url), body: body);
+  }
+
+  Future<http.Response> getbloods(int user_id) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/blood/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> getbloodsAVG(int user_id) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/blood/avg/$user_id';
+
+    return http.get(Uri.parse(_url));
   }
 }

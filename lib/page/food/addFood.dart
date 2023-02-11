@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/model/Foodsmodel.dart';
 
+import '../../model/search.dart';
 import 'addFood_detail.dart';
 
 class AddFood extends StatefulWidget {
@@ -18,9 +20,10 @@ class AddFood extends StatefulWidget {
 class _AddFoodState extends State<AddFood> {
   @override
   void initState() {
+    super.initState();
     // TODO: implement initStateuper.initState();
 
-    getFoods();
+    // getFoods();
   }
 
   void _incrementCounter() {
@@ -28,8 +31,12 @@ class _AddFoodState extends State<AddFood> {
         MaterialPageRoute(builder: (context) => const AddFoodDetail()));
   }
 
-  List<FoodsModel?> _foodsModel = [];
-  var jsonresponse = [];
+  double sizeBoxSearch = 0;
+  late List<FoodsModel?> _foodsModel;
+  List<Search> _data = [];
+  List<Search> _foundUsers = [];
+
+  var jsonResponse = [];
   final _ctrlSearch = TextEditingController();
 
   Apiprovider apiprovider = Apiprovider();
@@ -39,11 +46,15 @@ class _AddFoodState extends State<AddFood> {
     try {
       if (response.statusCode == 200) {
         print(response.body);
-        jsonresponse = jsonDecode(response.body);
-        _foodsModel = jsonresponse.map((e) => FoodsModel.fromJson(e)).toList();
-
-        // _foodsModel = FoodsModel?.fromJson(jsonresponse[0]);
-
+        jsonResponse = jsonDecode(response.body);
+        _foodsModel = jsonResponse.map((e) => FoodsModel.fromJson(e)).toList();
+        for (int i = 0; i < _foodsModel.length; i++) {
+          // ignore: unnecessary_new
+          Search data = new Search(
+              foodId: _foodsModel[i]!.foodId,
+              foodName: _foodsModel[i]!.foodName);
+          _data.add(data);
+        }
       } else {
         print("Api error");
       }
@@ -52,6 +63,28 @@ class _AddFoodState extends State<AddFood> {
       print('error $e');
     }
     return _foodsModel;
+  }
+
+  void _runFilter(String enteredKeyword) {
+    print("_runFilter");
+    List<Search> results = [];
+    if (enteredKeyword.isEmpty) {
+      setState(() {
+        sizeBoxSearch = 0;
+      });
+    } else {
+      sizeBoxSearch = 500;
+
+      results = _data
+          .where((user) => user.foodName
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
+          .toList();
+      print("123");
+    }
+    // setstate เพื่อทำการ Refresh  UI 😁
+
+    _foundUsers = results;
   }
 
   @override
@@ -65,6 +98,7 @@ class _AddFoodState extends State<AddFood> {
           builder: ((context, snapshot) {
             var data = snapshot.data;
             if (!snapshot.hasData) {
+              // ignore: avoid_unnecessary_containers
               return Container(
                 child: const LinearProgressIndicator(),
               );
@@ -83,7 +117,7 @@ class _AddFoodState extends State<AddFood> {
                               borderRadius: BorderRadius.circular(20.0),
                               borderSide:
                                   const BorderSide(color: Colors.black))),
-                      onChanged: searchFood,
+                      onChanged: (value) => _runFilter(value),
                     ),
                   ),
                 ),
@@ -91,6 +125,7 @@ class _AddFoodState extends State<AddFood> {
                     child: ListView.builder(
                   itemCount: data?.length,
                   itemBuilder: ((context, index) {
+                    final food = data?[index];
                     return Card(
                       child: ListTile(
                         title: Row(
@@ -159,16 +194,5 @@ class _AddFoodState extends State<AddFood> {
           child: const Icon(Icons.add),
         ));
     // This trailing comma makes auto-forma);
-  }
-
-  void searchFood(String qurty) {
-    final suggestion = _foodsModel.where((food) {
-      final foodName = food?.foodName.toLowerCase();
-      final input = qurty.toLowerCase();
-      return foodName!.contains(input);
-    }).toList();
-    setState(() {
-      _foodsModel = suggestion;
-    });
   }
 }
