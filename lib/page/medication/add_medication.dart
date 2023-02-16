@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -37,9 +39,13 @@ class _AddMedicationState extends State<AddMedication> {
         user_id!);
     if (response.statusCode == 200) {
       print(response.body);
-      // ignore: use_build_context_synchronously
-      normalDialog(context, "title", "message");
-      _formKey.currentState!.reset();
+      var jsonResponse = jsonDecode(response.body);
+      if (jsonResponse['ok']) {
+        print(jsonResponse);
+        // ignore: use_build_context_synchronously
+        normalDialog(context, "บันทึกสำเร็จ", "บันทึกสำเร็จ");
+        _formKey.currentState!.reset();
+      }
     }
   }
 
@@ -163,7 +169,6 @@ class _AddMedicationState extends State<AddMedication> {
 
                           _ctrlTime.text =
                               formattedDate; //set output date to TextField value.
-
                         } else {
                           print("Date is not selected");
                         }

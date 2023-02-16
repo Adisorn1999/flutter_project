@@ -8,9 +8,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/components/Dialog/dialog_validate.dart';
 import 'package:flutter_application/page/blood/blood_charts.dart';
+import 'package:flutter_application/page/blood/home_blood_charts.dart';
 import 'package:flutter_application/page/home.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../components/Dialog/dialog_code200.dart';
+import '../../components/Dialog/dialog_code400.dart';
 
 class AddBlood extends StatefulWidget {
   const AddBlood({super.key});
@@ -34,16 +38,27 @@ class _AddBloodState extends State<AddBlood> {
 
   Apiprovider apiprovider = Apiprovider();
   Future addBlood() async {
-    if (_formKey.currentState!.validate()) {}
-    final prefs = await SharedPreferences.getInstance();
-    final int? user_id = prefs.getInt('userId');
-    var response = await apiprovider.addBlood(
-        _ctrlBlood.text, _ctrlDate.text, _ctrlNote.text, user_id!);
-    if (response.statusCode == 200) {
-      print(response.body);
-      // ignore: use_build_context_synchronously
-      normalDialog(context, "title", "message");
-      _formKey.currentState!.reset();
+    try {
+      if (_formKey.currentState!.validate()) {}
+      final prefs = await SharedPreferences.getInstance();
+      final int? user_id = prefs.getInt('userId');
+      var response = await apiprovider.addBlood(
+          _ctrlBlood.text, _ctrlDate.text, _ctrlNote.text, user_id!);
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        if (jsonResponse['ok']) {
+          print(response.body);
+          // ignore: use_build_context_synchronously
+          dialogCode200(
+              context, "บันทึกค่าน้ำตาลสำเร็จ", "บันทึกค่าน้ำตาลสำเร็จ");
+          _formKey.currentState!.reset();
+        }
+      } else {
+        print("API Connection Fail");
+      }
+    } on Exception catch (e) {
+      // TODO
+      print(e);
     }
   }
 
@@ -188,7 +203,7 @@ class _AddBloodState extends State<AddBlood> {
                             ),
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const BloodChart()));
+                                  builder: (context) => HomeBlood()));
                             })),
                   ),
                 ),

@@ -2,68 +2,36 @@
 //
 //     final bloodChartsModel = bloodChartsModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-BloodChartsModel bloodChartsModelFromJson(String str) =>
-    BloodChartsModel.fromJson(json.decode(str));
+List<BloodChartsModel> bloodChartsModelFromJson(String str) =>
+    List<BloodChartsModel>.from(
+        json.decode(str).map((x) => BloodChartsModel.fromJson(x)));
 
-String bloodChartsModelToJson(BloodChartsModel data) =>
-    json.encode(data.toJson());
+String bloodChartsModelToJson(List<BloodChartsModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class BloodChartsModel {
   BloodChartsModel({
-    required this.ok,
-    required this.data,
-    required this.code,
+    this.year,
+    this.month,
+    this.averageBlood,
   });
 
-  final bool ok;
-  final List<Datum> data;
-  final int code;
+  int? year;
+  int? month;
+  int? averageBlood;
 
   factory BloodChartsModel.fromJson(Map<String, dynamic> json) =>
       BloodChartsModel(
-        ok: json["ok"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-        code: json["code"],
+        year: json["year"],
+        month: json["month"],
+        averageBlood: json["average_blood"],
       );
 
   Map<String, dynamic> toJson() => {
-        "ok": ok,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "code": code,
-      };
-}
-
-class Datum {
-  Datum({
-    required this.bloodId,
-    required this.bloodLevel,
-    required this.bloodTime,
-    required this.note,
-    required this.userId,
-  });
-
-  final int bloodId;
-  final int bloodLevel;
-  final String bloodTime;
-  final String note;
-  final int userId;
-
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        bloodId: json["blood_id"],
-        bloodLevel: json["blood_level"],
-        bloodTime: json["blood_time"],
-        note: json["note"],
-        userId: json["user_id"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "blood_id": bloodId,
-        "blood_level": bloodLevel,
-        "blood_time": bloodTime,
-        "note": note,
-        "user_id": userId,
+        "year": year,
+        "month": month,
+        "average_blood": averageBlood,
       };
 }

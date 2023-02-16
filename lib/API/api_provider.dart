@@ -116,9 +116,9 @@ class Apiprovider {
     return http.get(Uri.parse(_url));
   }
 
-  Future<http.Response> getbloodsAVG(int user_id) async {
+  Future<http.Response> getbloodsAVG(int user_id, int year) async {
     // ignore: no_leading_underscores_for_local_identifiers
-    String _url = '$endpoint/blood/avg/$user_id';
+    String _url = '$endpoint/blood/avg/$year/$user_id';
 
     return http.get(Uri.parse(_url));
   }

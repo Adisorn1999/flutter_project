@@ -17,4 +17,10 @@ class ApiproviderAuth {
     return http
         .post(Uri.parse(_url), headers: {"Authorization": "Bearer $token"});
   }
+
+  Future<http.Response> getYear(int user_id) async {
+    String _url = '$endpoint/year/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
 }

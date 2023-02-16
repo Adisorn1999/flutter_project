@@ -18,13 +18,13 @@ class AvGuserModel {
   });
 
   final bool ok;
-  final List<Map<String, double>> data;
+  final List<Map<String, int>> data;
   final int code;
 
   factory AvGuserModel.fromJson(Map<String, dynamic> json) => AvGuserModel(
         ok: json["ok"],
-        data: List<Map<String, double>>.from(json["data"].map((x) => Map.from(x)
-            .map((k, v) => MapEntry<String, double>(k, v?.toDouble())))),
+        data: List<Map<String, int>>.from(json["data"].map(
+            (x) => Map.from(x).map((k, v) => MapEntry<String, int>(k, v)))),
         code: json["code"],
       );
 
