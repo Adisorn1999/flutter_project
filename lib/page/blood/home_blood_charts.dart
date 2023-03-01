@@ -51,7 +51,7 @@ class _HomeBloodState extends State<HomeBlood> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("ประวัติระดับน้ำตาลในเลือด"),
+          title: const Text("ประวัติระดับน้ำตาลในเลือด "),
         ),
         body: FutureBuilder(
           future: getYear(),
@@ -91,6 +91,7 @@ class _HomeBloodState extends State<HomeBlood> {
                                         final prefs = await SharedPreferences
                                             .getInstance();
                                         await prefs.setInt('year', year!);
+                                        // ignore: use_build_context_synchronously
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>

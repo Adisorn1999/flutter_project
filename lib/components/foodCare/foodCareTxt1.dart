@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class FootCareTxt1 extends StatelessWidget {
   String text;
-  FootCareTxt1(this.text);
+  FootCareTxt1(this.text, {super.key});
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -122,4 +122,26 @@ class Apiprovider {
 
     return http.get(Uri.parse(_url));
   }
+
+  Future<http.Response> getbloodsAVGYear(int user_id, int year) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/blood/avgyear/$year/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> getMedication(int user_id) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/medication/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> getMedcationByMedcationId(
+      int user_id, int medicationId) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/medication/$user_id/$medicationId';
+
+    return http.get(Uri.parse(_url));
+  }
 }

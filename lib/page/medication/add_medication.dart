@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
+import 'package:flutter_application/page/medication/home_medication.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/Dialog/dialog_validate.dart';
+import 'home1_medication.dart';
+import 'medication.dart';
 
 class AddMedication extends StatefulWidget {
   const AddMedication({super.key});
@@ -141,43 +144,6 @@ class _AddMedicationState extends State<AddMedication> {
                 ),
                 Container(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-                    child: TextFormField(
-                      controller: _ctrlTime,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter Date';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                          fillColor: Colors.white70,
-                          filled: true,
-                          labelText: 'วันที่เพิ่มยา',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
-                      readOnly: true,
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2200));
-                        if (pickedDate != null) {
-                          String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(pickedDate);
-
-                          _ctrlTime.text =
-                              formattedDate; //set output date to TextField value.
-                        } else {
-                          print("Date is not selected");
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
                       controller: _ctrlNote,
@@ -227,7 +193,31 @@ class _AddMedicationState extends State<AddMedication> {
                               'คลังยา',
                               style: TextStyle(fontSize: 18),
                             ),
-                            onPressed: () => addMedcation())),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const Getmedication()));
+                            })),
+                  ),
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        const Color(0x82ff1111))),
+                            child: const Text(
+                              'คลังยา',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const HomeMedication()));
+                            })),
                   ),
                 ),
               ],

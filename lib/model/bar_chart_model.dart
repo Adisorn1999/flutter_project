@@ -19,7 +19,7 @@ class BarChartModel {
   });
 
   final int? year;
-  final int? month;
+  final String? month;
   final double? averageBlood;
 
   factory BarChartModel.fromJson(Map<String, dynamic> json) => BarChartModel(
