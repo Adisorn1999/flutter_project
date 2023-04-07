@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/page/medication/home_medication.dart';
 
-import '../../page/medication/medication1.dart';
+import '../../page/medication/home_medication.dart';
+import '../../page/medication/medication_view.dart';
 
 Future<void> addMedicationlDialog(
     BuildContext context, String title, String message) async {
@@ -18,7 +18,7 @@ Future<void> addMedicationlDialog(
               TextButton(
                 onPressed: () => Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                        builder: ((context) => const Medication1()))),
+                        builder: ((context) => const MedicationVeiw()))),
                 child: const Text('ตกลง'),
               ),
             ],

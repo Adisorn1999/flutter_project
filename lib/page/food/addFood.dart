@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
+import 'package:flutter_application/components/Dialog/dialog_code200.dart';
 import 'package:flutter_application/model/Foodsmodel.dart';
 
 import '../../model/search.dart';
@@ -27,8 +28,9 @@ class _AddFoodState extends State<AddFood> {
   }
 
   void _incrementCounter() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const AddFoodDetail()));
+    // Navigator.push(context,
+    //     MaterialPageRoute(builder: (context) => const AddFoodDetail()));
+    dialogCode200(context, "title", "message");
   }
 
   double sizeBoxSearch = 0;

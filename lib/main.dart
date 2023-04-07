@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/page/food/addFood.dart';
-import 'package:flutter_application/page/home.dart';
 import 'package:flutter_application/page/login.dart';
-import 'package:flutter_application/page/test.dart';
 
 void main() {
   runApp(const MyApp());

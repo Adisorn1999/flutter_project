@@ -64,9 +64,11 @@ class _MyHomePageState extends State<_MyHomePage> {
               //Initialize the spark charts widget
               child: SfSparkLineChart.custom(
                 //Enable the trackball
+                // ignore: prefer_const_constructors
                 trackball: SparkChartTrackball(
                     activationMode: SparkChartActivationMode.tap),
                 //Enable marker
+                // ignore: prefer_const_constructors
                 marker: SparkChartMarker(
                     displayMode: SparkChartMarkerDisplayMode.all),
                 //Enable data label

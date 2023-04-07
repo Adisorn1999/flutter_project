@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
@@ -9,8 +10,6 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/Dialog/dialog_validate.dart';
-import 'home1_medication.dart';
-import 'medication.dart';
 
 class AddMedication extends StatefulWidget {
   const AddMedication({super.key});
@@ -86,10 +85,13 @@ class _AddMedicationState extends State<AddMedication> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(30),
+                      ],
                       controller: _ctrlMedicationName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter Medication';
+                          return 'กรุณาใส่ชื่อยา';
                         }
                         return null;
                       },
@@ -106,10 +108,13 @@ class _AddMedicationState extends State<AddMedication> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(30),
+                      ],
                       controller: _ctrlMedicationAmount,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter blood sugar';
+                          return 'กรุณาใส่ปริมาณยา';
                         }
                         return null;
                       },
@@ -126,10 +131,13 @@ class _AddMedicationState extends State<AddMedication> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(30),
+                      ],
                       controller: _ctrlMedicationTime,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter blood sugar';
+                          return 'กรุณาใส่เวลาใช้ยา';
                         }
                         return null;
                       },
@@ -146,10 +154,13 @@ class _AddMedicationState extends State<AddMedication> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(40),
+                      ],
                       controller: _ctrlNote,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter blood sugar';
+                          return 'กรุณาใส่หมายเหตุ';
                         }
                         return null;
                       },
@@ -177,26 +188,6 @@ class _AddMedicationState extends State<AddMedication> {
                               style: TextStyle(fontSize: 18),
                             ),
                             onPressed: () => addMedcation())),
-                  ),
-                ),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    child: SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        const Color(0x82ff1111))),
-                            child: const Text(
-                              'คลังยา',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const Getmedication()));
-                            })),
                   ),
                 ),
                 Container(

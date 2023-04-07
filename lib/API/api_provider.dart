@@ -144,4 +144,11 @@ class Apiprovider {
 
     return http.get(Uri.parse(_url));
   }
+
+  Future<http.Response> deleteMedication(int medicationId) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/medication/$medicationId';
+
+    return http.delete(Uri.parse(_url));
+  }
 }

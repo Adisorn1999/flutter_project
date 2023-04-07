@@ -1,126 +1,231 @@
-// import 'dart:convert';
+import 'dart:convert';
 
-// import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
-// import 'package:flutter_application/API/api_provider.dart';
-// import 'package:flutter_application/components/Dialog/dialog_code200.dart';
-// import 'package:flutter_application/model/medicationMode.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_application/API/api_provider.dart';
+import 'package:flutter_application/components/Dialog/dialog_code200.dart';
+import 'package:flutter_application/model/medicationMode.dart';
+import 'package:flutter_application/page/home.dart';
+import 'package:flutter_application/page/info/edit_name.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
-// import '../../components/Dialog/dialog_addMedication.dart';
+import '../../components/Dialog/dialog_addMedication.dart';
+import 'medication_edit.dart';
+import 'medication_view.dart';
 
-// // class HomeMedication extends StatefulWidget {
-// //   const HomeMedication({super.key});
+enum _MenuValues { settings, page, delete }
 
-// //   @override
-// //   State<HomeMedication> createState() => _HomeMedicationState();
-// // }
+class HomeMedication extends StatefulWidget {
+  const HomeMedication({super.key});
 
-// // class _HomeMedicationState extends State<HomeMedication> {
-// //   @override
-// //   Apiprovider apiprovider = Apiprovider();
+  @override
+  State<HomeMedication> createState() => _HomeMedicationState();
+}
 
-//   late List<MedicationModel?> medicationModel;
+class _HomeMedicationState extends State<HomeMedication> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
 
-//   var jsonResponse = [];
-//   var formatter = DateFormat.yMd();
+    getMedication();
+  }
 
-//   Future<List<MedicationModel?>?> getMedication() async {
-//     try {
-//       final prefs = await SharedPreferences.getInstance();
-//       final int? user_id = prefs.getInt('userId');
-//       var response = await apiprovider.getMedication(user_id!);
-//       if (response.statusCode == 200) {
-//         print(response.body);
-//         jsonResponse = jsonDecode(response.body);
-//         medicationModel =
-//             jsonResponse.map((e) => MedicationModel.fromJson(e)).toList();
-//       }
-//     } on Exception catch (e) {
-//       // TODO
-//       print(e);
-//     }
-//     return medicationModel;
-//   }
+  Apiprovider apiprovider = Apiprovider();
+  late List<MedicationModel?> medicationModel;
 
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: Text("data"),
-//         ),
-//         body: FutureBuilder(
-//           future: getMedication(),
-//           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-//             var data = snapshot.data;
-//             if (snapshot.connectionState == ConnectionState.done) {
-//               return Column(
-//                 children: [
-//                   const SizedBox(
-//                     height: 20,
-//                   ),
-//                   Expanded(
-//                       child: ListView.builder(
-//                     itemCount: data?.length,
-//                     itemBuilder: ((context, index) {
-//                       final food = data?[index];
-//                       return Card(
-//                         child: ListTile(
-//                           title: Row(
-//                             children: [
-//                               Container(
-//                                 child: Column(
-//                                   children: [
-//                                     Text(
-//                                       "ชื่อยา ${data?[index]?.medicationName}",
-//                                       style: const TextStyle(
-//                                         fontSize: 18,
-//                                         fontWeight: FontWeight.w700,
-//                                       ),
-//                                     ),
-//                                     const SizedBox(
-//                                       height: 5,
-//                                     ),
-//                                     Text(
-//                                       "  ${data?[index]?.medicationTime}",
-//                                       style: const TextStyle(
-//                                         fontSize: 18,
-//                                         fontWeight: FontWeight.w700,
-//                                       ),
-//                                     ),
-//                                     const SizedBox(
-//                                       height: 5,
-//                                     ),
-//                                     Text(
-//                                       "  ${formatter.format(data?[index]?.time)}",
-//                                       style: const TextStyle(
-//                                         fontSize: 18,
-//                                         fontWeight: FontWeight.w700,
-//                                       ),
-//                                     )
-//                                   ],
-//                                 ),
-//                               ),
-//                               const SizedBox(
-//                                 height: 50,
-//                               ),
-//                             ],
-//                           ),
-//                           onTap: () {
-//                             print("${data?[index]?.medicationName}");
-//                             addMedicationlDialog(context, "title", "message");
-//                           },
-//                           // leading: Icon(Icons.food_bank),
-//                         ),
-//                       );
-//                     }),
-//                   ))
-//                 ],
-//               );
-//             }
-//             return const LinearProgressIndicator();
-//           },
-//         ));
-//   }
+  var jsonResponse = [];
+  var formatter = DateFormat.yMd();
 
+  Future<List<MedicationModel?>?> getMedication() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final int? user_id = prefs.getInt('userId');
+      var response = await apiprovider.getMedication(user_id!);
+      if (response.statusCode == 200) {
+        print(response.body);
+        jsonResponse = jsonDecode(response.body);
+        medicationModel =
+            jsonResponse.map((e) => MedicationModel.fromJson(e)).toList();
+      }
+    } on Exception catch (e) {
+      // TODO
+      print(e);
+    }
+    return medicationModel;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("data"),
+        ),
+        body: FutureBuilder(
+          future: getMedication(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            var data = snapshot.data;
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                      child: ListView.builder(
+                    itemCount: data?.length,
+                    itemBuilder: ((context, index) {
+                      return Card(
+                        child: ListTile(
+                          title: Wrap(
+                            //  crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                children: [
+                                  Text(
+                                    "ชื่อยา ${data?[index]?.medicationName}",
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "เวลาใช้ยา ${data?[index]?.medicationTime}",
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "วันที่เพิ่มยา ${formatter.format(data?[index]?.time)}",
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 50,
+                              ),
+                            ],
+                          ),
+                          trailing: PopupMenuButton(
+                            itemBuilder: (context) => [
+                              const PopupMenuItem(
+                                value: _MenuValues.page,
+                                child: Text("ดูข้อมูลยา"),
+                              ),
+                              const PopupMenuItem(
+                                value: _MenuValues.settings,
+                                child: Text("แก้ไขข้อมูลยา"),
+                              ),
+                              const PopupMenuItem(
+                                value: _MenuValues.delete,
+                                child: Text("ลบข้อมูลยา"),
+                              )
+                            ],
+                            onSelected: (value) async {
+                              switch (value) {
+                                case _MenuValues.page:
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: ((context) =>
+                                          const MedicationVeiw())));
+                                  final int? medicationId =
+                                      data?[index]?.medicationId;
+                                  final prefs =
+                                      await SharedPreferences.getInstance();
+                                  await prefs.setInt(
+                                      'medicationId', medicationId!);
+                                  break;
+                                case _MenuValues.settings:
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: ((context) =>
+                                          const MedicationEdit())));
+                                  final int? medicationId =
+                                      data?[index]?.medicationId;
+                                  final prefs =
+                                      await SharedPreferences.getInstance();
+                                  await prefs.setInt(
+                                      'medicationId', medicationId!);
+                                  break;
+                                case _MenuValues.delete:
+                                  deleteMedicationlDialog(
+                                      context, "ลบสำเร็จ", "ลบสำเร็จ");
+                                  final int? medicationId =
+                                      data?[index]?.medicationId;
+                                  final prefs =
+                                      await SharedPreferences.getInstance();
+                                  await prefs.setInt(
+                                      'medicationId', medicationId!);
+                              }
+                            },
+                          ),
+                          onTap: () async {
+                            print("${data?[index]?.medicationId}");
+                            print("${data?[index]?.medicationName}");
+                            final int? medicationId =
+                                data?[index]?.medicationId;
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setInt('medicationId', medicationId!);
+                            // ignore: use_build_context_synchronously
+                            addMedicationlDialog(context, "title", "message");
+                          },
+                          // leading: Icon(Icons.food_bank),
+                        ),
+                      );
+                    }),
+                  ))
+                ],
+              );
+            }
+            return const LinearProgressIndicator();
+          },
+        ));
+  }
+
+  Future<void> deleteMedicationlDialog(
+      BuildContext context, String title, String message) async {
+    showDialog(
+        context: context,
+        builder: ((context) => AlertDialog(
+              title: Text(title),
+              content: Text(message),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('ยกเลิก'),
+                ),
+                TextButton(
+                    child: const Text("ตกลง"),
+                    onPressed: () async {
+                      setState(() {
+                        Navigator.pop(context, 'ok');
+                        deleteMedication();
+                      });
+                    }),
+              ],
+            )));
+  }
+
+  Future<void> deleteMedication() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? medicationId = prefs.getInt('medicationId');
+
+    var response = await apiprovider.deleteMedication(medicationId!);
+    if (response.statusCode == 200) {
+      print(response.body);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('medicationId', medicationId);
+    }
+  }
+}

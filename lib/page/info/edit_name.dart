@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../components/Dialog/dialog_editName.dart';
 import '../../components/Dialog/dialog_validate.dart';
 
 class Editname extends StatefulWidget {
@@ -27,7 +28,8 @@ class _EditnameState extends State<Editname> {
         _ctrlFirstName.text, _ctrlLastName.text, user_id!);
     if (response.statusCode == 200) {
       print(response.body);
-      normalDialog(context, "title", "message");
+      // ignore: use_build_context_synchronously
+      editNameDialog(context, "title", "message");
       _formKey.currentState!.reset();
     }
   }
