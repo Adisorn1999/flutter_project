@@ -151,4 +151,12 @@ class Apiprovider {
 
     return http.delete(Uri.parse(_url));
   }
+
+  Future<http.Response> updatNname(
+      String first_name, String last_name, int user_id) async {
+    String _url = '$endpoint/user/$user_id';
+
+    var body = {"first_name": first_name, "last_name": last_name};
+    return http.put(Uri.parse(_url), body: body);
+  }
 }

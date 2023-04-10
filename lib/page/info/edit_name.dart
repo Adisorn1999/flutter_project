@@ -29,7 +29,7 @@ class _EditnameState extends State<Editname> {
     if (response.statusCode == 200) {
       print(response.body);
       // ignore: use_build_context_synchronously
-      editNameDialog(context, "title", "message");
+      // editNameDialog(context, "title", "message");
       _formKey.currentState!.reset();
     }
   }
@@ -38,7 +38,7 @@ class _EditnameState extends State<Editname> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit profile"),
+        title: Text("Edit profile1"),
       ),
       body: Form(
         key: _formKey,

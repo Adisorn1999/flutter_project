@@ -31,19 +31,73 @@ class _Profile1State extends State<Profile1> {
   }
 
   var formatter = DateFormat.yMd();
+
   Apiprovider apiprovider = Apiprovider();
-  UserModel? _userModel;
-  Future<UserModel?> getdata() async {
+
+  // UserModel? _userModel;
+
+  Future<UserModel?> getDataUser() async {
     final prefs = await SharedPreferences.getInstance();
     final int? user_id = prefs.getInt('userId');
-    var response = await apiprovider.getUserById(user_id!);
+    var responseGetDataUser = await apiprovider.getUserById(user_id!);
     print(user_id);
-    if (response.statusCode == 200) {
+    if (responseGetDataUser.statusCode == 200) {
       // ignore: unused_local_variable
-      print(response.body);
-      var jsonresresponse = jsonDecode(response.body);
+      print(responseGetDataUser.body);
+      var jsonresresponse = jsonDecode(responseGetDataUser.body);
       return UserModel.fromJson(jsonresresponse[0]);
     }
+  }
+
+  Future updateName() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? user_id = prefs.getInt('userId');
+    var responseUpdateName = await apiprovider.updatename(
+        _ctrlFirstName.text, _ctrlLastName.text, user_id!);
+    if (responseUpdateName.statusCode == 200) {
+      setState(() {
+        print(responseUpdateName.body);
+        Navigator.of(context).pop();
+      });
+    }
+  }
+
+  final TextEditingController _ctrlFirstName = TextEditingController();
+  final TextEditingController _ctrlLastName = TextEditingController();
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('ชื่อใหม่ของคุณ'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: _ctrlFirstName,
+                decoration: InputDecoration(hintText: "ชื่อ"),
+                autocorrect: false,
+              ),
+              TextField(
+                controller: _ctrlLastName,
+                decoration: InputDecoration(hintText: "นามสกุล"),
+                autocorrect: false,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('CANCEL'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(child: Text('SAVE'), onPressed: () => updateName()),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -53,7 +107,7 @@ class _Profile1State extends State<Profile1> {
           title: const Text("Profile"),
         ),
         body: FutureBuilder(
-            future: getdata(),
+            future: getDataUser(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return Column(
@@ -91,10 +145,7 @@ class _Profile1State extends State<Profile1> {
                                 onSelected: (value) async {
                                   switch (value) {
                                     case _MenuValues.editName:
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: ((context) =>
-                                                  const EditName1())));
+                                      _showDialog(context);
                                   }
                                 },
                               ),
@@ -123,13 +174,6 @@ class _Profile1State extends State<Profile1> {
                               leading: Icon(Icons.favorite),
                               title: Text("เพศ : ${snapshot.data.gender} "),
                             ),
-
-                            Container(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [],
-                              ),
-                            )
                           ],
                         ),
                       ),
