@@ -152,6 +152,23 @@ class Apiprovider {
     return http.delete(Uri.parse(_url));
   }
 
+  Future<http.Response> updatMedication(
+      String medication_name,
+      String medication_amount,
+      String medication_time,
+      String note,
+      int medicationId) async {
+    String _url = '$endpoint/medication/$medicationId';
+
+    var body = {
+      "medication_name": medication_name,
+      "medication_amount": medication_amount,
+      "medication_time": medication_time,
+      "note": note
+    };
+    return http.put(Uri.parse(_url), body: body);
+  }
+
   Future<http.Response> updatNname(
       String first_name, String last_name, int user_id) async {
     String _url = '$endpoint/user/$user_id';

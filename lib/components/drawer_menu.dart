@@ -13,7 +13,6 @@ import 'package:flutter_application/page/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../API/api_provider_authen.dart';
-import '../page/info/profile1.dart';
 
 class DrawerMane extends StatefulWidget {
   const DrawerMane({super.key});
@@ -97,8 +96,8 @@ class _DrawerManeState extends State<DrawerMane> {
                   onTap: () {
                     // Update the state of the app.
                     // ...
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Profile1()));
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) => const Profile1()));
                   },
                 ),
                 ListTile(

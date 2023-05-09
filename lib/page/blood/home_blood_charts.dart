@@ -41,6 +41,9 @@ class _HomeBloodState extends State<HomeBlood> {
         jsonResponse = jsonDecode(response.body);
         _yearModel = jsonResponse.map((e) => YearModel.fromJson(e)).toList();
       }
+      if (response.statusCode == 404) {
+        print("object");
+      }
     } on Exception catch (e) {
       // TODO
       print(e);

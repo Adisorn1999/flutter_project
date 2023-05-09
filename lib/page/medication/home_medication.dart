@@ -7,7 +7,6 @@ import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/components/Dialog/dialog_code200.dart';
 import 'package:flutter_application/model/medicationMode.dart';
 import 'package:flutter_application/page/home.dart';
-import 'package:flutter_application/page/info/edit_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
@@ -47,6 +46,7 @@ class _HomeMedicationState extends State<HomeMedication> {
       if (response.statusCode == 200) {
         print(response.body);
         jsonResponse = jsonDecode(response.body);
+
         medicationModel =
             jsonResponse.map((e) => MedicationModel.fromJson(e)).toList();
       }
@@ -55,6 +55,75 @@ class _HomeMedicationState extends State<HomeMedication> {
       print(e);
     }
     return medicationModel;
+  }
+
+  final TextEditingController _ctrlMedicationName = TextEditingController();
+  final TextEditingController _ctrlMedicationAmount = TextEditingController();
+  final TextEditingController _ctrlMedicationTime = TextEditingController();
+  final TextEditingController _ctrlMedicationNote = TextEditingController();
+
+  Future updataMedication() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? medicationId = prefs.getInt('medicationId');
+    var response = await apiprovider.updatMedication(
+        _ctrlMedicationName.text,
+        _ctrlMedicationAmount.text,
+        _ctrlMedicationTime.text,
+        _ctrlMedicationNote.text,
+        medicationId!);
+    if (response.statusCode == 200) {
+      setState(() {
+        print(response.body);
+        Navigator.of(context).pop();
+      });
+    }
+  }
+
+  // ignore: unused_element
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('ชื่อใหม่ของคุณ'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: _ctrlMedicationName,
+                decoration: const InputDecoration(hintText: "ชื่อยา"),
+                autocorrect: false,
+              ),
+              TextField(
+                controller: _ctrlMedicationAmount,
+                decoration: const InputDecoration(hintText: "ปริมาณ"),
+                autocorrect: false,
+              ),
+              TextField(
+                controller: _ctrlMedicationTime,
+                decoration: const InputDecoration(hintText: "เวลาที่ใช้"),
+                autocorrect: false,
+              ),
+              TextField(
+                controller: _ctrlMedicationNote,
+                decoration: const InputDecoration(hintText: "หมายเหตุ"),
+                autocorrect: false,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('CANCEL'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+                child: const Text('SAVE'), onPressed: () => updataMedication()),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -148,15 +217,18 @@ class _HomeMedicationState extends State<HomeMedication> {
                                       'medicationId', medicationId!);
                                   break;
                                 case _MenuValues.settings:
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: ((context) =>
-                                          const MedicationEdit())));
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //     builder: ((context) =>
+                                  //         const MedicationEdit())));
                                   final int? medicationId =
                                       data?[index]?.medicationId;
                                   final prefs =
                                       await SharedPreferences.getInstance();
                                   await prefs.setInt(
                                       'medicationId', medicationId!);
+
+                                  _showDialog(context);
+
                                   break;
                                 case _MenuValues.delete:
                                   deleteMedicationlDialog(
