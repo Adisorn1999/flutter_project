@@ -3,7 +3,7 @@
 import 'dart:ffi';
 
 import 'package:http/http.dart' as http;
-//import 'dart:io';
+import 'dart:io';
 import 'dart:async';
 
 class Apiprovider {
@@ -107,5 +107,73 @@ class Apiprovider {
     var body = {"food_name": food_name, "calorie": calorie};
 
     return http.post(Uri.parse(_url), body: body);
+  }
+
+  Future<http.Response> getbloods(int user_id) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/blood/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> getbloodsAVG(int user_id, int year) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/blood/avg/$year/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> getbloodsAVGYear(int user_id, int year) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/blood/avgyear/$year/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> getMedication(int user_id) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/medication/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> getMedcationByMedcationId(
+      int user_id, int medicationId) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/medication/$user_id/$medicationId';
+
+    return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> deleteMedication(int medicationId) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/medication/$medicationId';
+
+    return http.delete(Uri.parse(_url));
+  }
+
+  Future<http.Response> updatMedication(
+      String medication_name,
+      String medication_amount,
+      String medication_time,
+      String note,
+      int medicationId) async {
+    String _url = '$endpoint/medication/$medicationId';
+
+    var body = {
+      "medication_name": medication_name,
+      "medication_amount": medication_amount,
+      "medication_time": medication_time,
+      "note": note
+    };
+    return http.put(Uri.parse(_url), body: body);
+  }
+
+  Future<http.Response> updatNname(
+      String first_name, String last_name, int user_id) async {
+    String _url = '$endpoint/user/$user_id';
+
+    var body = {"first_name": first_name, "last_name": last_name};
+    return http.put(Uri.parse(_url), body: body);
   }
 }

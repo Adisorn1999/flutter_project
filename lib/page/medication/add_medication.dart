@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
+import 'package:flutter_application/page/medication/home_medication.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,9 +41,13 @@ class _AddMedicationState extends State<AddMedication> {
         user_id!);
     if (response.statusCode == 200) {
       print(response.body);
-      // ignore: use_build_context_synchronously
-      normalDialog(context, "title", "message");
-      _formKey.currentState!.reset();
+      var jsonResponse = jsonDecode(response.body);
+      if (jsonResponse['ok']) {
+        print(jsonResponse);
+        // ignore: use_build_context_synchronously
+        normalDialog(context, "บันทึกสำเร็จ", "บันทึกสำเร็จ");
+        _formKey.currentState!.reset();
+      }
     }
   }
 
@@ -77,10 +85,13 @@ class _AddMedicationState extends State<AddMedication> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(30),
+                      ],
                       controller: _ctrlMedicationName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter Medication';
+                          return 'กรุณาใส่ชื่อยา';
                         }
                         return null;
                       },
@@ -97,10 +108,13 @@ class _AddMedicationState extends State<AddMedication> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(30),
+                      ],
                       controller: _ctrlMedicationAmount,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter blood sugar';
+                          return 'กรุณาใส่ปริมาณยา';
                         }
                         return null;
                       },
@@ -117,10 +131,13 @@ class _AddMedicationState extends State<AddMedication> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(30),
+                      ],
                       controller: _ctrlMedicationTime,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter blood sugar';
+                          return 'กรุณาใส่เวลาใช้ยา';
                         }
                         return null;
                       },
@@ -135,50 +152,15 @@ class _AddMedicationState extends State<AddMedication> {
                 ),
                 Container(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-                    child: TextFormField(
-                      controller: _ctrlTime,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter Date';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                          fillColor: Colors.white70,
-                          filled: true,
-                          labelText: 'วันที่เพิ่มยา',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
-                      readOnly: true,
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2200));
-                        if (pickedDate != null) {
-                          String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(pickedDate);
-
-                          _ctrlTime.text =
-                              formattedDate; //set output date to TextField value.
-
-                        } else {
-                          print("Date is not selected");
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: TextFormField(
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(40),
+                      ],
                       controller: _ctrlNote,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter blood sugar';
+                          return 'กรุณาใส่หมายเหตุ';
                         }
                         return null;
                       },
@@ -222,7 +204,11 @@ class _AddMedicationState extends State<AddMedication> {
                               'คลังยา',
                               style: TextStyle(fontSize: 18),
                             ),
-                            onPressed: () => addMedcation())),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const HomeMedication()));
+                            })),
                   ),
                 ),
               ],

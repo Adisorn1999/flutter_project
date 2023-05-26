@@ -32,8 +32,9 @@ class _LoginPageState extends State<LoginPage> {
   Apiprovider apiprovider = Apiprovider();
   ApiproviderAuth apiproviderAuth = ApiproviderAuth();
 
-  Future dologin() async {
+  Future<void> dologin() async {
     if (_formKey.currentState!.validate()) {}
+
     try {
       var rs =
           await apiprovider.doLogin(_ctrlUsername.text, _ctrlPassword.text);
@@ -49,15 +50,13 @@ class _LoginPageState extends State<LoginPage> {
           // ignore: use_build_context_synchronously
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const HomePage()));
-        } else {
-          print(jsonRes);
         }
       } else {
         print('Server Error');
       }
-    } catch (error) {
-      // ignore: avoid_print
-      print(error);
+    } on Exception catch (e) {
+      // TODO
+      print("API error $e");
     }
   }
 

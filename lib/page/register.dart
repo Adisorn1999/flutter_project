@@ -11,6 +11,8 @@ import 'package:flutter_application/page/login.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../components/Dialog/dialog_code400.dart';
+
 //import 'home.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -37,7 +39,8 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       if (_formKey.currentState!.validate() && gender == null ||
           gender!.isEmpty) {
-        normalDialog(context, 'กรุณากรอกข้อมูลให้ครบ', 'กรุณากรอกข้อมูลให้ครบ');
+        dialogCode400(
+            context, 'กรุณากรอกข้อมูลให้ครบ', 'กรุณากรอกข้อมูลให้ครบ');
       }
 
       var response = await apiprovider.doRegister(
@@ -62,7 +65,6 @@ class _RegisterPageState extends State<RegisterPage> {
         print('Server Error');
       }
       // ignore: use_build_context_synchronously
-
     } catch (error) {
       // ignore: avoid_print
       print(error);
@@ -108,7 +110,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _ctrlUsername,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'กรุณาใส่ชื่อผู้ใช้';
+                          normalDialog(
+                              context, 'กรุณากรอกข้อมูลให้ครบ', 'ชื่อผู้ใช้');
                         }
                         return null;
                       },
@@ -128,7 +131,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _ctrlPassword,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'กรุณาใส่รหัสผ่าน';
+                          normalDialog(
+                              context, 'กรุณากรอกข้อมูลให้ครบ', 'รหัสผ่าน');
                         }
                         return null;
                       },
@@ -149,7 +153,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _ctrlFirstName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'กรุณาใส่ชื่อ';
+                          normalDialog(
+                              context, 'กรุณากรอกข้อมูลให้ครบ', 'ชื่อจริง');
                         }
                         return null;
                       },
@@ -169,7 +174,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _ctrlLastName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'กรุณาใส่นามสกุล';
+                          normalDialog(
+                              context, 'กรุณากรอกข้อมูลให้ครบ', 'นามสกุล');
                         }
                         return null;
                       },
@@ -188,9 +194,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: TextFormField(
                       controller: _ctrlBirthday,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'กรุณากรอกวันเกิด';
-                        }
+                        if (value == null || value.isEmpty) {}
                         return null;
                       },
                       decoration: InputDecoration(

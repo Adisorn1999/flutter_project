@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
-import 'package:flutter_application/page/info/edit_name.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/UserModel.dart';
+
+enum _MenuValues { editName }
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -23,19 +25,73 @@ class _ProfileState extends State<Profile> {
     super.initState();
   }
 
+  var formatter = DateFormat.yMd();
   Apiprovider apiprovider = Apiprovider();
-  UserModel? _userModel;
-  Future<UserModel?> getdata() async {
+  //UserModel? _userModel;
+
+  Future<UserModel?> getDataUser() async {
     final prefs = await SharedPreferences.getInstance();
     final int? user_id = prefs.getInt('userId');
-    var response = await apiprovider.getUserById(user_id!);
+    var responseGetDataUser = await apiprovider.getUserById(user_id!);
     print(user_id);
-    if (response.statusCode == 200) {
+    if (responseGetDataUser.statusCode == 200) {
       // ignore: unused_local_variable
-      print(response.body);
-      var jsonresresponse = jsonDecode(response.body);
+      print(responseGetDataUser.body);
+      var jsonresresponse = jsonDecode(responseGetDataUser.body);
       return UserModel.fromJson(jsonresresponse[0]);
     }
+  }
+
+  final TextEditingController _ctrlFirstName = TextEditingController();
+  final TextEditingController _ctrlLastName = TextEditingController();
+
+  Future updateName() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? user_id = prefs.getInt('userId');
+    var responseUpdateName = await apiprovider.updatename(
+        _ctrlFirstName.text, _ctrlLastName.text, user_id!);
+    if (responseUpdateName.statusCode == 200) {
+      setState(() {
+        print(responseUpdateName.body);
+        Navigator.of(context).pop();
+      });
+    }
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('ชื่อใหม่ของคุณ'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: _ctrlFirstName,
+                decoration: const InputDecoration(hintText: "ชื่อ"),
+                autocorrect: false,
+              ),
+              TextField(
+                controller: _ctrlLastName,
+                decoration: const InputDecoration(hintText: "นามสกุล"),
+                autocorrect: false,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('CANCEL'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+                child: const Text('SAVE'), onPressed: () => updateName()),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -45,99 +101,78 @@ class _ProfileState extends State<Profile> {
           title: const Text("Profile"),
         ),
         body: FutureBuilder(
-            future: getdata(),
+            future: getDataUser(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return Center(
-                  child: Column(
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: [
-                      // ignore: prefer_const_constructors
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: const SizedBox(
+                return Column(
+                  children: [
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: SizedBox(
                           height: 130,
                           width: 130,
-                          // ignore: prefer_const_constructors
                           child: CircleAvatar(
                               backgroundColor: Colors.blue,
                               child: FlutterLogo(size: 40)),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      // ignore: avoid_unnecessary_containers
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: SizedBox(
-                              height: 65,
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              const Color(0xcc5286d4))),
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.account_box),
-                                      const SizedBox(
-                                        width: 40,
-                                      ),
-                                      Expanded(
-                                          child: Text(
-                                              "${snapshot.data.firstName} ${snapshot.data.lastName}")),
-                                      const Icon(Icons.arrow_forward_ios),
-                                    ],
+                    ),
+                    Center(
+                      child: Card(
+                        child: Column(
+                          // ignore: prefer_const_literals_to_create_immutables
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // ignore: avoid_unnecessary_containers
+                            ListTile(
+                              leading: const Icon(Icons.account_box),
+                              title: Text(
+                                  "ชื่อ : ${snapshot.data.firstName} ${snapshot.data.lastName}"),
+                              trailing: PopupMenuButton(
+                                itemBuilder: (context) => [
+                                  const PopupMenuItem(
+                                    value: _MenuValues.editName,
+                                    child: Text("เปลี่ยนชื่อ"),
                                   ),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Editname()));
-                                  })),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text("อายุ :"),
+                                ],
+                                onSelected: (value) async {
+                                  switch (value) {
+                                    case _MenuValues.editName:
+                                      _showDialog(context);
+                                  }
+                                },
+                              ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("${snapshot.data.year}"),
+                            const SizedBox(
+                              height: 10,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text("ปี"),
-                            )
+
+                            ListTile(
+                              leading: const Icon(Icons.favorite),
+                              title: Text(
+                                  // ignore: unnecessary_string_interpolations
+                                  "วันเดือนปีเกิด : ${formatter.format(snapshot.data.birthday)}"),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.favorite),
+                              title: Text("อายุ : ${snapshot.data.year} "),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.favorite),
+                              title: Text("เพศ : ${snapshot.data.gender} "),
+                            ),
                           ],
                         ),
                       ),
-                      Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text("เพศ : "),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("${snapshot.data.gender}"),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 );
               }
               return const LinearProgressIndicator();

@@ -37,4 +37,6 @@ class FoodsModel {
         "calorie": calorie,
         "date": date == null ? null : date,
       };
+
+  toLowerCase() {}
 }
