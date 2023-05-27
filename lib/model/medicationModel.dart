@@ -12,6 +12,14 @@ String medicationModelToJson(List<MedicationModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class MedicationModel {
+  final int? medicationId;
+  final String? medicationName;
+  final String? medicationAmount;
+  final String? medicationTime;
+  final DateTime? time;
+  final String? note;
+  final int? userId;
+
   MedicationModel({
     this.medicationId,
     this.medicationName,
@@ -19,14 +27,8 @@ class MedicationModel {
     this.medicationTime,
     this.time,
     this.note,
+    this.userId,
   });
-
-  final int? medicationId;
-  final String? medicationName;
-  final String? medicationAmount;
-  final String? medicationTime;
-  final DateTime? time;
-  final String? note;
 
   factory MedicationModel.fromJson(Map<String, dynamic> json) =>
       MedicationModel(
@@ -36,6 +38,7 @@ class MedicationModel {
         medicationTime: json["medication_time"],
         time: json["time"] == null ? null : DateTime.parse(json["time"]),
         note: json["note"],
+        userId: json["user_id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -45,5 +48,6 @@ class MedicationModel {
         "medication_time": medicationTime,
         "time": time?.toIso8601String(),
         "note": note,
+        "user_id": userId,
       };
 }

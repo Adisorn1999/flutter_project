@@ -51,6 +51,8 @@ class _BloodChartState extends State<BloodChart> {
         List<BarChartModel> jsonResponse = barChartModelFromJson(response.body);
         data = jsonResponse;
         loading = false;
+      } else {
+        throw Exception('Response body is empty.');
       }
     } on Exception catch (e) {
       // TODO
