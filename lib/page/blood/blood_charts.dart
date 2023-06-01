@@ -29,6 +29,7 @@ class _BloodChartState extends State<BloodChart> {
     // TODO: implement initState
     super.initState();
     getBloods();
+    print("object");
   }
 
   Apiprovider apiprovider = Apiprovider();
@@ -46,18 +47,18 @@ class _BloodChartState extends State<BloodChart> {
       var response = await apiprovider.getbloodsAVG(user_id!, year!);
       if (response.statusCode == 200) {
         print(response.body);
-        // jsonResponse = jsonDecode(response.body);
-
-        List<BarChartModel> jsonResponse = barChartModelFromJson(response.body);
-        data = jsonResponse;
+        jsonResponse = jsonDecode(response.body);
+        barChartModel =
+            jsonResponse.map((e) => BarChartModel.fromJson(e)).toList();
+        // List<BarChartModel> jsonResponse =
+        //     barChartModelFromJson(jsonDecode(response.body));
+        // data = jsonResponse;
         loading = false;
-      } else {
-        throw Exception('Response body is empty.');
       }
     } on Exception catch (e) {
       // TODO
     }
-    return data;
+    return barChartModel;
   }
 
   AvgBloodAllYear? avgAllYear;
@@ -98,7 +99,7 @@ class _BloodChartState extends State<BloodChart> {
         body: FutureBuilder(
           future: getYear(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            var x = snapshot.data;
+            var data = snapshot.data;
             if (snapshot.connectionState == ConnectionState.done) {
               return Center(
                 child: Column(

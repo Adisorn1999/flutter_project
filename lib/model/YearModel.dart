@@ -12,17 +12,17 @@ String yearModelToJson(List<YearModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class YearModel {
+  int year;
+
   YearModel({
     required this.year,
   });
 
-  final int year;
-
   factory YearModel.fromJson(Map<String, dynamic> json) => YearModel(
-        year: json["year"],
+        year: json["YEAR"],
       );
 
   Map<String, dynamic> toJson() => {
-        "year": year,
+        "YEAR": year,
       };
 }

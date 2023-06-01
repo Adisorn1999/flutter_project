@@ -34,35 +34,33 @@ class _HomeMedicationState extends State<HomeMedication> {
 
   Apiprovider apiprovider = Apiprovider();
   late List<MedicationModel?> medicationModel;
+
   var jsonResponse = [];
   bool loading = true;
-  late List<MedicationModel?> data = [];
+  late List<MedicationModel> dataMedication = [];
   var formatter = DateFormat.yMd();
 
   Future<List<MedicationModel?>?> getMedication() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final int? user_id = prefs.getInt('userId');
-
       var response = await apiprovider.getMedication(user_id!);
       if (response.statusCode == 200) {
         print(response.body);
-        // jsonResponse = jsonDecode(response.body);
+        jsonResponse = jsonDecode(response.body);
 
         medicationModel =
             jsonResponse.map((e) => MedicationModel.fromJson(e)).toList();
         // List<MedicationModel> jsonResponse =
-        //     medicationModelFromJson(response.body);
-        data = medicationModel;
+        //     medicationModelFromJson(response.body).toList();
+        // dataMedication = jsonResponse;
         loading = false;
-      } else {
-        throw Exception('Response body is empty.');
       }
     } on Exception catch (e) {
       // TODO
       print(e);
     }
-    return data;
+    return medicationModel;
   }
 
   final TextEditingController _ctrlMedicationName = TextEditingController();
@@ -143,7 +141,7 @@ class _HomeMedicationState extends State<HomeMedication> {
         body: FutureBuilder(
           future: getMedication(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            var x = snapshot.data;
+            var data = snapshot.data;
             if (snapshot.connectionState == ConnectionState.done) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -153,7 +151,7 @@ class _HomeMedicationState extends State<HomeMedication> {
                   ),
                   Expanded(
                       child: ListView.builder(
-                    itemCount: x?.length,
+                    itemCount: data?.length,
                     itemBuilder: ((context, index) {
                       return Card(
                         child: ListTile(
@@ -163,7 +161,7 @@ class _HomeMedicationState extends State<HomeMedication> {
                               Column(
                                 children: [
                                   Text(
-                                    "ชื่อยา ${x?[index]?.medicationName}",
+                                    "ชื่อยา ${data?[index]?.medicationName}",
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700,
@@ -173,7 +171,7 @@ class _HomeMedicationState extends State<HomeMedication> {
                                     height: 10,
                                   ),
                                   Text(
-                                    "เวลาใช้ยา ${x?[index]?.medicationTime}",
+                                    "เวลาใช้ยา ${data?[index]?.medicationTime}",
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700,
@@ -183,7 +181,7 @@ class _HomeMedicationState extends State<HomeMedication> {
                                     height: 10,
                                   ),
                                   Text(
-                                    "วันที่เพิ่มยา ${formatter.format(x?[index]?.time)}",
+                                    "วันที่เพิ่มยา ${formatter.format(data?[index]?.time)}",
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700,
@@ -218,7 +216,7 @@ class _HomeMedicationState extends State<HomeMedication> {
                                       builder: ((context) =>
                                           const MedicationVeiw())));
                                   final int? medicationId =
-                                      x?[index]?.medicationId;
+                                      data?[index]?.medicationId;
                                   final prefs =
                                       await SharedPreferences.getInstance();
                                   await prefs.setInt(
@@ -229,7 +227,7 @@ class _HomeMedicationState extends State<HomeMedication> {
                                   //     builder: ((context) =>
                                   //         const MedicationEdit())));
                                   final int? medicationId =
-                                      x?[index]?.medicationId;
+                                      data?[index]?.medicationId;
                                   final prefs =
                                       await SharedPreferences.getInstance();
                                   await prefs.setInt(
@@ -242,7 +240,7 @@ class _HomeMedicationState extends State<HomeMedication> {
                                   deleteMedicationlDialog(
                                       context, "ลบสำเร็จ", "ลบสำเร็จ");
                                   final int? medicationId =
-                                      x?[index]?.medicationId;
+                                      data?[index]?.medicationId;
                                   final prefs =
                                       await SharedPreferences.getInstance();
                                   await prefs.setInt(
@@ -251,9 +249,10 @@ class _HomeMedicationState extends State<HomeMedication> {
                             },
                           ),
                           onTap: () async {
-                            print("${x?[index]?.medicationId}");
-                            print("${x?[index]?.medicationName}");
-                            final int? medicationId = x?[index]?.medicationId;
+                            print("${data?[index]?.medicationId}");
+                            print("${data?[index]?.medicationName}");
+                            final int? medicationId =
+                                data?[index]?.medicationId;
                             final prefs = await SharedPreferences.getInstance();
                             await prefs.setInt('medicationId', medicationId!);
                             // ignore: use_build_context_synchronously

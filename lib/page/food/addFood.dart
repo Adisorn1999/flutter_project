@@ -50,6 +50,7 @@ class _AddFoodState extends State<AddFood> {
         print(response.body);
         jsonResponse = jsonDecode(response.body);
         _foodsModel = jsonResponse.map((e) => FoodsModel.fromJson(e)).toList();
+
         for (int i = 0; i < _foodsModel.length; i++) {
           // ignore: unnecessary_new
           Search data = new Search(

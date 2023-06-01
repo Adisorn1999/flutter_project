@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'dart:convert' show jsonDecode;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -23,32 +22,30 @@ class _HomeBloodState extends State<HomeBlood> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // getYear();
+    getYear();
   }
 
-  ApiproviderAuth apiprovider = ApiproviderAuth();
-
-  late List<YearModel?> _yearModel;
+  Apiprovider apiprovider = Apiprovider();
+  late List<YearModel?> yearModel;
   var jsonResponse = [];
 
   Future<List<YearModel?>?> getYear() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final int? user_id = prefs.getInt('userId');
-      var response = await apiprovider.getYear(user_id!);
+      int? year = prefs.getInt('year');
+      var response = await apiprovider.getYearBlood(user_id!);
       if (response.statusCode == 200) {
         print(response.body);
+        print("1");
         jsonResponse = jsonDecode(response.body);
-        _yearModel = jsonResponse.map((e) => YearModel.fromJson(e)).toList();
-      }
-      if (response.statusCode == 404) {
-        print("object");
+        yearModel = jsonResponse.map((e) => YearModel.fromJson(e)).toList();
       }
     } on Exception catch (e) {
       // TODO
       print(e);
     }
-    return _yearModel;
+    return yearModel;
   }
 
   Widget build(BuildContext context) {
@@ -60,55 +57,53 @@ class _HomeBloodState extends State<HomeBlood> {
           future: getYear(),
           builder: ((context, snapshot) {
             var data = snapshot.data;
-            if (!snapshot.hasData) {
-              // ignore: avoid_unnecessary_containers
-              return Container(
-                child: const LinearProgressIndicator(),
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Column(
+                children: [
+                  Expanded(
+                      child: ListView.builder(
+                    itemCount: data?.length,
+                    itemBuilder: ((context, index) {
+                      return SingleChildScrollView(
+                          child: Center(
+                        child: Column(
+                          children: [
+                            Container(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: SizedBox(
+                                    height: 65,
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                        Color>(
+                                                    const Color(0xcc5286d4))),
+                                        child: Text('ปี ${data?[index]?.year}'),
+                                        onPressed: () async {
+                                          final int? year = data?[index]?.year;
+                                          print("${data?[index]?.year}");
+                                          final prefs = await SharedPreferences
+                                              .getInstance();
+                                          await prefs.setInt('year', year!);
+                                          // ignore: use_build_context_synchronously
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const BloodChart()));
+                                        })),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ));
+                    }),
+                  ))
+                ],
               );
             }
-            return Column(
-              children: [
-                Expanded(
-                    child: ListView.builder(
-                  itemCount: data?.length,
-                  itemBuilder: ((context, index) {
-                    return SingleChildScrollView(
-                        child: Center(
-                      child: Column(
-                        children: [
-                          Container(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: SizedBox(
-                                  height: 65,
-                                  width: double.infinity,
-                                  child: ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                                  const Color(0xcc5286d4))),
-                                      child: Text('ปี ${data?[index]?.year}'),
-                                      onPressed: () async {
-                                        final int? year = data?[index]?.year;
-                                        print("${data?[index]?.year}");
-                                        final prefs = await SharedPreferences
-                                            .getInstance();
-                                        await prefs.setInt('year', year!);
-                                        // ignore: use_build_context_synchronously
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const BloodChart()));
-                                      })),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ));
-                  }),
-                ))
-              ],
-            );
+            return const LinearProgressIndicator();
           }),
         ));
   }
