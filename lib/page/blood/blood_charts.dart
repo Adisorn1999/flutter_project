@@ -33,7 +33,7 @@ class _BloodChartState extends State<BloodChart> {
   }
 
   Apiprovider apiprovider = Apiprovider();
-  late List<BarChartModel?> barChartModel;
+  late List<BarChartModel?> barChartModel = [];
   var jsonResponse = [];
   bool loading = true;
   late List<BarChartModel> data = [];
@@ -48,8 +48,7 @@ class _BloodChartState extends State<BloodChart> {
       if (response.statusCode == 200) {
         print(response.body);
         jsonResponse = jsonDecode(response.body);
-        barChartModel =
-            jsonResponse.map((e) => BarChartModel.fromJson(e)).toList();
+        data = jsonResponse.map((e) => BarChartModel.fromJson(e)).toList();
         // List<BarChartModel> jsonResponse =
         //     barChartModelFromJson(jsonDecode(response.body));
         // data = jsonResponse;
@@ -58,7 +57,7 @@ class _BloodChartState extends State<BloodChart> {
     } on Exception catch (e) {
       // TODO
     }
-    return barChartModel;
+    return data;
   }
 
   AvgBloodAllYear? avgAllYear;

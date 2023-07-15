@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/components/Dialog/dialog_code200.dart';
 import 'package:flutter_application/model/Foodsmodel.dart';
 
+import '../../components/Dialog/dialog_validate.dart';
 import '../../model/search.dart';
 import 'addFood_detail.dart';
 
@@ -20,6 +22,10 @@ class AddFood extends StatefulWidget {
 
 class _AddFoodState extends State<AddFood> {
   @override
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _ctrlFoodName = TextEditingController();
+  final TextEditingController _ctrlFoodcalorie = TextEditingController();
+
   void initState() {
     super.initState();
     // TODO: implement initStateuper.initState();
@@ -68,6 +74,22 @@ class _AddFoodState extends State<AddFood> {
     return _foodsModel;
   }
 
+  Future addFood() async {
+    if (_formKey.currentState!.validate()) {}
+    var response =
+        await apiprovider.addFood(_ctrlFoodName.text, _ctrlFoodcalorie.text);
+    if (response.statusCode == 200) {
+      print(response.body);
+      var jsonResponse = jsonDecode(response.body);
+      if (jsonResponse['ok']) {
+        print(jsonResponse);
+        // ignore: use_build_context_synchronously
+        normalDialog(context, "บันทึกสำเร็จ", "บันทึกสำเร็จ");
+        _formKey.currentState!.reset();
+      }
+    }
+  }
+
   void _runFilter(String enteredKeyword) {
     print("_runFilter");
     List<Search> results = [];
@@ -88,6 +110,67 @@ class _AddFoodState extends State<AddFood> {
     // setstate เพื่อทำการ Refresh  UI 😁
 
     _foundUsers = results;
+  }
+
+  // ignore: unused_element
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('ชื่อใหม่ของคุณ'),
+          content: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // ignore: avoid_unnecessary_containers
+                Container(
+                  child: TextFormField(
+                    controller: _ctrlFoodName,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'กรุณาใส่ชื่ออาหาร';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(hintText: "ชื่ออาหาร"),
+                    autocorrect: false,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                Container(
+                  child: TextFormField(
+                    controller: _ctrlFoodcalorie,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'กรุณาใส่ปริมาณ (กิโลเเคลอรี่)';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                        hintText: "ปริมาณ (กิโลเเคลอรี่)"),
+                    autocorrect: false,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('CANCEL'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(child: const Text('SAVE'), onPressed: () => addFood()),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -192,7 +275,7 @@ class _AddFoodState extends State<AddFood> {
           }),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
+          onPressed: () => _showDialog(context),
           tooltip: 'Increment',
           child: const Icon(Icons.add),
         ));
