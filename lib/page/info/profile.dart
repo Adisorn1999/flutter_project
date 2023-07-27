@@ -7,6 +7,7 @@ import 'package:flutter_application/API/api_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../components/Dialog/dialog_validate.dart';
 import '../../model/UserModel.dart';
 
 enum _MenuValues { editName }
@@ -20,6 +21,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   @override
+  final _formKey = GlobalKey<FormState>();
+
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -48,36 +51,114 @@ class _ProfileState extends State<Profile> {
   Future updateName() async {
     final prefs = await SharedPreferences.getInstance();
     final int? user_id = prefs.getInt('userId');
-    var responseUpdateName = await apiprovider.updatename(
-        _ctrlFirstName.text, _ctrlLastName.text, user_id!);
-    if (responseUpdateName.statusCode == 200) {
-      setState(() {
-        print(responseUpdateName.body);
-        Navigator.of(context).pop();
-      });
+    if (_formKey.currentState!.validate()) {
+      var responseUpdateName = await apiprovider.updatename(
+          _ctrlFirstName.text, _ctrlLastName.text, user_id!);
+      if (responseUpdateName.statusCode == 200) {
+        setState(() {
+          print(responseUpdateName.body);
+          Navigator.of(context).pop();
+        });
+        normalDialog(context, "บันทึกสำเร็จ", "บันทึกสำเร็จ");
+        _formKey.currentState!.reset();
+      }
     }
   }
 
+  // void _showDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: const Text('ชื่อใหม่ของคุณ'),
+  //         content: Form(
+  //           key: _formKey,
+  //           child: Column(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               TextFormField(
+  //                 controller: _ctrlFirstName,
+  //                 validator: (value) {
+  //                   if (value == null || value.isEmpty) {
+  //                     return 'กรุณาใส่ปริมาณ (กิโลเเคลอรี่)';
+  //                   }
+  //                   return null;
+  //                 },
+  //                 decoration: const InputDecoration(hintText: "ชื่อ "),
+  //                 autocorrect: false,
+  //               ),
+  //               TextFormField(
+  //                 controller: _ctrlLastName,
+  //                 validator: (value) {
+  //                   if (value == null || value.isEmpty) {
+  //                     return 'กรุณาใส่ปริมาณ (กิโลเเคลอรี่)';
+  //                   }
+  //                   return null;
+  //                 },
+  //                 decoration: const InputDecoration(hintText: "นามสกุล "),
+  //                 autocorrect: false,
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: const Text('CANCEL'),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //           TextButton(
+  //               child: const Text('SAVE'), onPressed: () => updateName()),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
   void _showDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('ชื่อใหม่ของคุณ'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                controller: _ctrlFirstName,
-                decoration: const InputDecoration(hintText: "ชื่อ"),
-                autocorrect: false,
-              ),
-              TextField(
-                controller: _ctrlLastName,
-                decoration: const InputDecoration(hintText: "นามสกุล"),
-                autocorrect: false,
-              ),
-            ],
+          content: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // ignore: avoid_unnecessary_containers
+                Container(
+                  child: TextFormField(
+                    controller: _ctrlFirstName,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'กรุณาใส่ชื่อ';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(hintText: "ชื่อ"),
+                    autocorrect: false,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                Container(
+                  child: TextFormField(
+                    controller: _ctrlLastName,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'กรุณาใส่นามสกุล)';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(hintText: "นามสกุล"),
+                    autocorrect: false,
+                  ),
+                ),
+              ],
+            ),
           ),
           actions: <Widget>[
             TextButton(

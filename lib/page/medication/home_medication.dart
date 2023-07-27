@@ -25,6 +25,8 @@ class HomeMedication extends StatefulWidget {
 
 class _HomeMedicationState extends State<HomeMedication> {
   @override
+  final _formKey = GlobalKey<FormState>();
+
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -71,17 +73,19 @@ class _HomeMedicationState extends State<HomeMedication> {
   Future updataMedication() async {
     final prefs = await SharedPreferences.getInstance();
     final int? medicationId = prefs.getInt('medicationId');
-    var response = await apiprovider.updatMedication(
-        _ctrlMedicationName.text,
-        _ctrlMedicationAmount.text,
-        _ctrlMedicationTime.text,
-        _ctrlMedicationNote.text,
-        medicationId!);
-    if (response.statusCode == 200) {
-      setState(() {
-        print(response.body);
-        Navigator.of(context).pop();
-      });
+    if (_formKey.currentState!.validate()) {
+      var response = await apiprovider.updatMedication(
+          _ctrlMedicationName.text,
+          _ctrlMedicationAmount.text,
+          _ctrlMedicationTime.text,
+          _ctrlMedicationNote.text,
+          medicationId!);
+      if (response.statusCode == 200) {
+        setState(() {
+          print(response.body);
+          Navigator.of(context).pop();
+        });
+      }
     }
   }
 
@@ -92,30 +96,57 @@ class _HomeMedicationState extends State<HomeMedication> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('ชื่อใหม่ของคุณ'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                controller: _ctrlMedicationName,
-                decoration: const InputDecoration(hintText: "ชื่อยา"),
-                autocorrect: false,
-              ),
-              TextField(
-                controller: _ctrlMedicationAmount,
-                decoration: const InputDecoration(hintText: "ปริมาณ"),
-                autocorrect: false,
-              ),
-              TextField(
-                controller: _ctrlMedicationTime,
-                decoration: const InputDecoration(hintText: "เวลาที่ใช้"),
-                autocorrect: false,
-              ),
-              TextField(
-                controller: _ctrlMedicationNote,
-                decoration: const InputDecoration(hintText: "หมายเหตุ"),
-                autocorrect: false,
-              ),
-            ],
+          content: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: _ctrlMedicationName,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'กรุณาใส่ชื่อยา';
+                    }
+                    return null;
+                  },
+                  decoration: const InputDecoration(hintText: "ชื่อยา"),
+                  autocorrect: false,
+                ),
+                TextFormField(
+                  controller: _ctrlMedicationAmount,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'กรุณาใส่ปริมาณ';
+                    }
+                    return null;
+                  },
+                  decoration: const InputDecoration(hintText: "ปริมาณ"),
+                  autocorrect: false,
+                ),
+                TextFormField(
+                  controller: _ctrlMedicationTime,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'กรุณาใส่เวลาที่ใช้';
+                    }
+                    return null;
+                  },
+                  decoration: const InputDecoration(hintText: "เวลาที่ใช้"),
+                  autocorrect: false,
+                ),
+                TextFormField(
+                  controller: _ctrlMedicationNote,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'กรุณาใส่หมายเหตุ';
+                    }
+                    return null;
+                  },
+                  decoration: const InputDecoration(hintText: "หมายเหตุ"),
+                  autocorrect: false,
+                ),
+              ],
+            ),
           ),
           actions: <Widget>[
             TextButton(

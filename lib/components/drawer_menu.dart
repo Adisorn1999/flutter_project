@@ -25,6 +25,14 @@ class _DrawerManeState extends State<DrawerMane> {
   @override
   void initState() {
     super.initState();
+    getdata();
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    super.setState(fn);
+    getdata();
   }
 
   Apiprovider apiprovider = Apiprovider();
