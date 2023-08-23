@@ -9,6 +9,7 @@ import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/components/Dialog/dialog_code200.dart';
 import 'package:flutter_application/model/Foodsmodel.dart';
 
+import '../../components/Dialog/dialog_addFoods.dart';
 import '../../components/Dialog/dialog_validate.dart';
 import '../../model/search.dart';
 import 'addFood_detail.dart';
@@ -30,7 +31,7 @@ class _AddFoodState extends State<AddFood> {
     super.initState();
     // TODO: implement initStateuper.initState();
 
-    // getFoods();
+    getFoods();
   }
 
   void _incrementCounter() {
@@ -84,8 +85,10 @@ class _AddFoodState extends State<AddFood> {
       if (jsonResponse['ok']) {
         print(jsonResponse);
         // ignore: use_build_context_synchronously
-        normalDialog(context, "บันทึกสำเร็จ", "บันทึกสำเร็จ");
+        //addFoodslDialog(context, "บันทึกสำเร็จ1", "บันทึกสำเร็จ");
         _formKey.currentState!.reset();
+        // Navigator.of(context).pushReplacement(
+        //     MaterialPageRoute(builder: ((context) => const AddFood())));
       }
     }
     return jsonResponse;
@@ -162,12 +165,21 @@ class _AddFoodState extends State<AddFood> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('CANCEL'),
+              child: const Text('ยกเลิก'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
-            TextButton(child: const Text('SAVE'), onPressed: () => addFood()),
+            // TextButton(child: const Text('SAVE'), onPressed: () => addFood()),
+            TextButton(
+              child: const Text('ตกลง'),
+              onPressed: () {
+                addFood();
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: ((context) => const AddFood())));
+                addFoodslDialog(context, "บันทึกสำเร็จ1", "บันทึกสำเร็จ");
+              },
+            ),
           ],
         );
       },
