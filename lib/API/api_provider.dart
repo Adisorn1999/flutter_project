@@ -9,7 +9,7 @@ import 'dart:async';
 class Apiprovider {
   Apiprovider();
 
-  String endpoint = 'http://192.168.1.23:3000';
+  String endpoint = 'http://192.168.1.25:3000';
 
   Future<http.Response> doLogin(String username, String password) async {
     // ignore: no_leading_underscores_for_local_identifiers
@@ -189,5 +189,26 @@ class Apiprovider {
 
     var body = {"food_name": food_name, "calorie": calorie};
     return http.post(Uri.parse(_url), body: body);
+  }
+
+  Future<http.Response> getFoodsAVG(int user_id, int year) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/food/avg/$year/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> getYearFood(int user_id) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/food/year/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> getfoodAVGYear(int user_id, int year) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/food/avgyear/$year/$user_id';
+
+    return http.get(Uri.parse(_url));
   }
 }

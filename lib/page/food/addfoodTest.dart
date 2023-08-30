@@ -13,25 +13,27 @@ import '../../components/Dialog/dialog_addFoods.dart';
 import '../../components/Dialog/dialog_validate.dart';
 import '../../model/search.dart';
 import 'addFood_detail.dart';
+import 'foodDatial.dart';
 
-class AddFood extends StatefulWidget {
-  const AddFood({super.key});
+class AddFood1 extends StatefulWidget {
+  const AddFood1({super.key});
 
   @override
-  State<AddFood> createState() => _AddFoodState();
+  State<AddFood1> createState() => _AddFood1State();
 }
 
-class _AddFoodState extends State<AddFood> {
+class _AddFood1State extends State<AddFood1> {
   @override
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _ctrlFoodName = TextEditingController();
   final TextEditingController _ctrlFoodcalorie = TextEditingController();
 
   void initState() {
-    super.initState();
     // TODO: implement initStateuper.initState();
+    foodsData = foodsModel;
 
     getFoods();
+    super.initState();
   }
 
   void _incrementCounter() {
@@ -41,9 +43,12 @@ class _AddFoodState extends State<AddFood> {
   }
 
   double sizeBoxSearch = 0;
-  late List<FoodsModel?> _foodsModel;
+  late List<FoodsModel?> foodsModel = [];
   List<Search> _data = [];
   List<Search> _foundUsers = [];
+
+  late List<FoodsModel?> foodsData = [];
+  var f = <String>[];
 
   var jsonResponse = [];
   final _ctrlSearch = TextEditingController();
@@ -56,15 +61,14 @@ class _AddFoodState extends State<AddFood> {
       if (response.statusCode == 200) {
         print(response.body);
         jsonResponse = jsonDecode(response.body);
-        _foodsModel = jsonResponse.map((e) => FoodsModel.fromJson(e)).toList();
+        foodsModel = jsonResponse.map((e) => FoodsModel.fromJson(e)).toList();
 
-        for (int i = 0; i < _foodsModel.length; i++) {
-          // ignore: unnecessary_new
-          Search data = new Search(
-              foodId: _foodsModel[i]!.foodId,
-              foodName: _foodsModel[i]!.foodName);
-          _data.add(data);
-        }
+        // for (int i = 0; i < foodsModel.length; i++) {
+        //   // ignore: unnecessary_new
+        //   FoodsModel data = new FoodsModel(
+        //       foodId: foodsModel[i]!.foodId, foodName: foodsModel[i]!.foodName);
+        //   _data.add(data);
+        // }
       } else {
         print("Api error");
       }
@@ -72,7 +76,7 @@ class _AddFoodState extends State<AddFood> {
       // TODO
       print('error $e');
     }
-    return _foodsModel;
+    return foodsModel;
   }
 
   Future addFood() async {
@@ -94,26 +98,37 @@ class _AddFoodState extends State<AddFood> {
     return jsonResponse;
   }
 
-  void _runFilter(String enteredKeyword) {
-    print("_runFilter");
-    List<Search> results = [];
-    if (enteredKeyword.isEmpty) {
-      setState(() {
-        sizeBoxSearch = 0;
-      });
-    } else {
-      sizeBoxSearch = 500;
+  // void _runFilter(String enteredKeyword) {
+  //   print("_runFilter");
+  //   List<Search> results = [];
+  //   if (enteredKeyword.isEmpty) {
+  //     setState(() {
+  //       sizeBoxSearch = 0;
+  //     });
+  //   } else {
+  //     sizeBoxSearch = 500;
 
-      results = _data
-          .where((user) => user.foodName
+  //     results = _data
+  //         .where((user) => user.foodName
+  //             .toLowerCase()
+  //             .contains(enteredKeyword.toLowerCase()))
+  //         .toList();
+  //     print("123");
+  //   }
+  //   // setstate เพื่อทำการ Refresh  UI 😁
+
+  //   _foundUsers = results;
+  // }
+  void filterSearchResults(String enteredKeyword) {
+    setState(() {
+      foodsData = foodsModel
+          .where((foodsDatas) => foodsDatas!.foodName
               .toLowerCase()
               .contains(enteredKeyword.toLowerCase()))
           .toList();
-      print("123");
-    }
-    // setstate เพื่อทำการ Refresh  UI 😁
-
-    _foundUsers = results;
+      print(foodsData);
+    });
+    print("object");
   }
 
   // ignore: unused_element
@@ -205,21 +220,23 @@ class _AddFoodState extends State<AddFood> {
             }
             return Column(
               children: [
+                const SizedBox(
+                  height: 20,
+                ),
                 Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextField(
-                      controller: _ctrlSearch,
-                      decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.search),
-                          hintText: 'รายการอาหาร',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              borderSide:
-                                  const BorderSide(color: Colors.black))),
-                      onChanged: (value) => _runFilter(value),
-                    ),
-                  ),
+                  child: SizedBox(
+                      width: 200,
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color(0x82ff1111))),
+                          child: const Text('ให้การพลังงาน'),
+                          onPressed: () => Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: ((context) => FoodDatial()))))),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Expanded(
                     child: ListView.builder(
@@ -283,7 +300,10 @@ class _AddFoodState extends State<AddFood> {
                       ),
                     );
                   }),
-                ))
+                )),
+                const SizedBox(
+                  height: 70,
+                ),
               ],
             );
           }),
@@ -293,6 +313,7 @@ class _AddFoodState extends State<AddFood> {
           tooltip: 'Increment',
           child: const Icon(Icons.add),
         ));
+
     // This trailing comma makes auto-forma);
   }
 }

@@ -13,6 +13,7 @@ import 'package:flutter_application/page/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../API/api_provider_authen.dart';
+import '../page/food/addfoodTest.dart';
 
 class DrawerMane extends StatefulWidget {
   const DrawerMane({super.key});
@@ -46,6 +47,7 @@ class _DrawerManeState extends State<DrawerMane> {
       if (response.statusCode == 200) {
         // ignore: unused_local_variable
         print(response.body);
+
         var jsonresresponse = jsonDecode(response.body);
         return UserModel.fromJson(jsonresresponse[0]);
       }
@@ -104,8 +106,8 @@ class _DrawerManeState extends State<DrawerMane> {
                   onTap: () {
                     // Update the state of the app.
                     // ...
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => const Profile1()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const AddFood1()));
                   },
                 ),
                 ListTile(

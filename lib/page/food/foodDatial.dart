@@ -1,51 +1,49 @@
 import 'dart:convert' show jsonDecode;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application/Api/api_provider.dart';
-import 'package:flutter_application/model/BloodYearModel.dart';
+import 'package:flutter_application/model/FoodYearModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../API/api_provider_authen.dart';
-import '../knowledge/BloodGlucose/Low/adviceHomeLow.dart';
-import 'blood_charts.dart';
+import 'FoodChat.dart';
 
-class HomeBlood extends StatefulWidget {
-  const HomeBlood({super.key});
+class FoodDatial extends StatefulWidget {
+  const FoodDatial({super.key});
 
   @override
-  State<HomeBlood> createState() => _HomeBloodState();
+  State<FoodDatial> createState() => _FoodDatialState();
 }
 
-class _HomeBloodState extends State<HomeBlood> {
+class _FoodDatialState extends State<FoodDatial> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getYear();
+    getYearfood();
   }
 
   Apiprovider apiprovider = Apiprovider();
-  late List<YearModel?> yearModel;
+  late List<FoodYearModel?> foodyearModel;
   var jsonResponse = [];
 
-  Future<List<YearModel?>?> getYear() async {
+  Future<List<FoodYearModel?>?> getYearfood() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final int? user_id = prefs.getInt('userId');
       int? year = prefs.getInt('year');
-      var response = await apiprovider.getYearBlood(user_id!);
+      var response = await apiprovider.getYearFood(user_id!);
       if (response.statusCode == 200) {
         print(response.body);
         print("1");
         jsonResponse = jsonDecode(response.body);
-        yearModel = jsonResponse.map((e) => YearModel.fromJson(e)).toList();
+        foodyearModel =
+            jsonResponse.map((e) => FoodYearModel.fromJson(e)).toList();
       }
     } on Exception catch (e) {
       // TODO
       print(e);
     }
-    return yearModel;
+    return foodyearModel;
   }
 
   Widget build(BuildContext context) {
@@ -54,7 +52,7 @@ class _HomeBloodState extends State<HomeBlood> {
           title: const Text("ประวัติระดับน้ำตาลในเลือด "),
         ),
         body: FutureBuilder(
-          future: getYear(),
+          future: getYearfood(),
           builder: ((context, snapshot) {
             var data = snapshot.data;
             if (snapshot.connectionState == ConnectionState.done) {
@@ -91,7 +89,7 @@ class _HomeBloodState extends State<HomeBlood> {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const BloodChart()));
+                                                      const FoodChart()));
                                         })),
                               ),
                             ),

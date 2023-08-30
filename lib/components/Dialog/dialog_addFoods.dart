@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../page/food/addFood.dart';
+import '../../page/food/addfoodTest.dart';
 
 Future<void> addFoodslDialog(
     BuildContext context, String title, String message) async {
@@ -11,9 +12,12 @@ Future<void> addFoodslDialog(
             content: Text(message),
             actions: [
               TextButton(
-                onPressed: () => Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: ((context) => AddFood()))),
-                child: const Text('ตกลง'),
+                child: const Text('สำเร็จ'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: ((context) => const AddFood1())));
+                },
               ),
             ],
           )));

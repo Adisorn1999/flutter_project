@@ -26,6 +26,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getDataUser();
   }
 
   var formatter = DateFormat.yMd();

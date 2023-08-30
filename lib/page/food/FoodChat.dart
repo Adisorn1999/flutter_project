@@ -1,29 +1,20 @@
-// ignore_for_file: unused_import
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application/API/api_provider.dart';
-import 'package:flutter_application/model/blood_chart_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import '../../model/avg_food_allyear.dart';
+import '../../model/food_bar_chart_model.dart';
 
-import '../../API/api_provider_authen.dart';
-import '../../model/BloodYearModel.dart';
-import '../../model/avg_blood_allyear.dart';
-import '../../model/bar_chart_model.dart';
-
-class BloodChart extends StatefulWidget {
-  const BloodChart({super.key});
+class FoodChart extends StatefulWidget {
+  const FoodChart({super.key});
 
   @override
-  State<BloodChart> createState() => _BloodChartState();
+  State<FoodChart> createState() => _FoodChartState();
 }
 
-class _BloodChartState extends State<BloodChart> {
+class _FoodChartState extends State<FoodChart> {
   @override
   void initState() {
     // TODO: implement initState
@@ -33,22 +24,22 @@ class _BloodChartState extends State<BloodChart> {
   }
 
   Apiprovider apiprovider = Apiprovider();
-  late List<BarChartModel?> barChartModel = [];
+  late List<FoodBarchartModel?> barChartModel = [];
   var jsonResponse = [];
   bool loading = true;
-  late List<BarChartModel> data = [];
+  late List<FoodBarchartModel> data = [];
 
-  Future<List<BarChartModel?>?> getBloods() async {
+  Future<List<FoodBarchartModel?>?> getBloods() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final int? user_id = prefs.getInt('userId');
       int? year = prefs.getInt('year');
 
-      var response = await apiprovider.getbloodsAVG(user_id!, year!);
+      var response = await apiprovider.getFoodsAVG(user_id!, year!);
       if (response.statusCode == 200) {
         print(response.body);
         jsonResponse = jsonDecode(response.body);
-        data = jsonResponse.map((e) => BarChartModel.fromJson(e)).toList();
+        data = jsonResponse.map((e) => FoodBarchartModel.fromJson(e)).toList();
         // List<BarChartModel> jsonResponse =
         //     barChartModelFromJson(jsonDecode(response.body));
         // data = jsonResponse;
@@ -60,31 +51,30 @@ class _BloodChartState extends State<BloodChart> {
     return data;
   }
 
-  AvgBloodAllYear? avgAllYear;
-
-  Future<AvgBloodAllYear?> getYear() async {
+  AvgFoodAllYear? avgAllYear;
+  Future<AvgFoodAllYear?> getYear() async {
     final prefs = await SharedPreferences.getInstance();
     final int? user_id = prefs.getInt('userId');
     int? year = prefs.getInt('year');
-    var response = await apiprovider.getbloodsAVGYear(user_id!, year!);
+    var response = await apiprovider.getfoodAVGYear(user_id!, year!);
     if (response.statusCode == 200) {
       print(response.body);
       var jsonResponse = jsonDecode(response.body);
-      avgAllYear = AvgBloodAllYear.fromJson(jsonResponse[0]);
+      avgAllYear = AvgFoodAllYear.fromJson(jsonResponse[0]);
     }
     return avgAllYear;
   }
 
-  List<charts.Series<BarChartModel, String>> _createSampleData() {
+  List<charts.Series<FoodBarchartModel, String>> _createSampleData() {
     return [
-      charts.Series<BarChartModel, String>(
+      charts.Series<FoodBarchartModel, String>(
         data: data,
         id: 'sales',
         colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
-        domainFn: (BarChartModel barChartModel, _) =>
+        domainFn: (FoodBarchartModel barChartModel, _) =>
             barChartModel.month.toString(),
-        measureFn: (BarChartModel barChartModel, _) =>
-            barChartModel.averageBlood?.toDouble(),
+        measureFn: (FoodBarchartModel barChartModel, _) =>
+            barChartModel.calorie?.toDouble(),
       )
     ];
   }
@@ -124,7 +114,7 @@ class _BloodChartState extends State<BloodChart> {
                     ),
                     Container(
                       child: Text(
-                          "ค่าเฉลี่ยระดับน้ำตาลในเลือดตลอดปี : ${snapshot.data.averageBlood.toStringAsFixed(2) ?? "..."}"),
+                          "ค่าเฉลี่ยระดับน้ำตาลในเลือดตลอดปี : ${snapshot.data.averageCalorie.toStringAsFixed(2) ?? "..."}"),
                     )
                   ],
                 ),
