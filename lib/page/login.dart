@@ -1,15 +1,14 @@
 // ignore_for_file: avoid_print
-import 'dart:ffi';
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_application/API/api_provider_authen.dart';
 import 'package:flutter_application/Api/api_provider.dart';
-import 'package:flutter_application/model/TKUserModel.dart';
-import 'package:flutter_application/page/home.dart';
 import 'package:flutter_application/page/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../components/Dialog/dialog_login.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // ignore: depend_on_referenced_packages
 
@@ -34,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> dologin() async {
     if (_formKey.currentState!.validate()) {}
-
     try {
       var rs =
           await apiprovider.doLogin(_ctrlUsername.text, _ctrlPassword.text);
@@ -48,8 +46,8 @@ class _LoginPageState extends State<LoginPage> {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('token', token);
           // ignore: use_build_context_synchronously
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomePage()));
+          loginDatailDialog(context, 'เข้าสู่ระบบสำเร็จ', '');
+          // ignore: use_build_context_synchronously
         }
       } else {
         print('Server Error');
@@ -111,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _ctrlPassword,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter username';
+                          return 'Please enter password';
                         }
                         return null;
                       },
@@ -132,9 +130,9 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         //forgot password screen
                       },
-                      child: const Text(
-                        'Forgot Password',
-                      ),
+                      child: Text('Forgot Password',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -149,19 +147,22 @@ class _LoginPageState extends State<LoginPage> {
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
                                         Color(0x82ff1111))),
-                            child: Text('Login'),
+                            child: Text('Login',
+                                style: GoogleFonts.roboto(
+                                    fontSize: 22, fontWeight: FontWeight.bold)),
                             onPressed: () => dologin())),
                   ),
                 ),
                 Row(
                   // ignore: sort_child_properties_last
                   children: [
-                    Text('Does not have account?'),
+                    const Text(
+                      'Does not have account?',
+                    ),
                     TextButton(
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(fontSize: 20),
-                      ),
+                      child: Text('Register',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                       onPressed: () {
                         //signup screen
                         Navigator.push(

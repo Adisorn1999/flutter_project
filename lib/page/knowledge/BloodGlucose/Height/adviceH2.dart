@@ -16,6 +16,6 @@ class AdviceH2 extends StatelessWidget {
         "- ได้รับยาต้านอินซูลีน เช่น สเตียรอยด์ ยาขับปัสสาวะ",
         '',
         Colors.blue,
-        200);
+        250);
   }
 }

@@ -60,7 +60,7 @@ class _ProfileState extends State<Profile> {
           print(responseUpdateName.body);
           Navigator.of(context).pop();
         });
-        normalDialog(context, "บันทึกสำเร็จ", "บันทึกสำเร็จ");
+        normalDialog(context, "บันทึกสำเร็จ", "");
         _formKey.currentState!.reset();
       }
     }

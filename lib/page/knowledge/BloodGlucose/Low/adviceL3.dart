@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'adviceL1.dart';
 import 'adviceL2.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AdviceL3 extends StatelessWidget {
   const AdviceL3({super.key});
@@ -12,10 +14,9 @@ class AdviceL3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "อาการที่บ่งบอกว่าน้ำตาลในเลือดต่ำ",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("อาการที่บ่งบอกว่าน้ำตาลในเลือดต่ำ",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
@@ -66,10 +67,11 @@ class AdviceL3 extends StatelessWidget {
                                                 MaterialStateProperty.all<
                                                         Color>(
                                                     const Color(0xcc5286d4))),
-                                        child: const Text(
-                                          'ผู้ป่วยยังรู้สึกตัวช่วยเหลือตนเองได้',
-                                          style: TextStyle(fontSize: 16),
-                                        ),
+                                        child: Text(
+                                            'ผู้ป่วยยังรู้สึกตัวช่วยเหลือตนเองได้',
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold)),
                                         onPressed: () {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
@@ -92,10 +94,11 @@ class AdviceL3 extends StatelessWidget {
                                                   MaterialStateProperty.all<
                                                           Color>(
                                                       const Color(0xcc5286d4))),
-                                          child: const Text(
-                                            'ผู้ป่วยหมดสติ หรือรู้สึกตัว',
-                                            style: TextStyle(fontSize: 16),
-                                          ),
+                                          child: Text(
+                                              'ผู้ป่วยหมดสติ หรือรู้สึกตัว',
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold)),
                                           onPressed: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(

@@ -1,8 +1,8 @@
+// ignore_for_file: avoid_print, avoid_unnecessary_containers
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +19,6 @@ class MedicationEdit extends StatefulWidget {
 class _MedicationEditState extends State<MedicationEdit> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // getMedcationByMedcationId();
   }

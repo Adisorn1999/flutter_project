@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../components/foodCare/foodCareTxt1.dart';
+import '../../../components/foodCare/foodCareTxtB1.dart';
 
 class Activity4 extends StatelessWidget {
   const Activity4({super.key});
@@ -11,10 +13,9 @@ class Activity4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "เพิ่มการเดินในชีวิตประจำวันได้อย่างไร",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("เพิ่มการเดินในชีวิตประจำวันได้อย่างไร",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
@@ -29,7 +30,7 @@ class Activity4 extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            FootCareTxt1(" - การใช้ Fitness Tracker นับก้าวของเรา"),
+            FootCareTxt1("การใช้ Fitness Tracker นับก้าวของเรา"),
             const SizedBox(
               height: 5,
             ),

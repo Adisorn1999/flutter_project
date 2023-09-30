@@ -1,15 +1,9 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application/API/api_provider.dart';
-import 'package:flutter_application/API/api_provider_authen.dart';
 import 'package:flutter_application/components/Dialog/dialog_register.dart';
-import 'package:flutter_application/components/Dialog/dialog_validate.dart';
-import 'package:flutter_application/page/home.dart';
-import 'package:flutter_application/page/login.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/Dialog/dialog_code400.dart';
 
@@ -28,6 +22,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _ctrlFirstName = TextEditingController();
   final TextEditingController _ctrlLastName = TextEditingController();
   final TextEditingController _ctrlBirthday = TextEditingController();
+  // ignore: unused_field
   final TextEditingController _gender = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -71,6 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  @override
   void initState() {
     _ctrlBirthday.text = ""; //set the initial value of text field
     super.initState();
@@ -81,14 +77,14 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0x82ff1111),
-        title: Column(
+        title: const Column(
           // ignore: prefer_const_literals_to_create_immutables
           // ignore: prefer_const_literals_to_create_immutables
           children: [
             // ignore: prefer_const_constructors
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: const Text(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: Text(
                 'สมัครสมาชิก',
                 style: TextStyle(fontSize: 24),
               ),
@@ -103,6 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // ignore: avoid_unnecessary_containers
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
@@ -110,8 +107,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _ctrlUsername,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          normalDialog(
-                              context, 'กรุณากรอกข้อมูลให้ครบ', 'ชื่อผู้ใช้');
+                          // normalDialog(
+                          //     context, 'กรุณากรอกข้อมูลให้ครบ', 'ชื่อผู้ใช้');
                         }
                         return null;
                       },
@@ -124,6 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
+                // ignore: avoid_unnecessary_containers
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
@@ -131,8 +129,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _ctrlPassword,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          normalDialog(
-                              context, 'กรุณากรอกข้อมูลให้ครบ', 'รหัสผ่าน');
+                          // normalDialog(
+                          //     context, 'กรุณากรอกข้อมูลให้ครบ', 'รหัสผ่าน');
                         }
                         return null;
                       },
@@ -153,8 +151,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _ctrlFirstName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          normalDialog(
-                              context, 'กรุณากรอกข้อมูลให้ครบ', 'ชื่อจริง');
+                          // normalDialog(
+                          //     context, 'กรุณากรอกข้อมูลให้ครบ', 'ชื่อจริง');
                         }
                         return null;
                       },
@@ -174,8 +172,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _ctrlLastName,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          normalDialog(
-                              context, 'กรุณากรอกข้อมูลให้ครบ', 'นามสกุล');
+                          // normalDialog(
+                          //     context, 'กรุณากรอกข้อมูลให้ครบ', 'นามสกุล');
                         }
                         return null;
                       },

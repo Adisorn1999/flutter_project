@@ -13,26 +13,26 @@ String foodBarchartModelToJson(List<FoodBarchartModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class FoodBarchartModel {
-  FoodBarchartModel({
-    this.year,
-    this.month,
-    this.calorie,
-  });
+  int year;
+  String month;
+  double avgFoodCalorie;
 
-  final int? year;
-  final String? month;
-  final double? calorie;
+  FoodBarchartModel({
+    required this.year,
+    required this.month,
+    required this.avgFoodCalorie,
+  });
 
   factory FoodBarchartModel.fromJson(Map<String, dynamic> json) =>
       FoodBarchartModel(
-        year: json["year"],
-        month: json["month"],
-        calorie: json["calorie"]?.toDouble(),
+        year: json["YEAR"],
+        month: json["MONTH"],
+        avgFoodCalorie: json["AVG(food.calorie)"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
-        "year": year,
-        "month": month,
-        "calorie": calorie,
+        "YEAR": year,
+        "MONTH": month,
+        "AVG(food.calorie)": avgFoodCalorie,
       };
 }

@@ -6,6 +6,7 @@ import 'package:flutter_application/page/knowledge/BloodGlucose/Height/adviceHom
 import '../knowledgDiabetes.dart';
 import 'Low/adviceL1.dart';
 import 'Low/adviceHomeLow.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BloodGlucoseHome extends StatelessWidget {
   const BloodGlucoseHome({super.key});
@@ -14,10 +15,9 @@ class BloodGlucoseHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "ระดับตาลในเลือด",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("ระดับตาลในเลือด",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
@@ -36,7 +36,9 @@ class BloodGlucoseHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ระดับน้ำตาลในเลือดต่ำ'),
+                        child: Text('ระดับน้ำตาลในเลือดต่ำ',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const AdviceHomeLow()));
@@ -56,7 +58,9 @@ class BloodGlucoseHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ระดับน้ำตาลในเลือดสูง'),
+                        child: Text('ระดับน้ำตาลในเลือดสูง',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const AdviceHomeHeight()));

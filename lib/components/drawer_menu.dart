@@ -10,6 +10,7 @@ import 'package:flutter_application/model/UserModel.dart';
 import 'package:flutter_application/page/home.dart';
 import 'package:flutter_application/page/info/profile.dart';
 import 'package:flutter_application/page/test.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../API/api_provider_authen.dart';
@@ -74,8 +75,12 @@ class _DrawerManeState extends State<DrawerMane> {
                 // ignore: prefer_const_constructors
                 UserAccountsDrawerHeader(
                   accountName: Text(
-                      "${snapshot.data.firstName} ${snapshot.data.lastName}"),
-                  accountEmail: Text("${snapshot.data.username}"),
+                      "${snapshot.data.firstName} ${snapshot.data.lastName}",
+                      style: GoogleFonts.roboto(
+                          fontSize: 19, fontWeight: FontWeight.bold)),
+                  accountEmail: Text("${snapshot.data.username}",
+                      style: GoogleFonts.roboto(
+                          fontSize: 22, fontWeight: FontWeight.bold)),
                   currentAccountPicture: const CircleAvatar(
                     backgroundColor: Colors.white,
                     child: FlutterLogo(size: 40),
@@ -83,7 +88,9 @@ class _DrawerManeState extends State<DrawerMane> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.home),
-                  title: const Text('หน้าแรก'),
+                  title: Text('หน้าแรก',
+                      style: GoogleFonts.roboto(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
                   onTap: () {
                     // Update the state of the app.
                     // ...
@@ -92,7 +99,9 @@ class _DrawerManeState extends State<DrawerMane> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.account_box),
-                  title: const Text('ข้อมูลส่วนตัว'),
+                  title: Text('ข้อมูลส่วนตัว',
+                      style: GoogleFonts.roboto(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
                   onTap: () {
                     // Update the state of the app.
                     // ... Navigator.of(context).push(
@@ -100,19 +109,21 @@ class _DrawerManeState extends State<DrawerMane> {
                         builder: (context) => const Profile()));
                   },
                 ),
-                ListTile(
-                  leading: const Icon(Icons.badge),
-                  title: const Text('หน้าแรก'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const AddFood1()));
-                  },
-                ),
+                // ListTile(
+                //   leading: const Icon(Icons.badge),
+                //   title: const Text('หน้าแรก'),
+                //   onTap: () {
+                //     // Update the state of the app.
+                //     // ...
+                //     Navigator.of(context).push(MaterialPageRoute(
+                //         builder: (context) => const AddFood1()));
+                //   },
+                // ),
                 ListTile(
                   leading: const Icon(Icons.logout),
-                  title: const Text('ออกจากระบบ'),
+                  title: Text('ออกจากระบบ',
+                      style: GoogleFonts.roboto(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
                   onTap: () async {
                     final prefs = await SharedPreferences.getInstance();
                     await prefs.remove('token');

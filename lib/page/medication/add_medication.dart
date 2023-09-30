@@ -1,12 +1,11 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/page/medication/home_medication.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/Dialog/dialog_validate.dart';
@@ -31,6 +30,7 @@ class _AddMedicationState extends State<AddMedication> {
   Future addMedcation() async {
     if (_formKey.currentState!.validate()) {}
     final prefs = await SharedPreferences.getInstance();
+    // ignore: non_constant_identifier_names
     final int? user_id = prefs.getInt('userId');
     var response = await apiprovider.addmedication(
         _ctrlMedicationName.text,
@@ -55,15 +55,15 @@ class _AddMedicationState extends State<AddMedication> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0x82ff1111),
-        title: Column(
+        // backgroundColor: const Color(0x82ff1111),
+        title: const Column(
           // ignore: prefer_const_literals_to_create_immutables
           // ignore: prefer_const_literals_to_create_immutables
           children: [
             // ignore: prefer_const_constructors
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: const Text(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: Text(
                 'เพิ่มยาใหม่',
                 style: TextStyle(fontSize: 24),
               ),
@@ -179,10 +179,10 @@ class _AddMedicationState extends State<AddMedication> {
                     child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        const Color(0x82ff1111))),
+                            // style: ButtonStyle(
+                            //     backgroundColor:
+                            //         MaterialStateProperty.all<Color>(
+                            //             const Color(0x82ff1111))),
                             child: const Text(
                               'บันทึก',
                               style: TextStyle(fontSize: 18),
@@ -196,10 +196,10 @@ class _AddMedicationState extends State<AddMedication> {
                     child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        const Color(0x82ff1111))),
+                            // style: ButtonStyle(
+                            //     backgroundColor:
+                            //         MaterialStateProperty.all<Color>(
+                            //             const Color(0x82ff1111))),
                             child: const Text(
                               'คลังยา',
                               style: TextStyle(fontSize: 18),

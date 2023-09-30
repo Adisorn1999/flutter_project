@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AdviceL1 extends StatelessWidget {
   const AdviceL1({super.key});
@@ -9,9 +11,10 @@ class AdviceL1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
+          title: Text(
             "การปฏิบัติตนเบื้องต้น",
-            style: TextStyle(fontSize: 18),
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
         body: Center(
@@ -28,9 +31,10 @@ class AdviceL1 extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   // ignore: avoid_unnecessary_containers
                   child: Container(
-                    child: const Text(
+                    child: Text(
                       "  ผู้ป่วยยังรู้สึกตัวช่วยเหลือตนเองได้ ให้กินคาร์โบไฮเดรตที่ดูดซึมเร็ว 15-20 กรัม หรือ 1 ส่วน รอ 15 นาที เจาะน้ำตาลปลายนิ้วใหม่ ถ้าน้ำตาลในเลือดยังต่ำอยู่ กินคาร์โบไฮเดรตอีก 15-20 กรัม จนกว่าน้ำตาลมากกว่า 70มก.ดล กรณีเป็นก่อนมื้ออาหาร ควรกินอาหารทันที หากเป็นระหว่างมื้ออาหาร ให้กินคาร์โบไฮเดรต ดูดซึมช้า 1 ส่วน",
-                      style: TextStyle(fontSize: 16),
+                      style: GoogleFonts.roboto(
+                          fontSize: 16, fontWeight: FontWeight.normal),
                     ),
                   ),
                 ),
@@ -48,51 +52,63 @@ class AdviceL1 extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               "ปริมาณคาร์โบไฮเดรตชนิดดูดซึมเร็ว 15 กรัม",
-                              style: TextStyle(
-                                  fontSize: 16, color: Color(0xffffffff)),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: const Color(0xffffffff)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
                               "*(อย่างใดอย่างหนึ่ง)",
-                              style: TextStyle(
-                                  fontSize: 16, color: Color(0xffffffff)),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: const Color(0xffffffff)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
                               "- ลุกอม 3 เม็ด",
-                              style: TextStyle(
-                                  fontSize: 16, color: Color(0xffffffff)),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: const Color(0xffffffff)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Text(
                               "- น้ำผลไม้ 120-180 ซีซี)",
-                              style: TextStyle(
-                                  fontSize: 16, color: Color(0xffffffff)),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: const Color(0xffffffff)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Text(
                               "- น้ำตาล 1 ช้อนโต๊ะ",
-                              style: TextStyle(
-                                  fontSize: 16, color: Color(0xffffffff)),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: const Color(0xffffffff)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Text(
                               "- น้ำผึ้ง เฮลบลูบอย 1 ช้อนโต๊ะ",
-                              style: TextStyle(
-                                  fontSize: 16, color: Color(0xffffffff)),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: const Color(0xffffffff)),
                             )
                           ],
                         ),
@@ -105,11 +121,11 @@ class AdviceL1 extends StatelessWidget {
                       height: 215,
                       width: double.infinity,
                       color: Colors.blue,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               "ปริมาณคาร์โบไฮเดรตชนิดดูดซึมช้า 15 กรัม",
                               style: TextStyle(
@@ -173,11 +189,11 @@ class AdviceL1 extends StatelessWidget {
                       height: 215,
                       width: double.infinity,
                       color: Colors.blue,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               "ข้อควรระวัง",
                               style: TextStyle(

@@ -74,7 +74,7 @@ class _FoodChartState extends State<FoodChart> {
         domainFn: (FoodBarchartModel barChartModel, _) =>
             barChartModel.month.toString(),
         measureFn: (FoodBarchartModel barChartModel, _) =>
-            barChartModel.calorie?.toDouble(),
+            barChartModel.avgFoodCalorie.toDouble(),
       )
     ];
   }

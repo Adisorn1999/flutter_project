@@ -4,7 +4,6 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import '../../../../components/foodCare/foodCareTxt1.dart';
 import '../../../../components/foodCare/foodcaretxt1_blue.dart';
-import '../effect/effect_insulin/effect_insulin.dart';
 import '../effect/effect_insulin/effect_mixtard.dart';
 
 class InsulinMixtard extends StatelessWidget {

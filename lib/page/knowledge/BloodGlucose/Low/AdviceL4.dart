@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AdviceL4 extends StatelessWidget {
   const AdviceL4({super.key});
@@ -9,7 +10,9 @@ class AdviceL4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("น้ำตาลต่ำขณะนอนหลับ"),
+        title: Text("น้ำตาลต่ำขณะนอนหลับ",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(

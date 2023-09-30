@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/page/knowledge/smoking/effect_smoking/effect_short.dart';
 import 'package:flutter_application/page/knowledge/smoking/quitSmoking.dart';
 import 'package:flutter_application/page/knowledge/smoking/smoking.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SmokingHome extends StatelessWidget {
   const SmokingHome({super.key});
@@ -12,10 +13,9 @@ class SmokingHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "ระดับตาลในเลือด",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("การสูบบุหรี่",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
@@ -34,7 +34,9 @@ class SmokingHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('เบาหวานกับการสูบบุหรี่'),
+                        child: Text('เบาหวานกับการสูบบุหรี่',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const Smoking()));
@@ -54,7 +56,9 @@ class SmokingHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ผลกระทบของการสูบบุหรี่'),
+                        child: Text('ผลกระทบของการสูบบุหรี่',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
@@ -75,7 +79,9 @@ class SmokingHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ข้อดีของการเลิกบุหรี่'),
+                        child: Text('ข้อดีของการเลิกบุหรี่',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const QuitSmoking()));

@@ -1,17 +1,14 @@
+// ignore_for_file: avoid_print, override_on_non_overriding_member
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application/API/api_provider.dart';
-import 'package:flutter_application/components/Dialog/dialog_code200.dart';
-import 'package:flutter_application/page/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
 import '../../components/Dialog/dialog_addMedication.dart';
 import '../../model/medicationModel.dart';
-import 'medication_edit.dart';
 import 'medication_view.dart';
 
 enum _MenuValues { settings, page, delete }
@@ -27,8 +24,8 @@ class _HomeMedicationState extends State<HomeMedication> {
   @override
   final _formKey = GlobalKey<FormState>();
 
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     getMedication();
@@ -59,7 +56,6 @@ class _HomeMedicationState extends State<HomeMedication> {
         loading = false;
       }
     } on Exception catch (e) {
-      // TODO
       print(e);
     }
     return medicationModel;
@@ -167,7 +163,7 @@ class _HomeMedicationState extends State<HomeMedication> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("data"),
+          title: const Text("ข้อมูลยา"),
         ),
         body: FutureBuilder(
           future: getMedication(),
@@ -264,6 +260,7 @@ class _HomeMedicationState extends State<HomeMedication> {
                                   await prefs.setInt(
                                       'medicationId', medicationId!);
 
+                                  // ignore: use_build_context_synchronously
                                   _showDialog(context);
 
                                   break;

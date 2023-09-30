@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/components/foodCare/foodcaretxt1_blue.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../components/foodCare/foodCareTxt1.dart';
 
 class EffectSmokingLong extends StatelessWidget {
@@ -12,10 +11,9 @@ class EffectSmokingLong extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "เบาหวานกับการสูบบุหรี่",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("ผลกระทบของการสูบบุหรี่",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(

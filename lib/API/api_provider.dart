@@ -9,7 +9,7 @@ import 'dart:async';
 class Apiprovider {
   Apiprovider();
 
-  String endpoint = 'http://192.168.1.25:3000';
+  String endpoint = 'http://192.168.1.14:3000';
 
   Future<http.Response> doLogin(String username, String password) async {
     // ignore: no_leading_underscores_for_local_identifiers
@@ -103,8 +103,18 @@ class Apiprovider {
 
   Future<http.Response> addFoodDetail(String food_name, String calorie) async {
     // ignore: no_leading_underscores_for_local_identifiers
-    String _url = '$endpoint/food';
+    String _url = '$endpoint/foodDetail';
     var body = {"food_name": food_name, "calorie": calorie};
+
+    return http.post(Uri.parse(_url), body: body);
+  }
+
+  Future<http.Response> addFoodDetail1(int food_id, int user_id) async {
+    // ignore:  no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/foodDetail/$user_id';
+    var body = {
+      "food_id": food_id,
+    };
 
     return http.post(Uri.parse(_url), body: body);
   }
@@ -210,5 +220,20 @@ class Apiprovider {
     String _url = '$endpoint/food/avgyear/$year/$user_id';
 
     return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> addfoodDetail2(
+      int food_id, double calorie, int user_id) async {
+    String _url = '$endpoint/foodDetail/$user_id';
+
+    var body = {"food_id": food_id, "calorie": calorie};
+    return http.post(Uri.parse(_url), body: body);
+  }
+
+  Future<http.Response> foodDetail(int food_id, int user_id) async {
+    String _url = '$endpoint/foodDetail1/$user_id/$food_id';
+
+    // var body = {"food_id": food_id, "calorie": calorie};
+    return http.post(Uri.parse(_url));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../components/foodCare/foodCareTxt1.dart';
 
@@ -11,10 +11,9 @@ class Activity3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "การเดินทำให้อารมณ์ดีขึ้น",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("การเดินทำให้อารมณ์ดีขึ้น",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(

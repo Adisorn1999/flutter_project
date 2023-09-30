@@ -66,15 +66,15 @@ class _AddBloodState extends State<AddBlood> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0x82ff1111),
-        title: Column(
+        // backgroundColor: const Color(0x82ff1111),
+        title: const Column(
           // ignore: prefer_const_literals_to_create_immutables
           // ignore: prefer_const_literals_to_create_immutables
           children: [
             // ignore: prefer_const_constructors
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: const Text(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: Text(
                 'เพิ่มระดับน้ำตาลในเลือด',
                 style: TextStyle(fontSize: 24),
               ),
@@ -176,10 +176,10 @@ class _AddBloodState extends State<AddBlood> {
                     child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        const Color(0x82ff1111))),
+                            // style: ButtonStyle(
+                            //     backgroundColor:
+                            //         MaterialStateProperty.all<Color>(
+                            //             const Color(0x82ff1111))),
                             child: const Text(
                               'บันทึก',
                               style: TextStyle(fontSize: 18),
@@ -193,10 +193,10 @@ class _AddBloodState extends State<AddBlood> {
                     child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        const Color(0x82ff1111))),
+                            // style: ButtonStyle(
+                            //     backgroundColor:
+                            //         MaterialStateProperty.all<Color>(
+                            //             const Color(0x82ff1111))),
                             child: const Text(
                               'ประวัติย้อนหลัง',
                               style: TextStyle(fontSize: 18),

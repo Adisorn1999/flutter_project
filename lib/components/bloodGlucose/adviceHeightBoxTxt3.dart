@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AdviceHeightBoxTxt3 extends StatelessWidget {
   String title;
@@ -16,10 +17,9 @@ class AdviceHeightBoxTxt3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          title,
-          style: const TextStyle(fontSize: 18),
-        ),
+        title: Text(title,
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
@@ -42,24 +42,30 @@ class AdviceHeightBoxTxt3 extends StatelessWidget {
                     children: [
                       Text(
                         txt1,
-                        style: const TextStyle(
-                            fontSize: 16, color: Color(0xffffffff)),
+                        style: GoogleFonts.roboto(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xffffffff)),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
                         txt2,
-                        style: const TextStyle(
-                            fontSize: 16, color: Color(0xffffffff)),
+                        style: GoogleFonts.roboto(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xffffffff)),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
                         txt3,
-                        style: const TextStyle(
-                            fontSize: 16, color: Color(0xffffffff)),
+                        style: GoogleFonts.roboto(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xffffffff)),
                       ),
                     ],
                   ),

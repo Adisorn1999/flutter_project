@@ -22,12 +22,12 @@ class AvgFoodAllYear {
   });
 
   factory AvgFoodAllYear.fromJson(Map<String, dynamic> json) => AvgFoodAllYear(
-        year: json["year"],
+        year: json["YEAR"],
         averageCalorie: json["average_calorie"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
-        "year": year,
+        "YEAR": year,
         "average_calorie": averageCalorie,
       };
 }

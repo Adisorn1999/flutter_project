@@ -8,6 +8,7 @@ import 'adviceL1.dart';
 import 'adviceL2.dart';
 import 'adviceL3.dart';
 import 'adviceL5.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AdviceHomeLow extends StatelessWidget {
   const AdviceHomeLow({super.key});
@@ -16,10 +17,9 @@ class AdviceHomeLow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "ระดับน้ำตาลในเลือดต่ำ",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("ระดับน้ำตาลในเลือดต่ำ",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
@@ -36,8 +36,9 @@ class AdviceHomeLow extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xcc5286d4))),
-                      child:
-                          const Text('ผู้ป่วยยังรู้สึกตัวช่วยเหลือตัวเองได้่'),
+                      child: Text('ผู้ป่วยยังรู้สึกตัวช่วยเหลือตัวเองได้',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const AdviceL1()));
@@ -56,8 +57,10 @@ class AdviceHomeLow extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text(
-                            'ผู้ป่วยหมดสติหรือรู้สึกตัว แต่ช่วยเหลือตัวเองไม่ได้'),
+                        child: Text(
+                            'ผู้ป่วยหมดสติหรือรู้สึกตัว แต่ช่วยเหลือตัวเองไม่ได้',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const AdviceL2()));
@@ -76,8 +79,9 @@ class AdviceHomeLow extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xcc5286d4))),
-                      child:
-                          const Text('อาการอย่างไรบ่งบอกว่าน้ำตาลในเลือดต่ำ'),
+                      child: Text('อาการอย่างไรบ่งบอกว่าน้ำตาลในเลือดต่ำ',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const AdviceL3()));
@@ -95,7 +99,9 @@ class AdviceHomeLow extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xcc5286d4))),
-                      child: const Text('น้ำตาลในเลือดต่ำ ขณะนอนหลับ'),
+                      child: Text('น้ำตาลในเลือดต่ำ ขณะนอนหลับ',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const AdviceL4()));
@@ -113,7 +119,9 @@ class AdviceHomeLow extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xcc5286d4))),
-                      child: const Text('ป้องกันภาวะน้ำตาลในเลือดต่ำ'),
+                      child: Text('ป้องกันภาวะน้ำตาลในเลือดต่ำ',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const AdviceL5()));

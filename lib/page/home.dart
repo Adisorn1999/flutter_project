@@ -1,16 +1,13 @@
+// ignore_for_file: avoid_unnecessary_containers, avoid_print, duplicate_ignore
+
 import 'dart:convert';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/model/TKUserModel.dart';
 import 'package:flutter_application/page/blood/add_blood.dart';
 import 'package:flutter_application/page/medication/add_medication.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_application/API/api_provider_authen.dart';
 import 'package:flutter_application/components/drawer_menu.dart';
-import 'package:flutter_application/model/UserModel.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'food/addFood.dart';
@@ -55,6 +52,7 @@ class _HomePageState extends State<HomePage> {
       // ignore: use_rethrow_when_possible
       throw error;
     }
+    return null;
   }
 
   @override
@@ -81,8 +79,8 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
                           child: Text(
                               "สวัสดีคุณ ${snapshot.data.decoded.username ?? ''}",
-                              style: const TextStyle(
-                                  fontSize: 28, fontWeight: FontWeight.w700)),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 28, fontWeight: FontWeight.bold)),
                         ),
                       ),
                       Container(
@@ -110,8 +108,10 @@ class _HomePageState extends State<HomePage> {
                                                   MaterialStateProperty.all<
                                                           Color>(
                                                       const Color(0xcc5286d4))),
-                                          child: const Text(
-                                              'บันทึกค่าน้ำตาลในเลือด'),
+                                          child: Text('บันทึกค่าน้ำตาลในเลือด',
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold)),
                                           onPressed: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
@@ -149,8 +149,10 @@ class _HomePageState extends State<HomePage> {
                                                   MaterialStateProperty.all<
                                                           Color>(
                                                       const Color(0xcc5286d4))),
-                                          child: const Text(
-                                              'ความรู้เกี่ยวกับเบาหวาน'),
+                                          child: Text('ความรู้เกี่ยวกับเบาหวาน',
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold)),
                                           onPressed: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
@@ -188,7 +190,10 @@ class _HomePageState extends State<HomePage> {
                                                   MaterialStateProperty.all<
                                                           Color>(
                                                       const Color(0xcc5286d4))),
-                                          child: const Text('คลังยา'),
+                                          child: Text('คลังยา',
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold)),
                                           onPressed: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
@@ -205,6 +210,7 @@ class _HomePageState extends State<HomePage> {
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: Row(
+                            // ignore: duplicate_ignore
                             children: [
                               SizedBox(
                                 height: 65,
@@ -214,6 +220,7 @@ class _HomePageState extends State<HomePage> {
                                   fit: BoxFit.cover,
                                 ),
                               ),
+                              // ignore: avoid_unnecessary_containers
                               Container(
                                 child: Padding(
                                   padding: const EdgeInsets.all(10),
@@ -226,8 +233,10 @@ class _HomePageState extends State<HomePage> {
                                                   MaterialStateProperty.all<
                                                           Color>(
                                                       const Color(0xcc5286d4))),
-                                          child: const Text(
-                                              'อาหารและการให้พลังงาน'),
+                                          child: Text('อาหารและการให้พลังงาน',
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold)),
                                           onPressed: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
@@ -257,7 +266,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             }
-            return LinearProgressIndicator();
+            return const LinearProgressIndicator();
           },
         ));
   }

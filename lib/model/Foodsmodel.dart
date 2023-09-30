@@ -21,13 +21,13 @@ class FoodsModel {
 
   final int foodId;
   final String foodName;
-  final int calorie;
+  final double calorie;
   final String date;
 
   factory FoodsModel.fromJson(Map<String, dynamic> json) => FoodsModel(
         foodId: json["food_id"],
         foodName: json["food_name"],
-        calorie: json["calorie"],
+        calorie: json["calorie"]?.toDouble(),
         date: json["date"] == null ? null : json["date"],
       );
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../components/foodCare/foodCareTxt1.dart';
 import 'medication_Glibenclamide.dart';
 import 'medication_Glipized.dart';
 import 'medication_Metformin.dart';
@@ -15,10 +15,9 @@ class MedicationHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "ยาลดน้ำตาลในเลือด",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("ยาลดน้ำตาลในเลือด",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
@@ -37,7 +36,9 @@ class MedicationHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ยา Metformin'),
+                        child: Text('ยา Metformin',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
@@ -58,7 +59,9 @@ class MedicationHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ยา Glipized'),
+                        child: Text('ยา Glipized',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
@@ -79,7 +82,9 @@ class MedicationHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ยา GLIBENCLAMIDE'),
+                        child: Text('ยา GLIBENCLAMIDE',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
@@ -100,7 +105,9 @@ class MedicationHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ยา Pioglitazone'),
+                        child: Text('ยา Pioglitazone',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>

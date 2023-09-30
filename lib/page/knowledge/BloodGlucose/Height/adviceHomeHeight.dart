@@ -7,6 +7,7 @@ import 'adviceH1.dart';
 import 'adviceH2.dart';
 import 'adviceH3.dart';
 import 'adviceH4.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AdviceHomeHeight extends StatelessWidget {
   const AdviceHomeHeight({super.key});
@@ -15,10 +16,9 @@ class AdviceHomeHeight extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "ระดับน้ำตาลในเลือดสูง",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("ระดับน้ำตาลในเลือดสูง",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
@@ -35,7 +35,9 @@ class AdviceHomeHeight extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xcc5286d4))),
-                      child: const Text('การปฏิบัติเบื้องต้น'),
+                      child: Text('การปฏิบัติเบื้องต้น',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const AdviceH1()));
@@ -53,8 +55,9 @@ class AdviceHomeHeight extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xcc5286d4))),
-                      child:
-                          const Text('สาเหตุของการเกิด ระดับน้ำตาลในเลือดสูง'),
+                      child: Text('สาเหตุของการเกิด ระดับน้ำตาลในเลือดสูง',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const AdviceH2()));
@@ -72,8 +75,9 @@ class AdviceHomeHeight extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xcc5286d4))),
-                      child:
-                          const Text('อาการที่บ่งบอกว่า ระดับน้ำตาลในเลือดสูง'),
+                      child: Text('อาการที่บ่งบอกว่า ระดับน้ำตาลในเลือดสูง',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const AdviceH3()));
@@ -91,7 +95,9 @@ class AdviceHomeHeight extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xcc5286d4))),
-                      child: const Text('ป้องกันภาวะ ระดับน้ำตาลในเลือดสูง'),
+                      child: Text('ป้องกันภาวะ ระดับน้ำตาลในเลือดสูง',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const AdviceH4()));

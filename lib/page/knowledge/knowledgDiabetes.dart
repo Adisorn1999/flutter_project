@@ -8,6 +8,7 @@ import 'package:flutter_application/page/knowledge/smoking/smokingHome.dart';
 import 'BloodGlucose/bloodGlucoseHome.dart';
 import 'foot/footHome.dart';
 import 'medication_insulin/medication_insulinHome.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class KnowledgDiabetes extends StatefulWidget {
   const KnowledgDiabetes({super.key});
@@ -21,10 +22,9 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "ความรู้เกียวกับเบาหวาน",
-            style: TextStyle(fontSize: 18),
-          ),
+          title: Text("ความรู้เกียวกับเบาหวาน",
+              style: GoogleFonts.roboto(
+                  fontSize: 18, fontWeight: FontWeight.bold)),
         ),
         body: Center(
             child: Column(
@@ -50,7 +50,10 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('ระดับน้ำตาลในเลือด'),
+                                child: Text('ระดับน้ำตาลในเลือด',
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
@@ -71,12 +74,15 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
                                               const Color(0xcc5286d4))),
-                                  child: const Text('การดูแลเท้า'),
+                                  child: Text('การดูแลเท้า',
+                                      style: GoogleFonts.roboto(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold)),
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const FoodHome()));
+                                                const FootHome()));
                                   })),
                         ),
                       ),
@@ -102,7 +108,10 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('การเคลื่อนไหวร่างกาย'),
+                                child: Text('การเคลื่อนไหวร่างกาย',
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold)),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
@@ -123,7 +132,10 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
                                               const Color(0xcc5286d4))),
-                                  child: const Text('การรับประทานอาหาร'),
+                                  child: Text('การรับประทานอาหาร',
+                                      style: GoogleFonts.roboto(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold)),
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
@@ -154,8 +166,11 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text(
-                                    'การใช้อินสุลินและยาลดน้ำตาลใในเลือด'),
+                                child: Text(
+                                    'การใช้อินสุลินและยาลดน้ำตาลในเลือด',
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
@@ -176,7 +191,10 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
                                               const Color(0xcc5286d4))),
-                                  child: const Text('การสูบบุหรี่'),
+                                  child: Text('การสูบบุหรี่',
+                                      style: GoogleFonts.roboto(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold)),
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../components/foodCare/foodCareTxt1.dart';
-import '../../../components/foodCare/foodcaretxt1_blue.dart';
 
 class Smoking extends StatelessWidget {
   const Smoking({super.key});
@@ -12,10 +10,9 @@ class Smoking extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "เบาหวานกับการสูบบุหรี่",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("เบาหวานกับการสูบบุหรี่",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(

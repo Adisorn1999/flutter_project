@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/components/foodCare/foodCareTxt1.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'footCare2.dart';
 
@@ -12,10 +13,9 @@ class FootCare1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "วิธีการดูแลเท้า",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("วิธีการดูแลเท้า",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(

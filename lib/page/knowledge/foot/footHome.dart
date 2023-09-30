@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import 'FoodExercises/footExercises.dart';
 import 'Footcare/footCare1.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FootHome extends StatelessWidget {
   const FootHome({super.key});
@@ -12,10 +13,9 @@ class FootHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "การดูแลเท้า",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("การดูแลเท้า",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
@@ -34,7 +34,9 @@ class FootHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('การดูแลเท้า'),
+                        child: Text('การดูแลเท้า',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const FootCare1()));
@@ -54,7 +56,9 @@ class FootHome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('การบริการเท้า'),
+                        child: Text('การบริการเท้า',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const FootExercises()));

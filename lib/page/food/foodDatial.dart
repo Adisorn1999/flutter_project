@@ -49,7 +49,7 @@ class _FoodDatialState extends State<FoodDatial> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("ประวัติระดับน้ำตาลในเลือด "),
+          title: const Text(" การให้พลังงาน"),
         ),
         body: FutureBuilder(
           future: getYearfood(),

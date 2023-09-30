@@ -8,7 +8,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/components/Dialog/dialog_code200.dart';
 import 'package:flutter_application/model/Foodsmodel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../components/Dialog/dialog_addFoodDetail.dart';
 import '../../components/Dialog/dialog_addFoods.dart';
 import '../../components/Dialog/dialog_validate.dart';
 import '../../model/search.dart';
@@ -206,7 +208,7 @@ class _AddFood1State extends State<AddFood1> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("เพิ่มรายการอาหาร"),
+          title: const Text("เพิ่มรายการอาหาร1"),
         ),
         body: FutureBuilder(
           future: getFoods(),
@@ -279,7 +281,7 @@ class _AddFood1State extends State<AddFood1> {
                                     ),
                                   ),
                                   Text(
-                                    "${data?[index]?.calorie} กิโลเเคลอรี่",
+                                    "${data?[index]?.calorie.toStringAsFixed(2)} กิโลเเคลอรี่",
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700,
@@ -293,8 +295,24 @@ class _AddFood1State extends State<AddFood1> {
                             )
                           ],
                         ),
-                        onTap: () {
+                        onTap: () async {
                           print("${data?[index]?.foodName}");
+                          print("${data?[index]?.calorie}");
+
+                          final int? foodId = data?[index]?.foodId;
+                          final String? food_name = data?[index]?.foodName;
+                          final double? calorie = data?[index]?.calorie;
+                          final double? calorie1 = data?[index]?.calorie;
+
+                          final SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.setInt('foodId', foodId!);
+                          await prefs.setString('food_name', food_name!);
+                          await prefs.setDouble('calorie', calorie!);
+                          await prefs.setDouble('calorie1', calorie1!);
+                          // ignore: use_build_context_synchronously
+                          addFoodDatailDialog(context, "บันทึกค่าน้ำตาลสำเร็จ",
+                              "บันทึกค่าน้ำตาลสำเร็จ");
                         },
                         // leading: Icon(Icons.food_bank),
                       ),

@@ -16,7 +16,7 @@ Future<void> addFoodslDialog(
                 onPressed: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: ((context) => const AddFood1())));
+                      builder: ((context) => const AddFood())));
                 },
               ),
             ],

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../components/foodCare/foodCareTxt1.dart';
 import 'insulin.dart';
 import 'insulin_humulin.dart';
 import 'insulin_mixtard.dart';
@@ -14,16 +15,15 @@ class Insulinhome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "ระดับตาลในเลือด",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("ยาฉีดอินซูลีน",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(
           children: [
             const SizedBox(
-              height: 70,
+              height: 50,
             ),
             // ignore: avoid_unnecessary_containers
             Container(
@@ -36,7 +36,9 @@ class Insulinhome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('ยาฉีดอินซูลิน'),
+                        child: Text('ยาฉีดอินซูลิน',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const Insulin()));
@@ -56,8 +58,10 @@ class Insulinhome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text(
-                            'อินซูลินโดยวิธีฉีด (Mixtard 70/30 insulin)'),
+                        child: Text(
+                            'อินซูลินโดยวิธีฉีด (Mixtard 70/30 insulin)',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const InsulinMixtard()));
@@ -77,7 +81,9 @@ class Insulinhome extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 const Color(0xcc5286d4))),
-                        child: const Text('อินซูลินโดยวิธีฉีด (Humulin: NPH)'),
+                        child: Text('อินซูลินโดยวิธีฉีด (Humulin: NPH)',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const InsulinHumulin()));

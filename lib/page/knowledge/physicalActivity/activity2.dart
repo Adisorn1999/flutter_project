@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../components/foodCare/foodCareTxt1.dart';
 
@@ -9,10 +10,9 @@ class Adctivity2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "การเดินช่วยเผาผลาญไขมันหน้าท้อง",
-          style: TextStyle(fontSize: 18),
-        ),
+        title: Text("การเดินช่วยเผาผลาญไขมันหน้าท้อง",
+            style:
+                GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Column(

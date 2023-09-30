@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'Activity6.dart';
 import 'activity1.dart';
@@ -21,10 +22,9 @@ class _PhysicalActivityHome extends State<PhysicalActivityHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "การเคลื่อนไหวร่างกาย",
-            style: TextStyle(fontSize: 18),
-          ),
+          title: Text("การเคลื่อนไหวร่างกาย",
+              style: GoogleFonts.roboto(
+                  fontSize: 18, fontWeight: FontWeight.bold)),
         ),
         body: Center(
             child: Column(
@@ -50,7 +50,10 @@ class _PhysicalActivityHome extends State<PhysicalActivityHome> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('การเดินช่วยเผาผลาญแคลอรี่'),
+                                child: Text('การเดินช่วยเผาผลาญแคลอรี่',
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold)),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => const Activity1()));
@@ -70,8 +73,10 @@ class _PhysicalActivityHome extends State<PhysicalActivityHome> {
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
                                               const Color(0xcc5286d4))),
-                                  child: const Text(
-                                      'การเดินช่วยเผาผลาญไขมันหน้าท้อง'),
+                                  child: Text('การเดินช่วยเผาผลาญไขมันหน้าท้อง',
+                                      style: GoogleFonts.roboto(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold)),
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
@@ -102,7 +107,10 @@ class _PhysicalActivityHome extends State<PhysicalActivityHome> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('การเดินทำให้อารมณ์ดี'),
+                                child: Text('การเดินทำให้อารมณ์ดี',
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold)),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => const Activity3()));
@@ -122,8 +130,11 @@ class _PhysicalActivityHome extends State<PhysicalActivityHome> {
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
                                               const Color(0xcc5286d4))),
-                                  child: const Text(
-                                      'เพิ่มการเดินในชีวิตประจำวันได้อย่างไร'),
+                                  child: Text(
+                                      'เพิ่มการเดินในชีวิตประจำวันได้อย่างไร',
+                                      style: GoogleFonts.roboto(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold)),
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
@@ -154,7 +165,10 @@ class _PhysicalActivityHome extends State<PhysicalActivityHome> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             const Color(0xcc5286d4))),
-                                child: const Text('การเดินช่วยลดน้ำหนักได้'),
+                                child: Text('การเดินช่วยลดน้ำหนักได้',
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold)),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => const Activity5()));
@@ -174,7 +188,10 @@ class _PhysicalActivityHome extends State<PhysicalActivityHome> {
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
                                               const Color(0xcc5286d4))),
-                                  child: const Text('พลังง่าน'),
+                                  child: Text('พลังงาน',
+                                      style: GoogleFonts.roboto(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold)),
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
