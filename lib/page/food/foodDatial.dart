@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/Api/api_provider.dart';
 import 'package:flutter_application/model/FoodYearModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'FoodChat.dart';
 
@@ -49,7 +50,7 @@ class _FoodDatialState extends State<FoodDatial> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(" การให้พลังงาน"),
+          title: const Text(" รายงานการให้พลังงาน"),
         ),
         body: FutureBuilder(
           future: getYearfood(),
@@ -66,6 +67,10 @@ class _FoodDatialState extends State<FoodDatial> {
                           child: Center(
                         child: Column(
                           children: [
+                            // ignore: avoid_unnecessary_containers
+                            const SizedBox(
+                              height: 80,
+                            ),
                             Container(
                               child: Padding(
                                 padding: const EdgeInsets.all(10),
@@ -77,8 +82,11 @@ class _FoodDatialState extends State<FoodDatial> {
                                             backgroundColor:
                                                 MaterialStateProperty.all<
                                                         Color>(
-                                                    const Color(0xcc5286d4))),
-                                        child: Text('ปี ${data?[index]?.year}'),
+                                                    const Color(0x82ff1111))),
+                                        child: Text('ปี ${data?[index]?.year}',
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold)),
                                         onPressed: () async {
                                           final int? year = data?[index]?.year;
                                           print("${data?[index]?.year}");

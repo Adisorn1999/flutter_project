@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application/Api/api_provider.dart';
 import 'package:flutter_application/model/BloodYearModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../API/api_provider_authen.dart';
 import '../knowledge/BloodGlucose/Low/adviceHomeLow.dart';
@@ -60,6 +61,9 @@ class _HomeBloodState extends State<HomeBlood> {
             if (snapshot.connectionState == ConnectionState.done) {
               return Column(
                 children: [
+                  const SizedBox(
+                    height: 80,
+                  ),
                   Expanded(
                       child: ListView.builder(
                     itemCount: data?.length,
@@ -79,8 +83,11 @@ class _HomeBloodState extends State<HomeBlood> {
                                             backgroundColor:
                                                 MaterialStateProperty.all<
                                                         Color>(
-                                                    const Color(0xcc5286d4))),
-                                        child: Text('ปี ${data?[index]?.year}'),
+                                                    const Color(0x82ff1111))),
+                                        child: Text('ปี ${data?[index]?.year}',
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold)),
                                         onPressed: () async {
                                           final int? year = data?[index]?.year;
                                           print("${data?[index]?.year}");

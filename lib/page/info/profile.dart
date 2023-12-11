@@ -195,7 +195,7 @@ class _ProfileState extends State<Profile> {
                           height: 130,
                           width: 130,
                           child: CircleAvatar(
-                              backgroundColor: Colors.blue,
+                              backgroundColor: Colors.black,
                               child: FlutterLogo(size: 40)),
                         ),
                       ),
@@ -241,7 +241,7 @@ class _ProfileState extends State<Profile> {
                             ),
                             ListTile(
                               leading: const Icon(Icons.favorite),
-                              title: Text("อายุ : ${snapshot.data.year} "),
+                              title: Text("อายุ : ${snapshot.data.year} ปี"),
                             ),
                             const SizedBox(
                               height: 10,

@@ -34,7 +34,7 @@ class AdviceHomeHeight extends StatelessWidget {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xcc5286d4))),
+                              const Color(0x82ff1111))),
                       child: Text('การปฏิบัติเบื้องต้น',
                           style: GoogleFonts.roboto(
                               fontSize: 18, fontWeight: FontWeight.bold)),
@@ -54,7 +54,7 @@ class AdviceHomeHeight extends StatelessWidget {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xcc5286d4))),
+                              const Color(0x82ff1111))),
                       child: Text('สาเหตุของการเกิด ระดับน้ำตาลในเลือดสูง',
                           style: GoogleFonts.roboto(
                               fontSize: 18, fontWeight: FontWeight.bold)),
@@ -74,7 +74,7 @@ class AdviceHomeHeight extends StatelessWidget {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xcc5286d4))),
+                              const Color(0x82ff1111))),
                       child: Text('อาการที่บ่งบอกว่า ระดับน้ำตาลในเลือดสูง',
                           style: GoogleFonts.roboto(
                               fontSize: 18, fontWeight: FontWeight.bold)),
@@ -94,7 +94,7 @@ class AdviceHomeHeight extends StatelessWidget {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xcc5286d4))),
+                              const Color(0x82ff1111))),
                       child: Text('ป้องกันภาวะ ระดับน้ำตาลในเลือดสูง',
                           style: GoogleFonts.roboto(
                               fontSize: 18, fontWeight: FontWeight.bold)),

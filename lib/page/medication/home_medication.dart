@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application/API/api_provider.dart';
+import 'package:flutter_application/components/Dialog/dialog_validate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
@@ -80,6 +81,8 @@ class _HomeMedicationState extends State<HomeMedication> {
         setState(() {
           print(response.body);
           Navigator.of(context).pop();
+          updateMedicationlDialog(context, "สำเร็จ", "แก้ไขสำเร็จ");
+          // Navigator.of(context).pop();
         });
       }
     }
@@ -91,7 +94,7 @@ class _HomeMedicationState extends State<HomeMedication> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('ชื่อใหม่ของคุณ'),
+          title: const Text('ชื่อใหม่ยาใหม่'),
           content: Form(
             key: _formKey,
             child: Column(
@@ -146,13 +149,13 @@ class _HomeMedicationState extends State<HomeMedication> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('CANCEL'),
+              child: const Text('ยกเลิก'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-                child: const Text('SAVE'), onPressed: () => updataMedication()),
+                child: const Text('ตกลง'), onPressed: () => updataMedication()),
           ],
         );
       },
@@ -266,7 +269,7 @@ class _HomeMedicationState extends State<HomeMedication> {
                                   break;
                                 case _MenuValues.delete:
                                   deleteMedicationlDialog(
-                                      context, "ลบสำเร็จ", "ลบสำเร็จ");
+                                      context, "ลบยา", "ต้องการลบยาใช่ไหม");
                                   final int? medicationId =
                                       data?[index]?.medicationId;
                                   final prefs =
@@ -284,7 +287,8 @@ class _HomeMedicationState extends State<HomeMedication> {
                             final prefs = await SharedPreferences.getInstance();
                             await prefs.setInt('medicationId', medicationId!);
                             // ignore: use_build_context_synchronously
-                            addMedicationlDialog(context, "title", "message");
+                            addMedicationlDialog(
+                                context, "ดูข้อมูลยา", "ดูข้อมูลยา");
                           },
                           // leading: Icon(Icons.food_bank),
                         ),
@@ -317,6 +321,25 @@ class _HomeMedicationState extends State<HomeMedication> {
                       setState(() {
                         Navigator.pop(context, 'ok');
                         deleteMedication();
+                      });
+                    }),
+              ],
+            )));
+  }
+
+  Future<void> updateMedicationlDialog(
+      BuildContext context, String title, String message) async {
+    showDialog(
+        context: context,
+        builder: ((context) => AlertDialog(
+              title: Text(title),
+              content: Text(message),
+              actions: [
+                TextButton(
+                    child: const Text("ตกลง"),
+                    onPressed: () async {
+                      setState(() {
+                        Navigator.pop(context, 'ok');
                       });
                     }),
               ],

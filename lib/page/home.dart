@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                                               backgroundColor:
                                                   MaterialStateProperty.all<
                                                           Color>(
-                                                      const Color(0xcc5286d4))),
+                                                      const Color(0x82ff1111))),
                                           child: Text('บันทึกค่าน้ำตาลในเลือด',
                                               style: GoogleFonts.roboto(
                                                   fontSize: 16,
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                                               backgroundColor:
                                                   MaterialStateProperty.all<
                                                           Color>(
-                                                      const Color(0xcc5286d4))),
+                                                      const Color(0x82ff1111))),
                                           child: Text('ความรู้เกี่ยวกับเบาหวาน',
                                               style: GoogleFonts.roboto(
                                                   fontSize: 16,
@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                                               backgroundColor:
                                                   MaterialStateProperty.all<
                                                           Color>(
-                                                      const Color(0xcc5286d4))),
+                                                      const Color(0x82ff1111))),
                                           child: Text('คลังยา',
                                               style: GoogleFonts.roboto(
                                                   fontSize: 16,
@@ -232,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                                               backgroundColor:
                                                   MaterialStateProperty.all<
                                                           Color>(
-                                                      const Color(0xcc5286d4))),
+                                                      const Color(0x82ff1111))),
                                           child: Text('อาหารและการให้พลังงาน',
                                               style: GoogleFonts.roboto(
                                                   fontSize: 16,

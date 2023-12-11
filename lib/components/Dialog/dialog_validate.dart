@@ -10,7 +10,7 @@ Future<void> normalDialog(
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
+                child: const Text('ตกลง'),
               ),
             ],
           )));

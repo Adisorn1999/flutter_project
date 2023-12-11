@@ -14,7 +14,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../API/api_provider_authen.dart';
+import '../page/blood/home_blood_charts.dart';
 import '../page/food/addfoodTest.dart';
+import '../page/food/foodDatial.dart';
 
 class DrawerMane extends StatefulWidget {
   const DrawerMane({super.key});
@@ -82,7 +84,7 @@ class _DrawerManeState extends State<DrawerMane> {
                       style: GoogleFonts.roboto(
                           fontSize: 22, fontWeight: FontWeight.bold)),
                   currentAccountPicture: const CircleAvatar(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.black,
                     child: FlutterLogo(size: 40),
                   ),
                 ),
@@ -109,16 +111,30 @@ class _DrawerManeState extends State<DrawerMane> {
                         builder: (context) => const Profile()));
                   },
                 ),
-                // ListTile(
-                //   leading: const Icon(Icons.badge),
-                //   title: const Text('หน้าแรก'),
-                //   onTap: () {
-                //     // Update the state of the app.
-                //     // ...
-                //     Navigator.of(context).push(MaterialPageRoute(
-                //         builder: (context) => const AddFood1()));
-                //   },
-                // ),
+                ListTile(
+                  leading: const Icon(Icons.badge),
+                  title: Text('รายงานระดับน้ำตาลในเลือด',
+                      style: GoogleFonts.roboto(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HomeBlood()));
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.badge),
+                  title: Text('รายงานแคลลอรี่',
+                      style: GoogleFonts.roboto(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const FoodDatial()));
+                  },
+                ),
                 ListTile(
                   leading: const Icon(Icons.logout),
                   title: Text('ออกจากระบบ',

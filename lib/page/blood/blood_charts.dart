@@ -108,7 +108,7 @@ class _BloodChartState extends State<BloodChart> {
                     ),
                     Container(
                       child: Text(
-                        "ประวัติระดับน้ำตาลในเลือดปี${snapshot.data.year ?? "..."}",
+                        "ประวัติระดับน้ำตาลในเลือดปี ${snapshot.data.year ?? "..."}",
                         style: TextStyle(fontSize: 16),
                       ),
                     ),

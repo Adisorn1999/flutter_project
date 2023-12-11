@@ -35,7 +35,7 @@ class AdviceHomeLow extends StatelessWidget {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xcc5286d4))),
+                              const Color(0x82ff1111))),
                       child: Text('ผู้ป่วยยังรู้สึกตัวช่วยเหลือตัวเองได้',
                           style: GoogleFonts.roboto(
                               fontSize: 18, fontWeight: FontWeight.bold)),
@@ -56,7 +56,7 @@ class AdviceHomeLow extends StatelessWidget {
                     child: ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color(0xcc5286d4))),
+                                const Color(0x82ff1111))),
                         child: Text(
                             'ผู้ป่วยหมดสติหรือรู้สึกตัว แต่ช่วยเหลือตัวเองไม่ได้',
                             style: GoogleFonts.roboto(
@@ -78,7 +78,7 @@ class AdviceHomeLow extends StatelessWidget {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xcc5286d4))),
+                              const Color(0x82ff1111))),
                       child: Text('อาการอย่างไรบ่งบอกว่าน้ำตาลในเลือดต่ำ',
                           style: GoogleFonts.roboto(
                               fontSize: 18, fontWeight: FontWeight.bold)),
@@ -98,7 +98,7 @@ class AdviceHomeLow extends StatelessWidget {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xcc5286d4))),
+                              const Color(0x82ff1111))),
                       child: Text('น้ำตาลในเลือดต่ำ ขณะนอนหลับ',
                           style: GoogleFonts.roboto(
                               fontSize: 18, fontWeight: FontWeight.bold)),
@@ -118,7 +118,7 @@ class AdviceHomeLow extends StatelessWidget {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xcc5286d4))),
+                              const Color(0x82ff1111))),
                       child: Text('ป้องกันภาวะน้ำตาลในเลือดต่ำ',
                           style: GoogleFonts.roboto(
                               fontSize: 18, fontWeight: FontWeight.bold)),

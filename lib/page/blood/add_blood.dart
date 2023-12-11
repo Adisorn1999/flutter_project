@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, avoid_unnecessary_containers, non_constant_identifier_names, unused_local_variable
+
 import 'dart:convert';
 import 'dart:ffi';
 
@@ -12,6 +14,7 @@ import 'package:flutter_application/page/blood/home_blood_charts.dart';
 import 'package:flutter_application/page/home.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_application/model/desc_blood,dart';
 
 import '../../components/Dialog/dialog_code200.dart';
 import '../../components/Dialog/dialog_code400.dart';
@@ -28,6 +31,7 @@ class _AddBloodState extends State<AddBlood> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    // getDescBlood();
   }
 
   final TextEditingController _ctrlBlood = TextEditingController();
@@ -35,31 +39,59 @@ class _AddBloodState extends State<AddBlood> {
   final TextEditingController _ctrlNote = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  var jsonResponseAdd = [];
+  var jsonResponseGet = [];
 
+  late List<BloodDecStModel?> _bloodDecStModel;
   Apiprovider apiprovider = Apiprovider();
   Future addBlood() async {
     try {
       if (_formKey.currentState!.validate()) {}
       final prefs = await SharedPreferences.getInstance();
       final int? user_id = prefs.getInt('userId');
-      var response = await apiprovider.addBlood(
+
+      var responseAdd = await apiprovider.addBlood(
           _ctrlBlood.text, _ctrlDate.text, _ctrlNote.text, user_id!);
-      if (response.statusCode == 200) {
-        var jsonResponse = jsonDecode(response.body);
-        if (jsonResponse['ok']) {
-          print(response.body);
-          // ignore: use_build_context_synchronously
-          dialogCode200(
-              context, "บันทึกค่าน้ำตาลสำเร็จ", "บันทึกค่าน้ำตาลสำเร็จ");
-          _formKey.currentState!.reset();
-        }
-      } else {
-        print("API Connection Fail");
+
+      var responseGet = await apiprovider.getDescBlood(user_id);
+
+      _formKey.currentState!.reset();
+      dialogAddBlood(context, "", "");
+      // Navigator.pop(context, 'ok');
+
+      if (responseGet.statusCode == 200) {
+        print(responseGet.body);
+
+        jsonResponseGet = jsonDecode(responseGet.body);
+        _bloodDecStModel =
+            jsonResponseGet.map((e) => BloodDecStModel.fromJson(e)).toList();
+        print(_bloodDecStModel[0]?.bloodLevel);
+        double? blood_level = _bloodDecStModel[0]?.bloodLevel;
+        print(blood_level);
+        await prefs.setDouble('blood_level', blood_level!);
       }
+      await prefs.remove('blood_level');
     } on Exception catch (e) {
       // TODO
       print(e);
     }
+  }
+
+  Future<List<BloodDecStModel?>?> getDescBlood() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final int? user_id = prefs.getInt('userId');
+
+      var response = await apiprovider.getDescBlood(user_id!);
+      print(user_id);
+      if (response.statusCode == 200) {
+        print(response.body);
+      }
+    } catch (error) {
+      // ignore: use_rethrow_when_possible
+      throw error;
+    }
+    return _bloodDecStModel;
   }
 
   @override
@@ -89,12 +121,16 @@ class _AddBloodState extends State<AddBlood> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                // ignore: avoid_unnecessary_containers
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
                     child: TextFormField(
                       inputFormatters: [
-                        LengthLimitingTextInputFormatter(3),
+                        LengthLimitingTextInputFormatter(5),
                       ],
                       keyboardType: TextInputType.number,
                       controller: _ctrlBlood,
@@ -176,15 +212,13 @@ class _AddBloodState extends State<AddBlood> {
                     child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                            // style: ButtonStyle(
-                            //     backgroundColor:
-                            //         MaterialStateProperty.all<Color>(
-                            //             const Color(0x82ff1111))),
                             child: const Text(
                               'บันทึก',
                               style: TextStyle(fontSize: 18),
                             ),
-                            onPressed: () => addBlood())),
+                            onPressed: () async {
+                              addBlood();
+                            })),
                   ),
                 ),
                 Container(
@@ -193,15 +227,14 @@ class _AddBloodState extends State<AddBlood> {
                     child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                            // style: ButtonStyle(
-                            //     backgroundColor:
-                            //         MaterialStateProperty.all<Color>(
-                            //             const Color(0x82ff1111))),
                             child: const Text(
-                              'ประวัติย้อนหลัง',
+                              'รายงานระดับน้ำตาลในเลือด',
                               style: TextStyle(fontSize: 18),
                             ),
-                            onPressed: () {
+                            onPressed: () async {
+                              final SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => HomeBlood()));
                             })),
@@ -211,5 +244,74 @@ class _AddBloodState extends State<AddBlood> {
             ),
           )),
     );
+  }
+}
+
+Future<void> dialogAddBlood(
+    BuildContext context, String title, String message) async {
+  final prefs = await SharedPreferences.getInstance();
+  final int? user_id = prefs.getInt('userId');
+  final double? blood_level = prefs.getDouble('blood_level');
+
+  if (blood_level! < 100) {
+    showDialog(
+        context: context,
+        builder: ((context) => AlertDialog(
+              title: const Text("ระดับน้ำตาลในเลือดคุณอยู่ในภาวะปกติ"),
+              content: const Text(
+                  "ภาวะที่ร่างกายมีระดับน้ำตาลกลูโคสในเลือดสูงกว่าปกติ ซึ่งระดับน้ำตาลที่ปกติ จะอยู่ที่ประมาณ 70-100 มิลลิกรัมต่อเดซิลิตร แต่หากค่าที่ได้สูงกว่า 100 มิลลิกรัมต่อเดซิลิตร ขึ้นไปอาจเสี่ยงต่อการเป็นโรคเบาหวาน"),
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    final int? user_id = prefs.getInt('userId');
+                    await prefs.remove('blood_level');
+                    Navigator.pop(context, 'ok');
+                  },
+                  child: const Text('ตกลง'),
+                ),
+              ],
+            )));
+  }
+  if (blood_level >= 100 && blood_level < 125) {
+    showDialog(
+        context: context,
+        builder: ((context) => AlertDialog(
+              title: const Text("ระดับน้ำตาลในเลือดคุณอยู่ในภาวะปกติ"),
+              content: const Text(
+                  "ภาวะที่ร่างกายมีระดับน้ำตาลกลูโคสในเลือดสูงกว่าปกติ ซึ่งระดับน้ำตาลที่ปกติ จะอยู่ที่ประมาณ 70-100 มิลลิกรัมต่อเดซิลิตร แต่หากค่าที่ได้สูงกว่า 100 มิลลิกรัมต่อเดซิลิตร ขึ้นไปอาจเสี่ยงต่อการเป็นโรคเบาหวาน"),
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    final int? user_id = prefs.getInt('userId');
+                    await prefs.remove('blood_level');
+                    Navigator.pop(context, 'ok');
+                  },
+                  child: const Text('ตกลง'),
+                ),
+              ],
+            )));
+  }
+  if (blood_level > 125) {
+    showDialog(
+        context: context,
+        builder: ((context) => AlertDialog(
+              title: const Text(
+                  "ระดับน้ำตาลในเลือดคุณมีภาวะความเสี่ยง หรือเรียกว่า เบาหวานแฝง"),
+              content: const Text(
+                  "ภาวะที่ร่างกายมีระดับน้ำตาลกลูโคสในเลือดสูงกว่าปกติ ซึ่งระดับน้ำตาลที่ปกติ จะอยู่ที่ประมาณ 70-100 มิลลิกรัมต่อเดซิลิตร แต่หากค่าที่ได้สูงกว่า 100 มิลลิกรัมต่อเดซิลิตร ขึ้นไปอาจเสี่ยงต่อการเป็นโรคเบาหวาน"),
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    final int? user_id = prefs.getInt('userId');
+                    await prefs.remove('blood_level');
+                    Navigator.pop(context, 'ok');
+                  },
+                  child: const Text('ตกลง'),
+                ),
+              ],
+            )));
   }
 }

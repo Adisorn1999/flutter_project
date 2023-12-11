@@ -35,7 +35,7 @@ class BloodGlucoseHome extends StatelessWidget {
                     child: ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color(0xcc5286d4))),
+                                const Color(0x82ff1111))),
                         child: Text('ระดับน้ำตาลในเลือดต่ำ',
                             style: GoogleFonts.roboto(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
@@ -57,7 +57,7 @@ class BloodGlucoseHome extends StatelessWidget {
                     child: ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color(0xcc5286d4))),
+                                const Color(0x82ff1111))),
                         child: Text('ระดับน้ำตาลในเลือดสูง',
                             style: GoogleFonts.roboto(
                                 fontSize: 18, fontWeight: FontWeight.bold)),

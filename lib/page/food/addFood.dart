@@ -9,6 +9,7 @@ import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/components/Dialog/dialog_code200.dart';
 import 'package:flutter_application/model/Foodsmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/Dialog/dialog_addFoodDetail.dart';
 import '../../components/Dialog/dialog_addFoods.dart';
@@ -97,7 +98,7 @@ class _AddFoodState extends State<AddFood> {
           Navigator.of(context).pop();
 
           // ignore: use_build_context_synchronously
-          addFoodslDialog(context, "บันทึกสำเร็จ1", "บันทึกสำเร็จ");
+          addFoodslDialog(context, "บันทึกสำเร็จ", "บันทึกสำเร็จ");
           // Navigator.of(context).pushReplacement(
           //     MaterialPageRoute(builder: ((context) => const AddFood())));
         }
@@ -145,7 +146,7 @@ class _AddFoodState extends State<AddFood> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('ชื่อใหม่ของคุณ'),
+          title: const Text('ชื่ออาหารใหม่'),
           content: Form(
             key: _formKey,
             child: Column(
@@ -239,11 +240,14 @@ class _AddFoodState extends State<AddFood> {
                 Container(
                   child: SizedBox(
                       width: 200,
+                      height: 50,
                       child: ElevatedButton(
                           // style: ButtonStyle(
                           //     backgroundColor: MaterialStateProperty.all<Color>(
                           //         Color(0x82ff1111))),
-                          child: const Text('ให้การพลังงาน'),
+                          child: Text('รายงานการให้พลังงาน',
+                              style: GoogleFonts.roboto(
+                                  fontSize: 16, fontWeight: FontWeight.bold)),
                           onPressed: () => Navigator.of(context)
                               .pushReplacement(MaterialPageRoute(
                                   builder: ((context) =>
@@ -265,7 +269,7 @@ class _AddFoodState extends State<AddFood> {
                               height: 60,
                               width: 60,
                               decoration: BoxDecoration(
-                                  color: Colors.blue,
+                                  color: Colors.red,
                                   borderRadius: BorderRadius.circular(10)),
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

@@ -49,7 +49,7 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                 style: ButtonStyle(
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
-                                            const Color(0xcc5286d4))),
+                                            const Color(0x82ff1111))),
                                 child: Text('ระดับน้ำตาลในเลือด',
                                     style: GoogleFonts.roboto(
                                         fontSize: 16,
@@ -73,7 +73,7 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
-                                              const Color(0xcc5286d4))),
+                                              const Color(0x82ff1111))),
                                   child: Text('การดูแลเท้า',
                                       style: GoogleFonts.roboto(
                                           fontSize: 18,
@@ -107,7 +107,7 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                 style: ButtonStyle(
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
-                                            const Color(0xcc5286d4))),
+                                            const Color(0x82ff1111))),
                                 child: Text('การเคลื่อนไหวร่างกาย',
                                     style: GoogleFonts.roboto(
                                         fontSize: 18,
@@ -131,7 +131,7 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
-                                              const Color(0xcc5286d4))),
+                                              const Color(0x82ff1111))),
                                   child: Text('การรับประทานอาหาร',
                                       style: GoogleFonts.roboto(
                                           fontSize: 18,
@@ -165,7 +165,7 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                 style: ButtonStyle(
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
-                                            const Color(0xcc5286d4))),
+                                            const Color(0x82ff1111))),
                                 child: Text(
                                     'การใช้อินสุลินและยาลดน้ำตาลในเลือด',
                                     style: GoogleFonts.roboto(
@@ -190,7 +190,7 @@ class _KnowledgDiabetesState extends State<KnowledgDiabetes> {
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
-                                              const Color(0xcc5286d4))),
+                                              const Color(0x82ff1111))),
                                   child: Text('การสูบบุหรี่',
                                       style: GoogleFonts.roboto(
                                           fontSize: 18,

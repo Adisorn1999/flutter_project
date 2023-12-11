@@ -1,0 +1,26 @@
+// To parse this JSON data, do
+//
+//     final bloodDecStModel = bloodDecStModelFromJson(jsonString);
+
+import 'package:meta/meta.dart';
+import 'dart:convert';
+
+List<BloodDecStModel> bloodDecStModelFromJson(String str) => List<BloodDecStModel>.from(json.decode(str).map((x) => BloodDecStModel.fromJson(x)));
+
+String bloodDecStModelToJson(List<BloodDecStModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class BloodDecStModel {
+    double bloodLevel;
+
+    BloodDecStModel({
+        required this.bloodLevel,
+    });
+
+    factory BloodDecStModel.fromJson(Map<String, dynamic> json) => BloodDecStModel(
+        bloodLevel: json["blood_level"].toDouble(),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "blood_level": bloodLevel,
+    };
+}
