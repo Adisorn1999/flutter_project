@@ -163,13 +163,13 @@ class _ProfileState extends State<Profile> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('CANCEL'),
+              child: const Text('ยกเลิก'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-                child: const Text('SAVE'), onPressed: () => updateName()),
+                child: const Text('ตกลง'), onPressed: () => updateName()),
           ],
         );
       },
@@ -180,7 +180,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Profile"),
+          title: const Text("ข้อมูลผู้ใช้งาน"),
         ),
         body: FutureBuilder(
             future: getDataUser(),
