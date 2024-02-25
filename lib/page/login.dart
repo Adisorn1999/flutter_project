@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/API/api_provider_authen.dart';
 import 'package:flutter_application/Api/api_provider.dart';
+import 'package:flutter_application/components/Dialog/dialog_code400.dart';
 import 'package:flutter_application/page/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,6 +49,10 @@ class _LoginPageState extends State<LoginPage> {
           // ignore: use_build_context_synchronously
           loginDatailDialog(context, 'เข้าสู่ระบบสำเร็จ', '');
           // ignore: use_build_context_synchronously
+        } else {
+          // ignore: use_build_context_synchronously ชื่อผู้ใช้หรือรหัสผู้ใช้งานไม่ถูกต้อง, use_build_context_synchronously
+          dialogCode400(context, "เกิดข้อผิดพลาด",
+              "ชื่ออผู้ใช้หรือรหัสผู้ใช้งานไม่ถูกต้อง");
         }
       } else {
         print('Server Error');
