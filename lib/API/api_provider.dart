@@ -238,7 +238,7 @@ class Apiprovider {
   }
 
   Future<http.Response> foodDetail(int food_id, int user_id) async {
-    String _url = '$endpoint/foodDetail1/$user_id/$food_id';
+    String _url = '$endpoint/foodDetail/$user_id/$food_id';
 
     // var body = {"food_id": food_id, "calorie": calorie};
     return http.post(Uri.parse(_url));
