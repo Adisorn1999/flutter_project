@@ -9,7 +9,7 @@ import 'dart:async';
 class Apiprovider {
   Apiprovider();
 
-  String endpoint = 'http://192.168.1.15:3000';
+  String endpoint = 'http://192.168.1.32:3000';
 
   Future<http.Response> doLogin(String username, String password) async {
     // ignore: no_leading_underscores_for_local_identifiers
@@ -140,6 +140,13 @@ class Apiprovider {
     return http.get(Uri.parse(_url));
   }
 
+  Future<http.Response> getbloodSesult(int user_id, int year) async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    String _url = '$endpoint/blood/sum/$year/$user_id';
+
+    return http.get(Uri.parse(_url));
+  }
+
   Future<http.Response> getYearBlood(int user_id) async {
     // ignore: no_leading_underscores_for_local_identifiers
     String _url = '$endpoint/blood/year/$user_id';
@@ -152,6 +159,15 @@ class Apiprovider {
     String _url = '$endpoint/blood/desc/$user_id';
 
     return http.get(Uri.parse(_url));
+  }
+
+  Future<http.Response> updatBlood(String blood_level, int bloodId) async {
+    String _url = '$endpoint/blood/$bloodId';
+
+    var body = {
+      "blood_level": blood_level,
+    };
+    return http.put(Uri.parse(_url), body: body);
   }
 
   Future<http.Response> getMedication(int user_id) async {

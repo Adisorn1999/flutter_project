@@ -9,13 +9,16 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application/API/api_provider.dart';
 import 'package:flutter_application/components/Dialog/dialog_validate.dart';
+import 'package:flutter_application/page/blood/%E0%B8%B4blood_of_day.dart';
 import 'package:flutter_application/page/blood/blood_charts.dart';
 import 'package:flutter_application/page/blood/home_blood_charts.dart';
+import 'package:flutter_application/page/blood/test1.dart';
 import 'package:flutter_application/page/home.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application/model/desc_blood,dart';
 
+import '../../components/Dialog/dialog_addBlood.dart';
 import '../../components/Dialog/dialog_code200.dart';
 import '../../components/Dialog/dialog_code400.dart';
 
@@ -52,25 +55,38 @@ class _AddBloodState extends State<AddBlood> {
 
       var responseAdd = await apiprovider.addBlood(
           _ctrlBlood.text, _ctrlDate.text, _ctrlNote.text, user_id!);
+      if (responseAdd.statusCode == 200) {
+        print(responseAdd.body);
+        var responseadd = json.decode(responseAdd.body);
+        if (responseadd['ok']) {
+          var responseGet = await apiprovider.getDescBlood(user_id);
 
-      var responseGet = await apiprovider.getDescBlood(user_id);
+          _formKey.currentState!.reset();
+          dialogAddBlood(context, "", "");
+          // Navigator.pop(context, 'ok');
 
-      _formKey.currentState!.reset();
-      dialogAddBlood(context, "", "");
-      // Navigator.pop(context, 'ok');
+          if (responseGet.statusCode == 200) {
+            print(responseGet.body);
 
-      if (responseGet.statusCode == 200) {
-        print(responseGet.body);
+            jsonResponseGet = jsonDecode(responseGet.body);
+            _bloodDecStModel = jsonResponseGet
+                .map((e) => BloodDecStModel.fromJson(e))
+                .toList();
+            print(_bloodDecStModel[0]?.bloodLevel);
+            double? blood_level = _bloodDecStModel[0]?.bloodLevel;
 
-        jsonResponseGet = jsonDecode(responseGet.body);
-        _bloodDecStModel =
-            jsonResponseGet.map((e) => BloodDecStModel.fromJson(e)).toList();
-        print(_bloodDecStModel[0]?.bloodLevel);
-        double? blood_level = _bloodDecStModel[0]?.bloodLevel;
-        print(blood_level);
-        await prefs.setDouble('blood_level', blood_level!);
+            print(blood_level);
+            await prefs.setDouble('blood_level', blood_level!);
+          }
+          await prefs.remove('blood_level');
+        } else {
+          addBloodDialog(context, "วันนี้คุณบันค่าน้ำตาลไปแล้ว",
+              "คถณต้องการแก้ไข้ใช่หรือไม่");
+          print("Fail");
+        }
+      } else {
+        print('Server Error');
       }
-      await prefs.remove('blood_level');
     } on Exception catch (e) {
       // TODO
       print(e);
@@ -130,7 +146,7 @@ class _AddBloodState extends State<AddBlood> {
                     padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
                     child: TextFormField(
                       inputFormatters: [
-                        LengthLimitingTextInputFormatter(5),
+                        LengthLimitingTextInputFormatter(3),
                       ],
                       keyboardType: TextInputType.number,
                       controller: _ctrlBlood,
@@ -236,7 +252,26 @@ class _AddBloodState extends State<AddBlood> {
                                   await SharedPreferences.getInstance();
 
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => HomeBlood()));
+                                  builder: (context) => const BloodOfDay()));
+                            })),
+                  ),
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            child: const Text(
+                              'รายงานระดับน้ำตาลในเลือดแบบกราฟ',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            onPressed: () async {
+                              final SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Test1()));
                             })),
                   ),
                 ),

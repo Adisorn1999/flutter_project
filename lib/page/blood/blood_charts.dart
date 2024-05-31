@@ -80,7 +80,7 @@ class _BloodChartState extends State<BloodChart> {
       charts.Series<BarChartModel, String>(
         data: data,
         id: 'sales',
-        colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
+        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
         domainFn: (BarChartModel barChartModel, _) =>
             barChartModel.month.toString(),
         measureFn: (BarChartModel barChartModel, _) =>

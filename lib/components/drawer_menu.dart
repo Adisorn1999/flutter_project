@@ -14,7 +14,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../API/api_provider_authen.dart';
+import '../page/blood/home_blood.dart';
 import '../page/blood/home_blood_charts.dart';
+import '../page/blood/test1.dart';
+import '../page/food/FoodChat.dart';
 import '../page/food/addfoodTest.dart';
 import '../page/food/foodDatial.dart';
 
@@ -120,7 +123,7 @@ class _DrawerManeState extends State<DrawerMane> {
                     // Update the state of the app.
                     // ...
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const HomeBlood()));
+                        builder: (context) => const BloodHome()));
                   },
                 ),
                 ListTile(
@@ -132,7 +135,7 @@ class _DrawerManeState extends State<DrawerMane> {
                     // Update the state of the app.
                     // ...
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const FoodDatial()));
+                        builder: (context) => const FoodChart()));
                   },
                 ),
                 ListTile(
@@ -144,6 +147,8 @@ class _DrawerManeState extends State<DrawerMane> {
                     final prefs = await SharedPreferences.getInstance();
                     await prefs.remove('token');
                     await prefs.remove('userId');
+                    await prefs.remove('medicationId');
+                    await prefs.remove('bloodId');
                     // ignore: use_build_context_synchronously
                     logoutDialog(context, 'ออกจากระบบ', 'ออกจากระบบ');
                   },
